@@ -1,0 +1,111 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract IBBProfiles",
+        "name": "bbProfiles",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IBBTiers",
+        "name": "bbTiers",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IBBSubscriptionsFactory",
+        "name": "bbSubFactory",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "defaultPrices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "defaultCids",
+        "type": "string[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "defaultCurrencies",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "defaultMul",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "profileCid",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tierPrices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "tierCids",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "contribution",
+        "type": "uint256"
+      }
+    ],
+    "name": "AdvancedProfileSetup",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "profileId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tierSetId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "profileCid",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "contribution",
+        "type": "uint256"
+      }
+    ],
+    "name": "SimpleProfileSetup",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "profileId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tierSetId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

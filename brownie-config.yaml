@@ -1,0 +1,14 @@
+networks:
+    development:
+        gas_limit: max
+        gas_buffer: 1
+        gas_price: 40000000000
+        cmd_settings:
+            port: 8545
+            gas_limit: 6721975
+            accounts: 20
+compiler:
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.1'
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.6.0'

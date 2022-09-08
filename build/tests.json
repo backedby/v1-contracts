@@ -1,0 +1,714 @@
+{
+  "contracts": {
+    "BBErrorCodesV01": "c0795153985fd2e955b3210f8e13105154287e4d",
+    "BBPosts": "86ed32d83ac7ccf44940aae635f39325bdf607e3",
+    "BBProfiles": "72206d509abedc9e9093377054a44061cfaa5a00",
+    "BBSubscriptions": "3010ca5ed47354da4856dc79d65c49aee17a48f4",
+    "BBSubscriptionsFactory": "1ac14b8a60252eb900d1a38b224f58cfc332edaf",
+    "BBTiers": "1d5be8cbb6f1311206ce66c47e815b83116195c3",
+    "DebugERC20": "98b4fc2e8dd7d3770c7a94899b5bc66dea421859",
+    "DebugProfileOwner": "dbaf310a28cddc9e334bd2962d93f7c85066d59c",
+    "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20": "38166fcfbc8e730a0752b73e497cde48b5457655",
+    "ProfileSetupHelper": "ba4fa030a2690c1b0c2a70823744f2f4ab5f23a3",
+    "TestUsd": "ccd09300d5adc831c17fdbc252cf64e23a51de64",
+    "TokenFaucet": "ab8011e32131dae426ba450517b489b4cf5ef36d",
+    "testmapping": "ab1dab276f4c8304ff314b0ad2181bac10d22e0c"
+  },
+  "tests": {
+    "tests/boris/test_profiles.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "352ecec6db8a01cf81cf6ecfb8871f8f96974368",
+      "txhash": [
+        "5a5da9b90eb6a5a5d035e1c921fc316c77b94111",
+        "88173c0d4010b562fb3235862398e600eb30ad05"
+      ]
+    },
+    "tests/boris/test_tiers.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "1d187a4beea120ce87223d7979b949c3293cd0b2",
+      "txhash": [
+        "25306df1ff733b661b12ff94453e5c749239d831",
+        "69867a0d6bd2a66e7752ae295f718d74e70a570c",
+        "6fadea39bf506eb78d24e61018dcec957501b6b9",
+        "c1a9c1fe39d82d5f4a69e06fac06e0886136d4b0",
+        "e676c7b4ec53f3575507dac9c41495523d64b55b",
+        "f0c6b250a7c286b1fb086446e5a14b71a45e8af7",
+        "f92ec3e9a321e53d7aa5d69b646e76b07407928b"
+      ]
+    },
+    "tests/john/test_posts.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles"
+      ],
+      "results": "......",
+      "sha1": "8e19185050d7f42e75ffb6148fc1d6539a5ff6f5",
+      "txhash": [
+        "09fcb598ec80aef39d43a079a27d1b0b3bc6599f",
+        "3a2fcd2511503cf974cab37d05a3903432838e9b",
+        "4d37359e04af5009e23c42ae1e4f7ea30dc88e3d",
+        "a7713ec798775a2a2d330e063243da7703862e1c"
+      ]
+    },
+    "tests/john/test_profiles.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles"
+      ],
+      "results": "........",
+      "sha1": "86fe8dbb898f8a1216458be1264541dad909583f",
+      "txhash": [
+        "bd9e4599beb18eda3b26c6e97ead53f3e877fcf9"
+      ]
+    },
+    "tests/john/test_subscriptions.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "......",
+      "sha1": "762cb1509f48f2b433fc079d0f7bb414e1571872",
+      "txhash": []
+    },
+    "tests/john/test_subscriptions_factory.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "................",
+      "sha1": "1b0454164bca24b801a0d1202443af071f266616",
+      "txhash": [
+        "3a5d5a8e02e902d36de299ff837bca0913b18f47",
+        "567bdef424280b10ce1449142e7600d54c01f967",
+        "6db076ca1815faae7db00c6806f4edb39ca2ef96"
+      ]
+    },
+    "tests/john/test_tiers.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles",
+        "BBTiers"
+      ],
+      "results": "..........",
+      "sha1": "e855bfcd857fe1ef5a740cfbd5681cc174b835f1",
+      "txhash": [
+        "4dae0837be5d5cb9926e195e85139c21bc362ca1",
+        "abe05de7c2047936355845285bdea358f10803c8",
+        "b4dfb30910ff54c1502823a68b001d21af744ac4"
+      ]
+    },
+    "tests/josh/test_core.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".",
+      "sha1": "9c8dcf91ca348bcf9afbef7338f003c7c3b02ca3",
+      "txhash": []
+    },
+    "tests/josh/test_currency.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".",
+      "sha1": "84ba673f08f263424194ab710d0cfccbbecb161b",
+      "txhash": []
+    },
+    "tests/josh/test_posts.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........",
+      "sha1": "61cb5778f8535664d19301724b9b76ed7c14cbf4",
+      "txhash": [
+        "400a70d8ed76268a2c9e4ffe365ea89400b2ba7c",
+        "5f4eb29a80b5c199b9baee56e84c023b6ecadba4",
+        "6501b7d87144323b1fa842e1a537696e385f90c1",
+        "9d073acb174f2b97004ccca471e3112dea6c268e",
+        "cff5582ebcf4c706515a4f8ee036fe71f66cbe26"
+      ]
+    },
+    "tests/josh/test_profiles.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........",
+      "sha1": "c9b5a00fe50860ad5c5908d757906d582e3d29da",
+      "txhash": [
+        "270b746d44e296632d125d94be769ebda00f359e",
+        "826fd3d30578e1f2d8c50551c71c10dfd4930067",
+        "90d7b927d15724cb8727271151fcd4c1d4834971"
+      ]
+    },
+    "tests/josh/test_setup_profile_steps.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20",
+        "ProfileSetupHelper"
+      ],
+      "results": ".",
+      "sha1": "f6d832074a2104b8ad179a9766edaedb74d59b2c",
+      "txhash": []
+    },
+    "tests/josh/test_subfactory.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........",
+      "sha1": "46ab2f4e7eda8aed1d8063f6db37433087bfd35c",
+      "txhash": [
+        "31f1b456df85ce09df8554505c23522e01a8a114",
+        "9be708294d38a3f85e5f085a9a53fc137a433d53",
+        "eeb754df03170603ef6010c669756b4710577e1f"
+      ]
+    },
+    "tests/josh/test_subscriptions.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "DebugProfileOwner",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "............",
+      "sha1": "c729f0a6ea91a58dda7a1f3691417c878d1d8761",
+      "txhash": [
+        "11d90ae3b74f79abf3f79307da86185e5ac9301a",
+        "1ea38ed80b24821ffbb0c7a33c0c18be52946208",
+        "2367d7599ba2d9bb11df08ca6369e3d9ee2d7df5",
+        "3216a5c70bb7f3d5dc1128fd9e376819a9274a18",
+        "5653c86785d17accb35841d5f16d03be18aad028",
+        "7282ecc234c8b7944caa93d516a9177ae993c57d",
+        "86b8bdbc052640b99ed0911b0e247d7477d97e95",
+        "98352ec28680362003e5a0abab4f6923d38bc6b0",
+        "9a78f54a272e4d93a0e18aef35b46c848cfded54"
+      ]
+    },
+    "tests/josh/test_tiers.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "....................",
+      "sha1": "a870dd02a93971513a74cc2f06973dbe709646bd",
+      "txhash": [
+        "1b792bf33b0c277593a8d68e2319ce5c7015a5b1",
+        "30883ec45cb1718c7cbe9fffe3e1b8d8b896d8be",
+        "7e446aec563fb1781b0d203557d75a17dfb84ebc",
+        "8193ef2f53210dcb9204e7c266583df86458ee3c",
+        "e5d061aa20d962d3b2a471f64cebd7894e8e76c9"
+      ]
+    },
+    "tests/josh/test_upkeep.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "671e8f61ac047fafaf90129ddb5b2c94ffb8e388",
+      "txhash": []
+    }
+  },
+  "tx": {
+    "09fcb598ec80aef39d43a079a27d1b0b3bc6599f": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "11d90ae3b74f79abf3f79307da86185e5ac9301a": {},
+    "1b792bf33b0c277593a8d68e2319ce5c7015a5b1": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "1ea38ed80b24821ffbb0c7a33c0c18be52946208": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "2367d7599ba2d9bb11df08ca6369e3d9ee2d7df5": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "25306df1ff733b661b12ff94453e5c749239d831": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "270b746d44e296632d125d94be769ebda00f359e": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "30883ec45cb1718c7cbe9fffe3e1b8d8b896d8be": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "31f1b456df85ce09df8554505c23522e01a8a114": {},
+    "3216a5c70bb7f3d5dc1128fd9e376819a9274a18": {},
+    "3a2fcd2511503cf974cab37d05a3903432838e9b": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "3a5d5a8e02e902d36de299ff837bca0913b18f47": {},
+    "400a70d8ed76268a2c9e4ffe365ea89400b2ba7c": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "4d37359e04af5009e23c42ae1e4f7ea30dc88e3d": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "4dae0837be5d5cb9926e195e85139c21bc362ca1": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "5653c86785d17accb35841d5f16d03be18aad028": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "567bdef424280b10ce1449142e7600d54c01f967": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "5a5da9b90eb6a5a5d035e1c921fc316c77b94111": {
+      "BBProfiles": {
+        "8": [
+          [
+            14
+          ],
+          [
+            24
+          ],
+          []
+        ]
+      }
+    },
+    "5f4eb29a80b5c199b9baee56e84c023b6ecadba4": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "6501b7d87144323b1fa842e1a537696e385f90c1": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "69867a0d6bd2a66e7752ae295f718d74e70a570c": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "6db076ca1815faae7db00c6806f4edb39ca2ef96": {},
+    "6fadea39bf506eb78d24e61018dcec957501b6b9": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7282ecc234c8b7944caa93d516a9177ae993c57d": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7e446aec563fb1781b0d203557d75a17dfb84ebc": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "8193ef2f53210dcb9204e7c266583df86458ee3c": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "826fd3d30578e1f2d8c50551c71c10dfd4930067": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "86b8bdbc052640b99ed0911b0e247d7477d97e95": {},
+    "88173c0d4010b562fb3235862398e600eb30ad05": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "90d7b927d15724cb8727271151fcd4c1d4834971": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "98352ec28680362003e5a0abab4f6923d38bc6b0": {},
+    "9a78f54a272e4d93a0e18aef35b46c848cfded54": {},
+    "9be708294d38a3f85e5f085a9a53fc137a433d53": {},
+    "9d073acb174f2b97004ccca471e3112dea6c268e": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "a7713ec798775a2a2d330e063243da7703862e1c": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "abe05de7c2047936355845285bdea358f10803c8": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "b4dfb30910ff54c1502823a68b001d21af744ac4": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "bd9e4599beb18eda3b26c6e97ead53f3e877fcf9": {
+      "BBProfiles": {
+        "8": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "c1a9c1fe39d82d5f4a69e06fac06e0886136d4b0": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "cff5582ebcf4c706515a4f8ee036fe71f66cbe26": {
+      "BBProfiles": {
+        "8": [
+          [
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "e5d061aa20d962d3b2a471f64cebd7894e8e76c9": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "e676c7b4ec53f3575507dac9c41495523d64b55b": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "eeb754df03170603ef6010c669756b4710577e1f": {},
+    "f0c6b250a7c286b1fb086446e5a14b71a45e8af7": {
+      "BBProfiles": {
+        "8": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "f92ec3e9a321e53d7aa5d69b646e76b07407928b": {
+      "BBProfiles": {
+        "8": [
+          [
+            1,
+            22
+          ],
+          [],
+          []
+        ]
+      }
+    }
+  }
+}

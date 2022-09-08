@@ -1,0 +1,2376 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "member",
+          "type": "address"
+        }
+      ],
+      "name": "canViewSubscription",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newguy",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "canOwner",
+          "type": "bool"
+        }
+      ],
+      "name": "setOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "12": "contracts/interfaces/IBBPermissionsV01.sol",
+    "19": "contracts/utils/DebugProfileOwner.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/utils/DebugProfileOwner.sol",
+    "exportedSymbols": {
+      "DebugProfileOwner": [
+        3515
+      ],
+      "IBBPermissionsV01": [
+        2962
+      ]
+    },
+    "id": 3516,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3462,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:19"
+      },
+      {
+        "absolutePath": "contracts/interfaces/IBBPermissionsV01.sol",
+        "file": "../interfaces/IBBPermissionsV01.sol",
+        "id": 3463,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 3516,
+        "sourceUnit": 2963,
+        "src": "58:45:19",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 3464,
+              "name": "IBBPermissionsV01",
+              "nameLocations": [
+                "135:17:19"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 2962,
+              "src": "135:17:19"
+            },
+            "id": 3465,
+            "nodeType": "InheritanceSpecifier",
+            "src": "135:17:19"
+          }
+        ],
+        "canonicalName": "DebugProfileOwner",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 3515,
+        "linearizedBaseContracts": [
+          3515,
+          2962
+        ],
+        "name": "DebugProfileOwner",
+        "nameLocation": "114:17:19",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 3469,
+            "mutability": "mutable",
+            "name": "isOwner",
+            "nameLocation": "184:7:19",
+            "nodeType": "VariableDeclaration",
+            "scope": 3515,
+            "src": "159:32:19",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+              "typeString": "mapping(address => bool)"
+            },
+            "typeName": {
+              "id": 3468,
+              "keyType": {
+                "id": 3466,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "167:7:19",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "159:24:19",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                "typeString": "mapping(address => bool)"
+              },
+              "valueType": {
+                "id": 3467,
+                "name": "bool",
+                "nodeType": "ElementaryTypeName",
+                "src": "178:4:19",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 3479,
+              "nodeType": "Block",
+              "src": "211:43:19",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 3477,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 3472,
+                        "name": "isOwner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3469,
+                        "src": "221:7:19",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                          "typeString": "mapping(address => bool)"
+                        }
+                      },
+                      "id": 3475,
+                      "indexExpression": {
+                        "expression": {
+                          "id": 3473,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -15,
+                          "src": "229:3:19",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 3474,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "233:6:19",
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "229:10:19",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "221:19:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "hexValue": "74727565",
+                      "id": 3476,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "243:4:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "221:26:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 3478,
+                  "nodeType": "ExpressionStatement",
+                  "src": "221:26:19"
+                }
+              ]
+            },
+            "id": 3480,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3470,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "208:2:19"
+            },
+            "returnParameters": {
+              "id": 3471,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "211:0:19"
+            },
+            "scope": 3515,
+            "src": "197:57:19",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 3500,
+              "nodeType": "Block",
+              "src": "315:102:19",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "baseExpression": {
+                          "id": 3488,
+                          "name": "isOwner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 3469,
+                          "src": "333:7:19",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                            "typeString": "mapping(address => bool)"
+                          }
+                        },
+                        "id": 3491,
+                        "indexExpression": {
+                          "expression": {
+                            "id": 3489,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -15,
+                            "src": "341:3:19",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 3490,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "345:6:19",
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "src": "341:10:19",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "333:19:19",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 3487,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "325:7:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 3492,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "325:28:19",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 3493,
+                  "nodeType": "ExpressionStatement",
+                  "src": "325:28:19"
+                },
+                {
+                  "expression": {
+                    "id": 3498,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 3494,
+                        "name": "isOwner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3469,
+                        "src": "384:7:19",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                          "typeString": "mapping(address => bool)"
+                        }
+                      },
+                      "id": 3496,
+                      "indexExpression": {
+                        "id": 3495,
+                        "name": "newguy",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3482,
+                        "src": "392:6:19",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "384:15:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 3497,
+                      "name": "canOwner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3484,
+                      "src": "402:8:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "384:26:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 3499,
+                  "nodeType": "ExpressionStatement",
+                  "src": "384:26:19"
+                }
+              ]
+            },
+            "functionSelector": "516c731c",
+            "id": 3501,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setOwner",
+            "nameLocation": "268:8:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3485,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3482,
+                  "mutability": "mutable",
+                  "name": "newguy",
+                  "nameLocation": "285:6:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3501,
+                  "src": "277:14:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3481,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "277:7:19",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3484,
+                  "mutability": "mutable",
+                  "name": "canOwner",
+                  "nameLocation": "298:8:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3501,
+                  "src": "293:13:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3483,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "293:4:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "276:31:19"
+            },
+            "returnParameters": {
+              "id": 3486,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "315:0:19"
+            },
+            "scope": 3515,
+            "src": "259:158:19",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              2961
+            ],
+            "body": {
+              "id": 3513,
+              "nodeType": "Block",
+              "src": "504:39:19",
+              "statements": [
+                {
+                  "expression": {
+                    "baseExpression": {
+                      "id": 3509,
+                      "name": "isOwner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3469,
+                      "src": "521:7:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                        "typeString": "mapping(address => bool)"
+                      }
+                    },
+                    "id": 3511,
+                    "indexExpression": {
+                      "id": 3510,
+                      "name": "member",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3503,
+                      "src": "529:6:19",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "521:15:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 3508,
+                  "id": 3512,
+                  "nodeType": "Return",
+                  "src": "514:22:19"
+                }
+              ]
+            },
+            "functionSelector": "3f03b406",
+            "id": 3514,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "canViewSubscription",
+            "nameLocation": "431:19:19",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 3505,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "481:8:19"
+            },
+            "parameters": {
+              "id": 3504,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3503,
+                  "mutability": "mutable",
+                  "name": "member",
+                  "nameLocation": "459:6:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3514,
+                  "src": "451:14:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3502,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "451:7:19",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "450:16:19"
+            },
+            "returnParameters": {
+              "id": 3508,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3507,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3514,
+                  "src": "498:4:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3506,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "498:4:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "497:6:19"
+            },
+            "scope": 3515,
+            "src": "422:121:19",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3516,
+        "src": "105:440:19",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:513:19"
+  },
+  "bytecode": "608060405234801561001057600080fd5b50336000908152602081905260409020805460ff191660011790556101878061003a6000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633f03b4061461003b578063516c731c1461007b575b600080fd5b6100676100493660046100f3565b6001600160a01b031660009081526020819052604090205460ff1690565b604051901515815260200160405180910390f35b61008e610089366004610115565b610090565b005b3360009081526020819052604090205460ff166100ac57600080fd5b6001600160a01b03919091166000908152602081905260409020805460ff1916911515919091179055565b80356001600160a01b03811681146100ee57600080fd5b919050565b60006020828403121561010557600080fd5b61010e826100d7565b9392505050565b6000806040838503121561012857600080fd5b610131836100d7565b91506020830135801515811461014657600080fd5b80915050925092905056fea26469706673582212203597a416c16cb316685f9b185cf26a5698204e27dce9280e28862bc66758ea1b64736f6c63430008100033",
+  "bytecodeSha1": "dbaf310a28cddc9e334bd2962d93f7c85066d59c",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.16+commit.07a7930e"
+  },
+  "contractName": "DebugProfileOwner",
+  "coverageMap": {
+    "branches": {
+      "12": {},
+      "19": {
+        "DebugProfileOwner.setOwner": {
+          "3": [
+            333,
+            352,
+            true
+          ]
+        }
+      }
+    },
+    "statements": {
+      "12": {},
+      "19": {
+        "DebugProfileOwner.canViewSubscription": {
+          "0": [
+            514,
+            536
+          ]
+        },
+        "DebugProfileOwner.setOwner": {
+          "1": [
+            325,
+            353
+          ],
+          "2": [
+            384,
+            410
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [
+    "IBBPermissionsV01"
+  ],
+  "deployedBytecode": "608060405234801561001057600080fd5b50600436106100365760003560e01c80633f03b4061461003b578063516c731c1461007b575b600080fd5b6100676100493660046100f3565b6001600160a01b031660009081526020819052604090205460ff1690565b604051901515815260200160405180910390f35b61008e610089366004610115565b610090565b005b3360009081526020819052604090205460ff166100ac57600080fd5b6001600160a01b03919091166000908152602081905260409020805460ff1916911515919091179055565b80356001600160a01b03811681146100ee57600080fd5b919050565b60006020828403121561010557600080fd5b61010e826100d7565b9392505050565b6000806040838503121561012857600080fd5b610131836100d7565b91506020830135801515811461014657600080fd5b80915050925092905056fea26469706673582212203597a416c16cb316685f9b185cf26a5698204e27dce9280e28862bc66758ea1b64736f6c63430008100033",
+  "deployedSourceMap": "105:440:19:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;422:121;;;;;;:::i;:::-;-1:-1:-1;;;;;521:15:19;498:4;521:15;;;;;;;;;;;;;;422:121;;;;548:14:23;;541:22;523:41;;511:2;496:18;422:121:19;;;;;;;259:158;;;;;;:::i;:::-;;:::i;:::-;;;341:10;333:7;:19;;;;;;;;;;;;;325:28;;;;;;-1:-1:-1;;;;;384:15:19;;;;:7;:15;;;;;;;;;;:26;;-1:-1:-1;;384:26:19;;;;;;;;;;259:158::o;14:173:23:-;82:20;;-1:-1:-1;;;;;131:31:23;;121:42;;111:70;;177:1;174;167:12;111:70;14:173;;;:::o;192:186::-;251:6;304:2;292:9;283:7;279:23;275:32;272:52;;;320:1;317;310:12;272:52;343:29;362:9;343:29;:::i;:::-;333:39;192:186;-1:-1:-1;;;192:186:23:o;575:347::-;640:6;648;701:2;689:9;680:7;676:23;672:32;669:52;;;717:1;714;707:12;669:52;740:29;759:9;740:29;:::i;:::-;730:39;;819:2;808:9;804:18;791:32;866:5;859:13;852:21;845:5;842:32;832:60;;888:1;885;878:12;832:60;911:5;901:15;;;575:347;;;;;:::o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "offset": [
+    105,
+    545
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x36 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3F03B406 EQ PUSH2 0x3B JUMPI DUP1 PUSH4 0x516C731C EQ PUSH2 0x7B JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x67 PUSH2 0x49 CALLDATASIZE PUSH1 0x4 PUSH2 0xF3 JUMP JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x20 DUP2 SWAP1 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD PUSH1 0xFF AND SWAP1 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 ISZERO ISZERO DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x8E PUSH2 0x89 CALLDATASIZE PUSH1 0x4 PUSH2 0x115 JUMP JUMPDEST PUSH2 0x90 JUMP JUMPDEST STOP JUMPDEST CALLER PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x20 DUP2 SWAP1 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD PUSH1 0xFF AND PUSH2 0xAC JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP2 SWAP1 SWAP2 AND PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x20 DUP2 SWAP1 MSTORE PUSH1 0x40 SWAP1 KECCAK256 DUP1 SLOAD PUSH1 0xFF NOT AND SWAP2 ISZERO ISZERO SWAP2 SWAP1 SWAP2 OR SWAP1 SSTORE JUMP JUMPDEST DUP1 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND DUP2 EQ PUSH2 0xEE JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x105 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x10E DUP3 PUSH2 0xD7 JUMP JUMPDEST SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x40 DUP4 DUP6 SUB SLT ISZERO PUSH2 0x128 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x131 DUP4 PUSH2 0xD7 JUMP JUMPDEST SWAP2 POP PUSH1 0x20 DUP4 ADD CALLDATALOAD DUP1 ISZERO ISZERO DUP2 EQ PUSH2 0x146 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP1 SWAP2 POP POP SWAP3 POP SWAP3 SWAP1 POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 CALLDATALOAD SWAP8 LOG4 AND 0xC1 PUSH13 0xB316685F9B185CF26A5698204E 0x27 0xDC 0xE9 0x28 0xE 0x28 DUP7 0x2B 0xC6 PUSH8 0x58EA1B64736F6C63 NUMBER STOP ADDMOD LT STOP CALLER ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "CALLVALUE",
+      "path": "19"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "ISZERO",
+      "path": "19"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPI",
+      "path": "19"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "REVERT",
+      "path": "19"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "POP",
+      "path": "19"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "CALLDATASIZE",
+      "path": "19"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "LT",
+      "path": "19"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x36"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPI",
+      "path": "19"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "CALLDATALOAD",
+      "path": "19"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "SHR",
+      "path": "19"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH4",
+      "path": "19",
+      "value": "0x3F03B406"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "EQ",
+      "path": "19"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x3B"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPI",
+      "path": "19"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH4",
+      "path": "19",
+      "value": "0x516C731C"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "EQ",
+      "path": "19"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x7B"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPI",
+      "path": "19"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "57": {
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "58": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        105,
+        545
+      ],
+      "op": "REVERT",
+      "path": "19"
+    },
+    "59": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "60": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x67"
+    },
+    "63": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x49"
+    },
+    "66": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "CALLDATASIZE",
+      "path": "19"
+    },
+    "67": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x4"
+    },
+    "69": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0xF3"
+    },
+    "72": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "jump": "i",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "JUMP",
+      "path": "19"
+    },
+    "73": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "74": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "76": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "78": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "80": {
+      "op": "SHL"
+    },
+    "81": {
+      "op": "SUB"
+    },
+    "82": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "AND",
+      "path": "19",
+      "statement": 0
+    },
+    "83": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        498,
+        502
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "85": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "86": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "87": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "88": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x20"
+    },
+    "90": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "91": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "92": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "93": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "95": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "96": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "KECCAK256",
+      "path": "19"
+    },
+    "97": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "SLOAD",
+      "path": "19"
+    },
+    "98": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0xFF"
+    },
+    "100": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "AND",
+      "path": "19"
+    },
+    "101": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        521,
+        536
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "102": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "JUMP",
+      "path": "19"
+    },
+    "103": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "104": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "106": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "MLOAD",
+      "path": "19"
+    },
+    "107": {
+      "op": "SWAP1"
+    },
+    "108": {
+      "op": "ISZERO"
+    },
+    "109": {
+      "op": "ISZERO"
+    },
+    "110": {
+      "op": "DUP2"
+    },
+    "111": {
+      "op": "MSTORE"
+    },
+    "112": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "114": {
+      "op": "ADD"
+    },
+    "115": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "117": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "MLOAD",
+      "path": "19"
+    },
+    "118": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "119": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "SWAP2",
+      "path": "19"
+    },
+    "120": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "SUB",
+      "path": "19"
+    },
+    "121": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "122": {
+      "fn": "DebugProfileOwner.canViewSubscription",
+      "offset": [
+        422,
+        543
+      ],
+      "op": "RETURN",
+      "path": "19"
+    },
+    "123": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "124": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x8E"
+    },
+    "127": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x89"
+    },
+    "130": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "CALLDATASIZE",
+      "path": "19"
+    },
+    "131": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x4"
+    },
+    "133": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x115"
+    },
+    "136": {
+      "fn": "DebugProfileOwner.setOwner",
+      "jump": "i",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMP",
+      "path": "19"
+    },
+    "137": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "138": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0x90"
+    },
+    "141": {
+      "fn": "DebugProfileOwner.setOwner",
+      "jump": "i",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMP",
+      "path": "19"
+    },
+    "142": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "143": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "STOP",
+      "path": "19"
+    },
+    "144": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "145": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        341,
+        351
+      ],
+      "op": "CALLER",
+      "path": "19",
+      "statement": 1
+    },
+    "146": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        340
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "148": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "149": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "150": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "151": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x20"
+    },
+    "153": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "154": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "155": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "156": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "158": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "159": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "KECCAK256",
+      "path": "19"
+    },
+    "160": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "SLOAD",
+      "path": "19"
+    },
+    "161": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0xFF"
+    },
+    "163": {
+      "branch": 3,
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        333,
+        352
+      ],
+      "op": "AND",
+      "path": "19"
+    },
+    "164": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "PUSH2",
+      "path": "19",
+      "value": "0xAC"
+    },
+    "167": {
+      "branch": 3,
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "JUMPI",
+      "path": "19"
+    },
+    "168": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "170": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "171": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "REVERT",
+      "path": "19"
+    },
+    "172": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        325,
+        353
+      ],
+      "op": "JUMPDEST",
+      "path": "19"
+    },
+    "173": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "175": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "177": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "179": {
+      "op": "SHL"
+    },
+    "180": {
+      "op": "SUB"
+    },
+    "181": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP2",
+      "path": "19",
+      "statement": 2
+    },
+    "182": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "183": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP2",
+      "path": "19"
+    },
+    "184": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "AND",
+      "path": "19"
+    },
+    "185": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        391
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x0"
+    },
+    "187": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "188": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "189": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "190": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x20"
+    },
+    "192": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "DUP2",
+      "path": "19"
+    },
+    "193": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "194": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "MSTORE",
+      "path": "19"
+    },
+    "195": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "PUSH1",
+      "path": "19",
+      "value": "0x40"
+    },
+    "197": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "198": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        399
+      ],
+      "op": "KECCAK256",
+      "path": "19"
+    },
+    "199": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "DUP1",
+      "path": "19"
+    },
+    "200": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SLOAD",
+      "path": "19"
+    },
+    "201": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "203": {
+      "op": "NOT"
+    },
+    "204": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "AND",
+      "path": "19"
+    },
+    "205": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SWAP2",
+      "path": "19"
+    },
+    "206": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "ISZERO",
+      "path": "19"
+    },
+    "207": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "ISZERO",
+      "path": "19"
+    },
+    "208": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SWAP2",
+      "path": "19"
+    },
+    "209": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "210": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SWAP2",
+      "path": "19"
+    },
+    "211": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "OR",
+      "path": "19"
+    },
+    "212": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SWAP1",
+      "path": "19"
+    },
+    "213": {
+      "fn": "DebugProfileOwner.setOwner",
+      "offset": [
+        384,
+        410
+      ],
+      "op": "SSTORE",
+      "path": "19"
+    },
+    "214": {
+      "fn": "DebugProfileOwner.setOwner",
+      "jump": "o",
+      "offset": [
+        259,
+        417
+      ],
+      "op": "JUMP",
+      "path": "19"
+    },
+    "215": {
+      "op": "JUMPDEST"
+    },
+    "216": {
+      "op": "DUP1"
+    },
+    "217": {
+      "op": "CALLDATALOAD"
+    },
+    "218": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "220": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "222": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "224": {
+      "op": "SHL"
+    },
+    "225": {
+      "op": "SUB"
+    },
+    "226": {
+      "op": "DUP2"
+    },
+    "227": {
+      "op": "AND"
+    },
+    "228": {
+      "op": "DUP2"
+    },
+    "229": {
+      "op": "EQ"
+    },
+    "230": {
+      "op": "PUSH2",
+      "value": "0xEE"
+    },
+    "233": {
+      "op": "JUMPI"
+    },
+    "234": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "236": {
+      "op": "DUP1"
+    },
+    "237": {
+      "op": "REVERT"
+    },
+    "238": {
+      "op": "JUMPDEST"
+    },
+    "239": {
+      "op": "SWAP2"
+    },
+    "240": {
+      "op": "SWAP1"
+    },
+    "241": {
+      "op": "POP"
+    },
+    "242": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "243": {
+      "op": "JUMPDEST"
+    },
+    "244": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "246": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "248": {
+      "op": "DUP3"
+    },
+    "249": {
+      "op": "DUP5"
+    },
+    "250": {
+      "op": "SUB"
+    },
+    "251": {
+      "op": "SLT"
+    },
+    "252": {
+      "op": "ISZERO"
+    },
+    "253": {
+      "op": "PUSH2",
+      "value": "0x105"
+    },
+    "256": {
+      "op": "JUMPI"
+    },
+    "257": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "259": {
+      "op": "DUP1"
+    },
+    "260": {
+      "op": "REVERT"
+    },
+    "261": {
+      "op": "JUMPDEST"
+    },
+    "262": {
+      "op": "PUSH2",
+      "value": "0x10E"
+    },
+    "265": {
+      "op": "DUP3"
+    },
+    "266": {
+      "op": "PUSH2",
+      "value": "0xD7"
+    },
+    "269": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "270": {
+      "op": "JUMPDEST"
+    },
+    "271": {
+      "op": "SWAP4"
+    },
+    "272": {
+      "op": "SWAP3"
+    },
+    "273": {
+      "op": "POP"
+    },
+    "274": {
+      "op": "POP"
+    },
+    "275": {
+      "op": "POP"
+    },
+    "276": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "277": {
+      "op": "JUMPDEST"
+    },
+    "278": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "280": {
+      "op": "DUP1"
+    },
+    "281": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "283": {
+      "op": "DUP4"
+    },
+    "284": {
+      "op": "DUP6"
+    },
+    "285": {
+      "op": "SUB"
+    },
+    "286": {
+      "op": "SLT"
+    },
+    "287": {
+      "op": "ISZERO"
+    },
+    "288": {
+      "op": "PUSH2",
+      "value": "0x128"
+    },
+    "291": {
+      "op": "JUMPI"
+    },
+    "292": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "294": {
+      "op": "DUP1"
+    },
+    "295": {
+      "op": "REVERT"
+    },
+    "296": {
+      "op": "JUMPDEST"
+    },
+    "297": {
+      "op": "PUSH2",
+      "value": "0x131"
+    },
+    "300": {
+      "op": "DUP4"
+    },
+    "301": {
+      "op": "PUSH2",
+      "value": "0xD7"
+    },
+    "304": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "305": {
+      "op": "JUMPDEST"
+    },
+    "306": {
+      "op": "SWAP2"
+    },
+    "307": {
+      "op": "POP"
+    },
+    "308": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "310": {
+      "op": "DUP4"
+    },
+    "311": {
+      "op": "ADD"
+    },
+    "312": {
+      "op": "CALLDATALOAD"
+    },
+    "313": {
+      "op": "DUP1"
+    },
+    "314": {
+      "op": "ISZERO"
+    },
+    "315": {
+      "op": "ISZERO"
+    },
+    "316": {
+      "op": "DUP2"
+    },
+    "317": {
+      "op": "EQ"
+    },
+    "318": {
+      "op": "PUSH2",
+      "value": "0x146"
+    },
+    "321": {
+      "op": "JUMPI"
+    },
+    "322": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "324": {
+      "op": "DUP1"
+    },
+    "325": {
+      "op": "REVERT"
+    },
+    "326": {
+      "op": "JUMPDEST"
+    },
+    "327": {
+      "op": "DUP1"
+    },
+    "328": {
+      "op": "SWAP2"
+    },
+    "329": {
+      "op": "POP"
+    },
+    "330": {
+      "op": "POP"
+    },
+    "331": {
+      "op": "SWAP3"
+    },
+    "332": {
+      "op": "POP"
+    },
+    "333": {
+      "op": "SWAP3"
+    },
+    "334": {
+      "op": "SWAP1"
+    },
+    "335": {
+      "op": "POP"
+    },
+    "336": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "31b2acaa62cdf82a4ba591db58e6436b36663d8a",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.11;\n\nimport \"../interfaces/IBBPermissionsV01.sol\";\n\ncontract DebugProfileOwner is IBBPermissionsV01 {\n    mapping(address => bool) isOwner;\n    constructor() {\n        isOwner[msg.sender] = true;\n    }\n    function setOwner(address newguy, bool canOwner) public {\n        require(isOwner[msg.sender]); // dev: not an admin\n        isOwner[newguy] = canOwner;\n    }\n    function canViewSubscription(address member) external view override returns(bool) {\n        return isOwner[member];\n    }\n}",
+  "sourceMap": "105:440:19:-:0;;;197:57;;;;;;;;;-1:-1:-1;229:10:19;221:7;:19;;;;;;;;;;:26;;-1:-1:-1;;221:26:19;243:4;221:26;;;105:440;;;;;;",
+  "sourcePath": "contracts/utils/DebugProfileOwner.sol",
+  "type": "contract"
+}
