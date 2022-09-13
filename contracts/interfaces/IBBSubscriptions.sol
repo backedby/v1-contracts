@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.17;
 
 import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 
@@ -9,5 +9,5 @@ interface IBBSubscriptions is KeeperCompatibleInterface {
     
     function withdrawToTreasury() external;
 
-    function getSubscription(uint256 profileId, uint256 tierId, address account) external view returns (uint256 price, uint256 expiration, bool cancelled);
+    function getSubscription(uint256 profileId, uint256 tierId, address subscriber) external view returns (uint256 price, uint256 expiration, bool cancelled);
 }

@@ -27,20 +27,20 @@
     "absolutePath": "contracts/interfaces/IBBPermissionsV01.sol",
     "exportedSymbols": {
       "IBBPermissionsV01": [
-        2962
+        2919
       ]
     },
-    "id": 2963,
+    "id": 2920,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2954,
+        "id": 2911,
         "literals": [
           "solidity",
           "^",
           "0.8",
-          ".11"
+          ".17"
         ],
         "nodeType": "PragmaDirective",
         "src": "32:24:12"
@@ -52,9 +52,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 2962,
+        "id": 2919,
         "linearizedBaseContracts": [
-          2962
+          2919
         ],
         "name": "IBBPermissionsV01",
         "nameLocation": "68:17:12",
@@ -62,7 +62,7 @@
         "nodes": [
           {
             "functionSelector": "3f03b406",
-            "id": 2961,
+            "id": 2918,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -70,17 +70,17 @@
             "nameLocation": "101:19:12",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2957,
+              "id": 2914,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2956,
+                  "id": 2913,
                   "mutability": "mutable",
                   "name": "account",
                   "nameLocation": "129:7:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2961,
+                  "scope": 2918,
                   "src": "121:15:12",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -89,7 +89,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2955,
+                    "id": 2912,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "121:7:12",
@@ -105,17 +105,17 @@
               "src": "120:17:12"
             },
             "returnParameters": {
-              "id": 2960,
+              "id": 2917,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2959,
+                  "id": 2916,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2961,
+                  "scope": 2918,
                   "src": "160:4:12",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -124,7 +124,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 2958,
+                    "id": 2915,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "160:4:12",
@@ -138,14 +138,14 @@
               ],
               "src": "159:6:12"
             },
-            "scope": 2962,
+            "scope": 2919,
             "src": "92:74:12",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 2963,
+        "scope": 2920,
         "src": "58:110:12",
         "usedErrors": []
       }
@@ -160,7 +160,7 @@
       "enabled": true,
       "runs": 200
     },
-    "version": "0.8.16+commit.07a7930e"
+    "version": "0.8.17+commit.8df45f5f"
   },
   "contractName": "IBBPermissionsV01",
   "coverageMap": {
@@ -182,8 +182,8 @@
   ],
   "opcodes": "",
   "pcMap": {},
-  "sha1": "0277b379a5da064227bbd5ba5f6fbd6a0079f2e7",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.11;\n\ninterface IBBPermissionsV01 {\n    function canViewSubscription(address account) external view returns(bool);\n}\n",
+  "sha1": "ed345e096167683d153fc0ed91f2cf798850da89",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\ninterface IBBPermissionsV01 {\n    function canViewSubscription(address account) external view returns(bool);\n}\n",
   "sourceMap": "",
   "sourcePath": "contracts/interfaces/IBBPermissionsV01.sol",
   "type": "interface"

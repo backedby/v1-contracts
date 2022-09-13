@@ -38,15 +38,15 @@
     "absolutePath": "contracts/utils/testmapping.sol",
     "exportedSymbols": {
       "testmapping": [
-        3830
+        3778
       ]
     },
-    "id": 3831,
+    "id": 3779,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3758,
+        "id": 3706,
         "literals": [
           "solidity",
           "^",
@@ -63,9 +63,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 3830,
+        "id": 3778,
         "linearizedBaseContracts": [
-          3830
+          3778
         ],
         "name": "testmapping",
         "nameLocation": "67:11:22",
@@ -73,16 +73,16 @@
         "nodes": [
           {
             "canonicalName": "testmapping.MyStruct",
-            "id": 3763,
+            "id": 3711,
             "members": [
               {
                 "constant": false,
-                "id": 3760,
+                "id": 3708,
                 "mutability": "mutable",
                 "name": "subber",
                 "nameLocation": "119:6:22",
                 "nodeType": "VariableDeclaration",
-                "scope": 3763,
+                "scope": 3711,
                 "src": "111:14:22",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -91,7 +91,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 3759,
+                  "id": 3707,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "111:7:22",
@@ -105,12 +105,12 @@
               },
               {
                 "constant": false,
-                "id": 3762,
+                "id": 3710,
                 "mutability": "mutable",
                 "name": "something",
                 "nameLocation": "140:9:22",
                 "nodeType": "VariableDeclaration",
-                "scope": 3763,
+                "scope": 3711,
                 "src": "135:14:22",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -119,7 +119,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3761,
+                  "id": 3709,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
                   "src": "135:4:22",
@@ -134,29 +134,29 @@
             "name": "MyStruct",
             "nameLocation": "92:8:22",
             "nodeType": "StructDefinition",
-            "scope": 3830,
+            "scope": 3778,
             "src": "85:71:22",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 3768,
+            "id": 3716,
             "mutability": "mutable",
             "name": "data",
             "nameLocation": "187:4:22",
             "nodeType": "VariableDeclaration",
-            "scope": 3830,
+            "scope": 3778,
             "src": "161:30:22",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
               "typeString": "mapping(uint256 => struct testmapping.MyStruct)"
             },
             "typeName": {
-              "id": 3767,
+              "id": 3715,
               "keyType": {
-                "id": 3764,
+                "id": 3712,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
                 "src": "169:4:22",
@@ -168,26 +168,26 @@
               "nodeType": "Mapping",
               "src": "161:25:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
                 "typeString": "mapping(uint256 => struct testmapping.MyStruct)"
               },
               "valueType": {
-                "id": 3766,
+                "id": 3714,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 3765,
+                  "id": 3713,
                   "name": "MyStruct",
                   "nameLocations": [
                     "177:8:22"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 3763,
+                  "referencedDeclaration": 3711,
                   "src": "177:8:22"
                 },
-                "referencedDeclaration": 3763,
+                "referencedDeclaration": 3711,
                 "src": "177:8:22",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_MyStruct_$3763_storage_ptr",
+                  "typeIdentifier": "t_struct$_MyStruct_$3711_storage_ptr",
                   "typeString": "struct testmapping.MyStruct"
                 }
               }
@@ -196,34 +196,34 @@
           },
           {
             "body": {
-              "id": 3795,
+              "id": 3743,
               "nodeType": "Block",
               "src": "211:105:22",
               "statements": [
                 {
                   "expression": {
-                    "id": 3781,
+                    "id": 3729,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3771,
+                        "id": 3719,
                         "name": "data",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3768,
+                        "referencedDeclaration": 3716,
                         "src": "221:4:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
                           "typeString": "mapping(uint256 => struct testmapping.MyStruct storage ref)"
                         }
                       },
-                      "id": 3773,
+                      "id": 3721,
                       "indexExpression": {
                         "hexValue": "30",
-                        "id": 3772,
+                        "id": 3720,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -244,7 +244,7 @@
                       "nodeType": "IndexAccess",
                       "src": "221:7:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                         "typeString": "struct testmapping.MyStruct storage ref"
                       }
                     },
@@ -256,7 +256,7 @@
                           "arguments": [
                             {
                               "hexValue": "31333337",
-                              "id": 3777,
+                              "id": 3725,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -278,7 +278,7 @@
                                 "typeString": "int_const 1337"
                               }
                             ],
-                            "id": 3776,
+                            "id": 3724,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -290,14 +290,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 3775,
+                              "id": 3723,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "240:7:22",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 3778,
+                          "id": 3726,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -315,7 +315,7 @@
                         },
                         {
                           "hexValue": "37333331",
-                          "id": 3779,
+                          "id": 3727,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -341,18 +341,18 @@
                             "typeString": "int_const 7331"
                           }
                         ],
-                        "id": 3774,
+                        "id": 3722,
                         "name": "MyStruct",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3763,
+                        "referencedDeclaration": 3711,
                         "src": "231:8:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_MyStruct_$3763_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_MyStruct_$3711_storage_ptr_$",
                           "typeString": "type(struct testmapping.MyStruct storage pointer)"
                         }
                       },
-                      "id": 3780,
+                      "id": 3728,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -364,44 +364,44 @@
                       "src": "231:29:22",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory"
                       }
                     },
                     "src": "221:39:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                      "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                       "typeString": "struct testmapping.MyStruct storage ref"
                     }
                   },
-                  "id": 3782,
+                  "id": 3730,
                   "nodeType": "ExpressionStatement",
                   "src": "221:39:22"
                 },
                 {
                   "expression": {
-                    "id": 3793,
+                    "id": 3741,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3783,
+                        "id": 3731,
                         "name": "data",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3768,
+                        "referencedDeclaration": 3716,
                         "src": "270:4:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
                           "typeString": "mapping(uint256 => struct testmapping.MyStruct storage ref)"
                         }
                       },
-                      "id": 3785,
+                      "id": 3733,
                       "indexExpression": {
                         "hexValue": "31",
-                        "id": 3784,
+                        "id": 3732,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -422,7 +422,7 @@
                       "nodeType": "IndexAccess",
                       "src": "270:7:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                         "typeString": "struct testmapping.MyStruct storage ref"
                       }
                     },
@@ -434,7 +434,7 @@
                           "arguments": [
                             {
                               "hexValue": "34343434",
-                              "id": 3789,
+                              "id": 3737,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -456,7 +456,7 @@
                                 "typeString": "int_const 4444"
                               }
                             ],
-                            "id": 3788,
+                            "id": 3736,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -468,14 +468,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 3787,
+                              "id": 3735,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "289:7:22",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 3790,
+                          "id": 3738,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -493,7 +493,7 @@
                         },
                         {
                           "hexValue": "35353535",
-                          "id": 3791,
+                          "id": 3739,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -519,18 +519,18 @@
                             "typeString": "int_const 5555"
                           }
                         ],
-                        "id": 3786,
+                        "id": 3734,
                         "name": "MyStruct",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3763,
+                        "referencedDeclaration": 3711,
                         "src": "280:8:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_MyStruct_$3763_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_MyStruct_$3711_storage_ptr_$",
                           "typeString": "type(struct testmapping.MyStruct storage pointer)"
                         }
                       },
-                      "id": 3792,
+                      "id": 3740,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -542,23 +542,23 @@
                       "src": "280:29:22",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory"
                       }
                     },
                     "src": "270:39:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                      "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                       "typeString": "struct testmapping.MyStruct storage ref"
                     }
                   },
-                  "id": 3794,
+                  "id": 3742,
                   "nodeType": "ExpressionStatement",
                   "src": "270:39:22"
                 }
               ]
             },
-            "id": 3796,
+            "id": 3744,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -566,18 +566,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3769,
+              "id": 3717,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "208:2:22"
             },
             "returnParameters": {
-              "id": 3770,
+              "id": 3718,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "211:0:22"
             },
-            "scope": 3830,
+            "scope": 3778,
             "src": "197:119:22",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -585,26 +585,26 @@
           },
           {
             "body": {
-              "id": 3828,
+              "id": 3776,
               "nodeType": "Block",
               "src": "378:92:22",
               "statements": [
                 {
                   "expression": {
-                    "id": 3810,
+                    "id": 3758,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 3803,
+                      "id": 3751,
                       "name": "rtn",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3801,
+                      "referencedDeclaration": 3749,
                       "src": "388:3:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                        "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory[] memory"
                       }
                     },
@@ -614,7 +614,7 @@
                       "arguments": [
                         {
                           "hexValue": "32",
-                          "id": 3808,
+                          "id": 3756,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -636,7 +636,7 @@
                             "typeString": "int_const 2"
                           }
                         ],
-                        "id": 3807,
+                        "id": 3755,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -644,40 +644,40 @@
                         "nodeType": "NewExpression",
                         "src": "394:14:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr_$",
+                          "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr_$",
                           "typeString": "function (uint256) pure returns (struct testmapping.MyStruct memory[] memory)"
                         },
                         "typeName": {
                           "baseType": {
-                            "id": 3805,
+                            "id": 3753,
                             "nodeType": "UserDefinedTypeName",
                             "pathNode": {
-                              "id": 3804,
+                              "id": 3752,
                               "name": "MyStruct",
                               "nameLocations": [
                                 "398:8:22"
                               ],
                               "nodeType": "IdentifierPath",
-                              "referencedDeclaration": 3763,
+                              "referencedDeclaration": 3711,
                               "src": "398:8:22"
                             },
-                            "referencedDeclaration": 3763,
+                            "referencedDeclaration": 3711,
                             "src": "398:8:22",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_MyStruct_$3763_storage_ptr",
+                              "typeIdentifier": "t_struct$_MyStruct_$3711_storage_ptr",
                               "typeString": "struct testmapping.MyStruct"
                             }
                           },
-                          "id": 3806,
+                          "id": 3754,
                           "nodeType": "ArrayTypeName",
                           "src": "398:10:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_storage_$dyn_storage_ptr",
+                            "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_storage_$dyn_storage_ptr",
                             "typeString": "struct testmapping.MyStruct[]"
                           }
                         }
                       },
-                      "id": 3809,
+                      "id": 3757,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -689,44 +689,44 @@
                       "src": "394:17:22",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                        "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory[] memory"
                       }
                     },
                     "src": "388:23:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                       "typeString": "struct testmapping.MyStruct memory[] memory"
                     }
                   },
-                  "id": 3811,
+                  "id": 3759,
                   "nodeType": "ExpressionStatement",
                   "src": "388:23:22"
                 },
                 {
                   "expression": {
-                    "id": 3818,
+                    "id": 3766,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3812,
+                        "id": 3760,
                         "name": "rtn",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3801,
+                        "referencedDeclaration": 3749,
                         "src": "421:3:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                           "typeString": "struct testmapping.MyStruct memory[] memory"
                         }
                       },
-                      "id": 3814,
+                      "id": 3762,
                       "indexExpression": {
                         "hexValue": "30",
-                        "id": 3813,
+                        "id": 3761,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -747,7 +747,7 @@
                       "nodeType": "IndexAccess",
                       "src": "421:6:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory"
                       }
                     },
@@ -755,21 +755,21 @@
                     "operator": "=",
                     "rightHandSide": {
                       "baseExpression": {
-                        "id": 3815,
+                        "id": 3763,
                         "name": "data",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3768,
+                        "referencedDeclaration": 3716,
                         "src": "430:4:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
                           "typeString": "mapping(uint256 => struct testmapping.MyStruct storage ref)"
                         }
                       },
-                      "id": 3817,
+                      "id": 3765,
                       "indexExpression": {
                         "hexValue": "30",
-                        "id": 3816,
+                        "id": 3764,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -790,44 +790,44 @@
                       "nodeType": "IndexAccess",
                       "src": "430:7:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                         "typeString": "struct testmapping.MyStruct storage ref"
                       }
                     },
                     "src": "421:16:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                      "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                       "typeString": "struct testmapping.MyStruct memory"
                     }
                   },
-                  "id": 3819,
+                  "id": 3767,
                   "nodeType": "ExpressionStatement",
                   "src": "421:16:22"
                 },
                 {
                   "expression": {
-                    "id": 3826,
+                    "id": 3774,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3820,
+                        "id": 3768,
                         "name": "rtn",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3801,
+                        "referencedDeclaration": 3749,
                         "src": "447:3:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                           "typeString": "struct testmapping.MyStruct memory[] memory"
                         }
                       },
-                      "id": 3822,
+                      "id": 3770,
                       "indexExpression": {
                         "hexValue": "31",
-                        "id": 3821,
+                        "id": 3769,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -848,7 +848,7 @@
                       "nodeType": "IndexAccess",
                       "src": "447:6:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                         "typeString": "struct testmapping.MyStruct memory"
                       }
                     },
@@ -856,21 +856,21 @@
                     "operator": "=",
                     "rightHandSide": {
                       "baseExpression": {
-                        "id": 3823,
+                        "id": 3771,
                         "name": "data",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3768,
+                        "referencedDeclaration": 3716,
                         "src": "456:4:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3763_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_MyStruct_$3711_storage_$",
                           "typeString": "mapping(uint256 => struct testmapping.MyStruct storage ref)"
                         }
                       },
-                      "id": 3825,
+                      "id": 3773,
                       "indexExpression": {
                         "hexValue": "31",
-                        "id": 3824,
+                        "id": 3772,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -891,24 +891,24 @@
                       "nodeType": "IndexAccess",
                       "src": "456:7:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_storage",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_storage",
                         "typeString": "struct testmapping.MyStruct storage ref"
                       }
                     },
                     "src": "447:16:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_MyStruct_$3763_memory_ptr",
+                      "typeIdentifier": "t_struct$_MyStruct_$3711_memory_ptr",
                       "typeString": "struct testmapping.MyStruct memory"
                     }
                   },
-                  "id": 3827,
+                  "id": 3775,
                   "nodeType": "ExpressionStatement",
                   "src": "447:16:22"
                 }
               ]
             },
             "functionSelector": "8a054ac2",
-            "id": 3829,
+            "id": 3777,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -916,56 +916,56 @@
             "nameLocation": "331:1:22",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3797,
+              "id": 3745,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "332:2:22"
             },
             "returnParameters": {
-              "id": 3802,
+              "id": 3750,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3801,
+                  "id": 3749,
                   "mutability": "mutable",
                   "name": "rtn",
                   "nameLocation": "373:3:22",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3829,
+                  "scope": 3777,
                   "src": "355:21:22",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct testmapping.MyStruct[]"
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 3799,
+                      "id": 3747,
                       "nodeType": "UserDefinedTypeName",
                       "pathNode": {
-                        "id": 3798,
+                        "id": 3746,
                         "name": "MyStruct",
                         "nameLocations": [
                           "355:8:22"
                         ],
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 3763,
+                        "referencedDeclaration": 3711,
                         "src": "355:8:22"
                       },
-                      "referencedDeclaration": 3763,
+                      "referencedDeclaration": 3711,
                       "src": "355:8:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_MyStruct_$3763_storage_ptr",
+                        "typeIdentifier": "t_struct$_MyStruct_$3711_storage_ptr",
                         "typeString": "struct testmapping.MyStruct"
                       }
                     },
-                    "id": 3800,
+                    "id": 3748,
                     "nodeType": "ArrayTypeName",
                     "src": "355:10:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_MyStruct_$3763_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_MyStruct_$3711_storage_$dyn_storage_ptr",
                       "typeString": "struct testmapping.MyStruct[]"
                     }
                   },
@@ -974,21 +974,21 @@
               ],
               "src": "354:23:22"
             },
-            "scope": 3830,
+            "scope": 3778,
             "src": "322:148:22",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 3831,
+        "scope": 3779,
         "src": "58:415:22",
         "usedErrors": []
       }
     ],
     "src": "32:441:22"
   },
-  "bytecode": "608060405234801561001057600080fd5b506040805180820182526105398152611ca36020808301918252600080805280825292517fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb580546001600160a01b039283166001600160a01b03199182161790915592517fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb655845180860190955261115c85526115b3858301908152600185529390915292517fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d805491909416911617909155517fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e55610246806101156000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80638a054ac214610030575b600080fd5b61003861004e565b60405161004591906101a2565b60405180910390f35b6040805160028082526060828101909352816020015b604080518082019091526000808252602082015281526020019060019003908161006457505060008080526020818152604080518082019091527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5546001600160a01b031681527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb65491810191909152825192935091839190610109576101096101fa565b602090810291909101810191909152600160008181528252604080518082019091527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d546001600160a01b031681527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e549281019290925282518391908110610194576101946101fa565b602002602001018190525090565b602080825282518282018190526000919060409081850190868401855b828110156101ed57815180516001600160a01b031685528601518685015292840192908501906001016101bf565b5091979650505050505050565b634e487b7160e01b600052603260045260246000fdfea2646970667358221220dc4b76883cea7ddff986099a852cdb9c1e2395a2ef144c967970d76123fa59d964736f6c63430008100033",
+  "bytecode": "608060405234801561001057600080fd5b506040805180820182526105398152611ca36020808301918252600080805280825292517fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb580546001600160a01b039283166001600160a01b03199182161790915592517fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb655845180860190955261115c85526115b3858301908152600185529390915292517fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d805491909416911617909155517fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e55610246806101156000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80638a054ac214610030575b600080fd5b61003861004e565b60405161004591906101a2565b60405180910390f35b6040805160028082526060828101909352816020015b604080518082019091526000808252602082015281526020019060019003908161006457505060008080526020818152604080518082019091527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5546001600160a01b031681527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb65491810191909152825192935091839190610109576101096101fa565b602090810291909101810191909152600160008181528252604080518082019091527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d546001600160a01b031681527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e549281019290925282518391908110610194576101946101fa565b602002602001018190525090565b602080825282518282018190526000919060409081850190868401855b828110156101ed57815180516001600160a01b031685528601518685015292840192908501906001016101bf565b5091979650505050505050565b634e487b7160e01b600052603260045260246000fdfea2646970667358221220106e7af5aecc41a52ad5450c7b64a2e00e4309f14b313e289ec64fdaa3adbb2464736f6c63430008110033",
   "bytecodeSha1": "ab1dab276f4c8304ff314b0ad2181bac10d22e0c",
   "compiler": {
     "evm_version": "istanbul",
@@ -996,7 +996,7 @@
       "enabled": true,
       "runs": 200
     },
-    "version": "0.8.16+commit.07a7930e"
+    "version": "0.8.17+commit.8df45f5f"
   },
   "contractName": "testmapping",
   "coverageMap": {
@@ -1023,7 +1023,7 @@
     }
   },
   "dependencies": [],
-  "deployedBytecode": "608060405234801561001057600080fd5b506004361061002b5760003560e01c80638a054ac214610030575b600080fd5b61003861004e565b60405161004591906101a2565b60405180910390f35b6040805160028082526060828101909352816020015b604080518082019091526000808252602082015281526020019060019003908161006457505060008080526020818152604080518082019091527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5546001600160a01b031681527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb65491810191909152825192935091839190610109576101096101fa565b602090810291909101810191909152600160008181528252604080518082019091527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d546001600160a01b031681527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e549281019290925282518391908110610194576101946101fa565b602002602001018190525090565b602080825282518282018190526000919060409081850190868401855b828110156101ed57815180516001600160a01b031685528601518685015292840192908501906001016101bf565b5091979650505050505050565b634e487b7160e01b600052603260045260246000fdfea2646970667358221220dc4b76883cea7ddff986099a852cdb9c1e2395a2ef144c967970d76123fa59d964736f6c63430008100033",
+  "deployedBytecode": "608060405234801561001057600080fd5b506004361061002b5760003560e01c80638a054ac214610030575b600080fd5b61003861004e565b60405161004591906101a2565b60405180910390f35b6040805160028082526060828101909352816020015b604080518082019091526000808252602082015281526020019060019003908161006457505060008080526020818152604080518082019091527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5546001600160a01b031681527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb65491810191909152825192935091839190610109576101096101fa565b602090810291909101810191909152600160008181528252604080518082019091527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d546001600160a01b031681527fada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7e549281019290925282518391908110610194576101946101fa565b602002602001018190525090565b602080825282518282018190526000919060409081850190868401855b828110156101ed57815180516001600160a01b031685528601518685015292840192908501906001016101bf565b5091979650505050505050565b634e487b7160e01b600052603260045260246000fdfea2646970667358221220106e7af5aecc41a52ad5450c7b64a2e00e4309f14b313e289ec64fdaa3adbb2464736f6c63430008110033",
   "deployedSourceMap": "58:415:22:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;322:148;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;394:17;;;409:1;394:17;;;355:21;394:17;;;;;;;;;;-1:-1:-1;;;;;;;;;;;;;;;;;394:17:22;;;;;;;;;;;;-1:-1:-1;;430:4:22;:7;;;;;;;;421:16;;;;;;;;430:7;421:16;-1:-1:-1;;;;;421:16:22;;;;;;;;;;;;:6;;;;-1:-1:-1;421:16:22;:6;;430:4;421:6;;;;:::i;:::-;;;;;;;;;;;:16;;;;461:1;456:4;:7;;;;;;447:16;;;;;;;;456:7;447:16;-1:-1:-1;;;;;447:16:22;;;;;;;;;;;;:6;;:3;;461:1;447:6;;;;;;:::i;:::-;;;;;;:16;;;;322:148;:::o;14:816:23:-;237:2;289:21;;;359:13;;262:18;;;381:22;;;208:4;;237:2;422;;440:18;;;;481:15;;;208:4;524:280;538:6;535:1;532:13;524:280;;;597:13;;639:9;;-1:-1:-1;;;;;635:35:23;623:48;;711:11;;705:18;691:12;;;684:40;744:12;;;;779:15;;;;667:1;553:9;524:280;;;-1:-1:-1;821:3:23;;14:816;-1:-1:-1;;;;;;;14:816:23:o;967:127::-;1028:10;1023:3;1019:20;1016:1;1009:31;1059:4;1056:1;1049:15;1083:4;1080:1;1073:15",
   "language": "Solidity",
   "natspec": {
@@ -1035,7 +1035,7 @@
     58,
     473
   ],
-  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x2B JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x8A054AC2 EQ PUSH2 0x30 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x38 PUSH2 0x4E JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH2 0x45 SWAP2 SWAP1 PUSH2 0x1A2 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH1 0x40 DUP1 MLOAD PUSH1 0x2 DUP1 DUP3 MSTORE PUSH1 0x60 DUP3 DUP2 ADD SWAP1 SWAP4 MSTORE DUP2 PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x0 DUP1 DUP3 MSTORE PUSH1 0x20 DUP3 ADD MSTORE DUP2 MSTORE PUSH1 0x20 ADD SWAP1 PUSH1 0x1 SWAP1 SUB SWAP1 DUP2 PUSH2 0x64 JUMPI POP POP PUSH1 0x0 DUP1 DUP1 MSTORE PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH32 0xAD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB5 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 MSTORE PUSH32 0xAD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB6 SLOAD SWAP2 DUP2 ADD SWAP2 SWAP1 SWAP2 MSTORE DUP3 MLOAD SWAP3 SWAP4 POP SWAP2 DUP4 SWAP2 SWAP1 PUSH2 0x109 JUMPI PUSH2 0x109 PUSH2 0x1FA JUMP JUMPDEST PUSH1 0x20 SWAP1 DUP2 MUL SWAP2 SWAP1 SWAP2 ADD DUP2 ADD SWAP2 SWAP1 SWAP2 MSTORE PUSH1 0x1 PUSH1 0x0 DUP2 DUP2 MSTORE DUP3 MSTORE PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH32 0xADA5013122D395BA3C54772283FB069B10426056EF8CA54750CB9BB552A59E7D SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 MSTORE PUSH32 0xADA5013122D395BA3C54772283FB069B10426056EF8CA54750CB9BB552A59E7E SLOAD SWAP3 DUP2 ADD SWAP3 SWAP1 SWAP3 MSTORE DUP3 MLOAD DUP4 SWAP2 SWAP1 DUP2 LT PUSH2 0x194 JUMPI PUSH2 0x194 PUSH2 0x1FA JUMP JUMPDEST PUSH1 0x20 MUL PUSH1 0x20 ADD ADD DUP2 SWAP1 MSTORE POP SWAP1 JUMP JUMPDEST PUSH1 0x20 DUP1 DUP3 MSTORE DUP3 MLOAD DUP3 DUP3 ADD DUP2 SWAP1 MSTORE PUSH1 0x0 SWAP2 SWAP1 PUSH1 0x40 SWAP1 DUP2 DUP6 ADD SWAP1 DUP7 DUP5 ADD DUP6 JUMPDEST DUP3 DUP2 LT ISZERO PUSH2 0x1ED JUMPI DUP2 MLOAD DUP1 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP6 MSTORE DUP7 ADD MLOAD DUP7 DUP6 ADD MSTORE SWAP3 DUP5 ADD SWAP3 SWAP1 DUP6 ADD SWAP1 PUSH1 0x1 ADD PUSH2 0x1BF JUMP JUMPDEST POP SWAP2 SWAP8 SWAP7 POP POP POP POP POP POP POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x32 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xDC 0x4B PUSH23 0x883CEA7DDFF986099A852CDB9C1E2395A2EF144C967970 0xD7 PUSH2 0x23FA MSIZE 0xD9 PUSH5 0x736F6C6343 STOP ADDMOD LT STOP CALLER ",
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x2B JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x8A054AC2 EQ PUSH2 0x30 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x38 PUSH2 0x4E JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH2 0x45 SWAP2 SWAP1 PUSH2 0x1A2 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH1 0x40 DUP1 MLOAD PUSH1 0x2 DUP1 DUP3 MSTORE PUSH1 0x60 DUP3 DUP2 ADD SWAP1 SWAP4 MSTORE DUP2 PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x0 DUP1 DUP3 MSTORE PUSH1 0x20 DUP3 ADD MSTORE DUP2 MSTORE PUSH1 0x20 ADD SWAP1 PUSH1 0x1 SWAP1 SUB SWAP1 DUP2 PUSH2 0x64 JUMPI POP POP PUSH1 0x0 DUP1 DUP1 MSTORE PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH32 0xAD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB5 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 MSTORE PUSH32 0xAD3228B676F7D3CD4284A5443F17F1962B36E491B30A40B2405849E597BA5FB6 SLOAD SWAP2 DUP2 ADD SWAP2 SWAP1 SWAP2 MSTORE DUP3 MLOAD SWAP3 SWAP4 POP SWAP2 DUP4 SWAP2 SWAP1 PUSH2 0x109 JUMPI PUSH2 0x109 PUSH2 0x1FA JUMP JUMPDEST PUSH1 0x20 SWAP1 DUP2 MUL SWAP2 SWAP1 SWAP2 ADD DUP2 ADD SWAP2 SWAP1 SWAP2 MSTORE PUSH1 0x1 PUSH1 0x0 DUP2 DUP2 MSTORE DUP3 MSTORE PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH32 0xADA5013122D395BA3C54772283FB069B10426056EF8CA54750CB9BB552A59E7D SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 MSTORE PUSH32 0xADA5013122D395BA3C54772283FB069B10426056EF8CA54750CB9BB552A59E7E SLOAD SWAP3 DUP2 ADD SWAP3 SWAP1 SWAP3 MSTORE DUP3 MLOAD DUP4 SWAP2 SWAP1 DUP2 LT PUSH2 0x194 JUMPI PUSH2 0x194 PUSH2 0x1FA JUMP JUMPDEST PUSH1 0x20 MUL PUSH1 0x20 ADD ADD DUP2 SWAP1 MSTORE POP SWAP1 JUMP JUMPDEST PUSH1 0x20 DUP1 DUP3 MSTORE DUP3 MLOAD DUP3 DUP3 ADD DUP2 SWAP1 MSTORE PUSH1 0x0 SWAP2 SWAP1 PUSH1 0x40 SWAP1 DUP2 DUP6 ADD SWAP1 DUP7 DUP5 ADD DUP6 JUMPDEST DUP3 DUP2 LT ISZERO PUSH2 0x1ED JUMPI DUP2 MLOAD DUP1 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP6 MSTORE DUP7 ADD MLOAD DUP7 DUP6 ADD MSTORE SWAP3 DUP5 ADD SWAP3 SWAP1 DUP6 ADD SWAP1 PUSH1 0x1 ADD PUSH2 0x1BF JUMP JUMPDEST POP SWAP2 SWAP8 SWAP7 POP POP POP POP POP POP POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x32 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 LT PUSH15 0x7AF5AECC41A52AD5450C7B64A2E00E NUMBER MULMOD CALL 0x4B BALANCE RETURNDATACOPY 0x28 SWAP15 0xC6 0x4F 0xDA LOG3 0xAD 0xBB 0x24 PUSH5 0x736F6C6343 STOP ADDMOD GT STOP CALLER ",
   "pcMap": {
     "0": {
       "offset": [

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -31,8 +31,10 @@ contract BBSubscriptions is IBBSubscriptions {
         bool cancelled;
     }
 
+    // Subscription ID => Subscription
     mapping (uint256 => Subscription) internal _subscriptions;
     uint256 internal _totalSubscriptions;
+
     // Profile ID => Tier ID => Subscriber => Subscription ID + 1
     mapping(uint256 => mapping(uint256 => mapping(address => uint256))) internal _subscriptionIndexes;
 
@@ -50,6 +52,14 @@ contract BBSubscriptions is IBBSubscriptions {
         _currency = IERC20(currency);
     }
 
+    /*
+        @notice Check if there are subscriptions to renew within a range
+
+        @param Lower bound, upper bound and refund receiver packed into bytes array
+
+        @return True if there are subscriptions to renew within the lower and upper bound, otherwise false
+        @return Array of subscription IDs to renew and refund receiver packed into bytes array
+    */
     function checkUpkeep(bytes calldata checkData) external view override returns (bool, bytes memory) {
         (uint256 lowerBound, uint256 upperBound, address refundReceiver) = abi.decode(checkData, (uint256, uint256, address));
 
@@ -90,6 +100,11 @@ contract BBSubscriptions is IBBSubscriptions {
         return (true, abi.encode(renewIndexes, refundReceiver));
     }
 
+    /*
+        @notice Renew subscriptions within a range
+
+        @param Array of subscription IDs to renew and refund receiver packed into bytes array
+    */
     function performUpkeep(bytes calldata renewalData) external override {
         uint256 gasAtStart = gasleft();
         (uint256[] memory renewIndexes, address refundReceiver) = abi.decode(renewalData, (uint256[], address));
@@ -134,12 +149,22 @@ contract BBSubscriptions is IBBSubscriptions {
         refundReceiver.call{value: refund};
     }
 
-    function _pay(address owner, address receiver, uint256 amount, uint256 daoContribution) internal returns (bool) {
+    /*
+        @dev Transfer ERC20 tokens from address to receiver and treasury
+
+        @param ERC20 token owner
+        @param ERC20 token receiver
+        @param ERC20 token amount
+        @param Treasury contribution percentage
+
+        @return True if transfer succeeded, otherwise false
+    */
+    function _pay(address owner, address receiver, uint256 amount, uint256 treasuryContribution) internal returns (bool) {
         // Check that the contract has enough allowance to process this transfer
         if ((_currency.allowance(owner, address(this)) >= amount) && _currency.balanceOf(owner) >= amount) { 
             _currency.transferFrom(owner, address(this), amount);
 
-            _currency.transfer(receiver, (amount * (100 - daoContribution)) / 100);
+            _currency.transfer(receiver, (amount * (100 - treasuryContribution)) / 100);
 
             // Payment processed
             return true;
@@ -149,6 +174,14 @@ contract BBSubscriptions is IBBSubscriptions {
         return false;
     }
 
+    /*
+        @notice Subscribe to a profile
+
+        @param Profile ID
+        @param Tier ID
+        
+        @return Subscription ID
+    */
     function subscribe(uint256 profileId, uint256 tierId) external payable override returns(uint256 subscriptionId) {
         require(msg.value >= _bbSubscriptionsFactory.getSubscriptionGasRequirement(), BBErrorCodesV01.INSUFFICIENT_PREPAID_GAS);
 
@@ -163,19 +196,17 @@ contract BBSubscriptions is IBBSubscriptions {
 
         require(_currency.allowance(msg.sender, address(this)) >= price * 60, BBErrorCodesV01.INSUFFICIENT_ALLOWANCE);
 
-        uint256 index = _totalSubscriptions;
+        subscriptionId = _totalSubscriptions;
 
         if(_subscriptionIndexes[profileId][tierId][msg.sender] == 0) {
             _subscriptionIndexes[profileId][tierId][msg.sender] = _totalSubscriptions + 1;
             _totalSubscriptions++;
         }
         else {
-            index = _subscriptionIndexes[profileId][tierId][msg.sender] - 1;
+            subscriptionId = _subscriptionIndexes[profileId][tierId][msg.sender] - 1;
         }
 
-        subscriptionId = index;
-
-        _subscriptions[index] = Subscription(
+        _subscriptions[subscriptionId] = Subscription(
             profileId, 
             tierId, 
             msg.sender, 
@@ -196,6 +227,12 @@ contract BBSubscriptions is IBBSubscriptions {
         emit Subscribed(profileId, tierId, msg.sender);
     }
 
+    /*
+        @notice Unsubscribe from a profile
+
+        @param Profile ID
+        @param Tier ID        
+    */
     function unsubscribe(uint256 profileId, uint256 tierId) external override {
         uint256 id = _getSubscriptionId(profileId, tierId, msg.sender);
         require(_subscriptions[id].subscriber == msg.sender, BBErrorCodesV01.NOT_SUBSCRIPTION_OWNER);
@@ -206,12 +243,26 @@ contract BBSubscriptions is IBBSubscriptions {
         emit Unsubscribed(profileId, tierId, msg.sender);
     }
 
+    /*
+        @notice Transfers this contracts tokens to the subscription factory treasury
+    */
     function withdrawToTreasury() public {
         _currency.transfer(_bbSubscriptionsFactory.getTreasury(), _currency.balanceOf(address(this)));
     }
 
-    function getSubscription(uint256 profileId, uint256 tierId, address account) external view returns (uint256, uint256, bool) {
-        uint256 id = _getSubscriptionId(profileId, tierId, account);
+    /*
+        @notice Get a subscriptions values
+
+        @param Profile ID
+        @param Tier ID
+        @param Subscriber
+
+        @return Price (monthly)
+        @return Expiration
+        @return Subscription cancelled
+    */
+    function getSubscription(uint256 profileId, uint256 tierId, address subscriber) external view returns (uint256, uint256, bool) {
+        uint256 id = _getSubscriptionId(profileId, tierId, subscriber);
 
         return (
             _subscriptions[id].price,
@@ -220,6 +271,15 @@ contract BBSubscriptions is IBBSubscriptions {
         );
     }
 
+    /*
+        @dev Get a subscription ID
+
+        @param Profile ID
+        @param Tier ID
+        @param Subscriber
+
+        @return Subscription ID
+    */
     function _getSubscriptionId(uint256 profileId, uint256 tierId, address subscriber) internal view returns (uint256) {
         require(_subscriptionIndexes[profileId][tierId][subscriber] > 0, BBErrorCodesV01.SUBSCRIPTION_NOT_EXIST);
         return _subscriptionIndexes[profileId][tierId][subscriber] - 1;

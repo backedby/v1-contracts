@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.17;
 
 library BBErrorCodesV01 {
     string public constant NOT_OWNER = "1";
@@ -21,4 +21,5 @@ library BBErrorCodesV01 {
     string public constant INVALID_LENGTH = "17";
     string public constant UNSUPPORTED_CURRENCY = "18";
     string public constant SUBSCRIPTION_PROFILE_ALREADY_EXISTS = "19";
+    string public constant INVALID_PRICE = "20";
 }

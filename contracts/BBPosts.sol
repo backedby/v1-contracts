@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.17;
 
 import "./BBErrorsV01.sol";
 import "./interfaces/IBBProfiles.sol";
@@ -18,7 +18,9 @@ contract BBPosts is IBBPosts {
         string cid
     );
 
+    // Profile ID => Index => Post
     mapping(uint256 => mapping(uint256 => string)) internal _posts;
+    // Profile ID => Total posts
     mapping(uint256 => uint256) internal _profilesTotalPosts;
 
     IBBProfiles internal immutable _bbProfiles;
@@ -28,61 +30,72 @@ contract BBPosts is IBBPosts {
     }
 
     /*
-        @notice Function for a profile owner to make a post
-
-        @param Profile ID
-        @param Post CID
+        @dev Reverts if msg.sender is not profile IDs owner
     */
-    function createPost(uint256 profileId, string calldata cid) external override returns(uint256 postId){
+    modifier onlyProfileOwner(uint256 profileId) {
         (address profileOwner,,) = _bbProfiles.getProfile(profileId);
         require(profileOwner == msg.sender, BBErrorCodesV01.NOT_OWNER);
-
-        postId = _profilesTotalPosts[profileId];
-
-        _posts[profileId][_profilesTotalPosts[profileId]] = cid;
-        _profilesTotalPosts[profileId]++;
-
-        emit NewPost(profileId, _profilesTotalPosts[profileId] - 1, cid);
+        _;
     }
 
     /*
-        @notice Function for profile owner to edit an existing post
+        @dev Reverts if post ID does not exist
+    */
+    modifier postExists(uint256 profileId, uint256 postId) {
+        require(postId < _profilesTotalPosts[profileId], BBErrorCodesV01.POST_NOT_EXIST);
+        _;
+    }
+
+    /*
+        @notice Create a new post
+
+        @param Profile ID
+        @param Post CID
+
+        @return Instantiated posts ID
+    */
+    function createPost(uint256 profileId, string calldata cid) external override onlyProfileOwner(profileId) returns(uint256 postId){
+        postId = _profilesTotalPosts[profileId];
+
+        _posts[profileId][postId] = cid;
+
+        // Increment profiles total posts
+        _profilesTotalPosts[profileId]++;
+
+        emit NewPost(profileId, postId, cid);
+    }
+
+    /*
+        @notice Set an existing posts variables
 
         @param Profile ID
         @param Post ID
-        @param New post CID
+        @param Post CID
     */
-    function editPost(uint256 profileId, uint postId, string calldata cid) external override {
-        (address profileOwner,,) = _bbProfiles.getProfile(profileId);
-        require(profileOwner == msg.sender, BBErrorCodesV01.NOT_OWNER);
-        require(postId < _profilesTotalPosts[profileId], BBErrorCodesV01.POST_NOT_EXIST);
-
+    function editPost(uint256 profileId, uint postId, string calldata cid) external override onlyProfileOwner(profileId) postExists(profileId, postId) {
         _posts[profileId][postId] = cid;
 
         emit EditPost(profileId, postId, cid);
     }
 
     /*
-        @notice Returns all posts from a profile
+        @notice Get post CID
 
         @param Profile ID
         @param Post ID
 
-        @return Array of posts
+        @return Post CID
     */
-    function getPost(uint256 profileId, uint256 postId) external view override returns (string memory) {
-        require(profileId < _bbProfiles.totalProfiles(), BBErrorCodesV01.NOT_OWNER);
-        require(postId < _profilesTotalPosts[profileId], BBErrorCodesV01.POST_NOT_EXIST);
-
+    function getPost(uint256 profileId, uint256 postId) external view override postExists(profileId, postId) returns (string memory) {
         return (_posts[profileId][postId]);
     }
 
     /*
-        @notice Returns the total number of posts by a profile
+        @notice Gets the total number of posts in a profile
 
         @param Profile ID
 
-        @return Total number of posts made by the profile
+        @return Total number of posts in a profile
     */
     function profilesTotalPosts(uint256 profileId) external view override returns (uint256) {
         return _profilesTotalPosts[profileId];

@@ -139,18 +139,3 @@ def test_owners_total_profiles():
     assert bbProfiles.ownersTotalProfiles(owner) == 1
     assert bbProfiles.ownersTotalProfiles(receiver) == 0
     assert bbProfiles.ownersTotalProfiles(creator) == 0
-
-def test_is_profile_owner():
-    bbDeployer = accounts[0]    
-    owner = accounts[1]
-    receiver = accounts[2]
-    creator = accounts[3]
-    cid = "test_cid"
-    
-    bbProfiles = deploy.bbProfiles(bbDeployer)
-
-    bbProfiles.createProfile(owner, receiver, cid, {"from": creator})
-
-    assert bbProfiles.isProfileOwner(0, owner) == True
-    assert bbProfiles.isProfileOwner(0, receiver) == False
-    assert bbProfiles.isProfileOwner(0, creator) == False

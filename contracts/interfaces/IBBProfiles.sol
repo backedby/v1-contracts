@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.17;
 
 interface IBBProfiles {
     function createProfile(address owner, address receiver, string calldata cid) external returns(uint256 profileId);
@@ -9,7 +9,5 @@ interface IBBProfiles {
     function getProfile(uint256 profileId) external view returns (address owner, address receiver, string memory cid);
 
     function getOwnersProfiles(address account) external view returns (uint256[] memory profileIds);
-    function ownersTotalProfiles(address owner) external view returns (uint256);
-
-    function isProfileOwner(uint256 profileId, address account) external view returns (bool);
+    function ownersTotalProfiles(address owner) external view returns (uint256 total);
 }
