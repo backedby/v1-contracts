@@ -5,7 +5,7 @@ import string
 from brownie import *
 from brownie import accounts
 from scripts.josh.helpers import helpers, objdict
-from eth_abi import encode_abi, decode_abi
+from eth_abi import encode, decode
 
 class bbenv:
     inited = 0
@@ -44,7 +44,7 @@ class bbenv:
 
     def performUpkeep(self, currencies=None):
         runner = bbenv.deployer
-        checkUpkeepPayload = "0x" + encode_abi( ['uint256','uint256','address'], [0, int(1e6), runner.address] ).hex()
+        checkUpkeepPayload = "0x" + encode( ['uint256','uint256','uint256','address'], [0, int(1e6), 25, runner.address] ).hex()
         if currencies is None:
             currencies = self.currencies
         
@@ -52,7 +52,7 @@ class bbenv:
             
             try:
                 checkUpkeepDataRaw = self.subscriptions[currency.address].checkUpkeep(checkUpkeepPayload)
-                checkUpkeepData = decode_abi(['uint256[]', 'address'], checkUpkeepDataRaw[1])
+                checkUpkeepData = decode(['uint256[]', 'address'], checkUpkeepDataRaw[1])
                 if checkUpkeepDataRaw[0]:
                     tx = self.subscriptions[currency.address].performUpkeep(checkUpkeepDataRaw[1], helpers.by(runner))
             except:
@@ -172,7 +172,7 @@ class bbenv:
 
         tx.out_ = objdict({
             'profileId': tx.events['NewSubscriptionProfile']['profileId'],
-            'tierSet': tx.events['NewSubscriptionProfile']['tierSet'],
+            'tierSet': tx.events['NewSubscriptionProfile']['tierSetId'],
             'contribution': tx.events['NewSubscriptionProfile']['contribution'],
         })
 
@@ -200,7 +200,7 @@ class bbenv:
             c.mint(int(1e6 * 10 ** c.decimals()), helpers.by(account))
             c.approve(self.subscriptions[currency], helpers.MAXUINT256, helpers.by(account))
 
-        gas = self.subscriptionsFactory.getSubscriptionGasRequirement()
+        gas = self.subscriptions[currency].getSubscriptionGasEstimate(network.gas_price())
         subContract = BBSubscriptions.at(self.subscriptions[currency])
         tx = subContract.subscribe(profileId, tierId, helpers.by(account, {'value': gas}))
 
@@ -253,7 +253,7 @@ class bbenv:
         token = DebugERC20.at(currency)
         token.mint(tier._in.price * 120, helpers.by(account))
         token.approve(self.subscriptions.address, tier._in.price * 60, helpers.by(account))
-        sub = self.subscriptions.subscribe(tier._in.profileId, tier.out_.tierId, currency, helpers.by(account, {'value': self.subscriptions.getSubscriptionGasRequirement()}))
+        sub = self.subscriptions.subscribe(tier._in.profileId, tier.out_.tierId, currency, helpers.by(account, {'value': self.subscriptions[currency].getSubscriptionGasEstimate(network.gas_price())}))
         sub._in = objdict({
             'account': account,
             'creator': creator,

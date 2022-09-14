@@ -2,8 +2,10 @@ from base64 import decode
 from brownie import accounts
 from eth_abi import encode, decode
 from brownie.network.state import Chain
+from brownie.network import gas_price
 from scripts.john.deploy import deploy
-
+from calendar import monthrange
+from datetime import datetime
 chain = Chain()
 
 def test_check_upkeep():
@@ -100,17 +102,31 @@ def test_perform_upkeep():
     token.approve(bbSubscriptions.address, 1000 * 60, {"from": subscriber})
     
     bbSubscriptions.subscribe(0, 0, {"from": subscriber, "value": 10 ** 18})
+    
 
     keeper = accounts[8]
+    pre_upkeep_balance = keeper.balance()
 
-    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 25, keeper.address]).hex()
+    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 50, keeper.address]).hex()
 
     chain.sleep(60 * 60 * 24 * 34)
     chain.mine()
     
     returnedCheckBytes = bbSubscriptions.checkUpkeep(checkData)
-
+    gas_price("2 gwei")
     bbSubscriptions.performUpkeep(returnedCheckBytes[1], {"from": keeper})
+    assert pre_upkeep_balance == keeper.balance()
+
+    chain.sleep(60 * 60 * 24 * 34)
+    chain.mine()
+    for i in range(10, 35):
+        token.mint(10000, {"from": accounts[i]})
+        token.approve(bbSubscriptions.address, 1000 * 60, {"from": accounts[i]})
+        bbSubscriptions.subscribe(0, 0, {"from": accounts[i], "value": 10 ** 18})
+    gas_price("20 gwei")
+    returnedCheckBytes = bbSubscriptions.checkUpkeep(checkData)
+    bbSubscriptions.performUpkeep(returnedCheckBytes[1], {"from": keeper})
+    assert pre_upkeep_balance == keeper.balance()
 
 def test_subscribe():
     bbDeployer = accounts[0]    
@@ -267,5 +283,6 @@ def test_get_subscription():
     (returnedPrice, returnedExpiration, returnedCancelled) = subscriptions.getSubscription(0, 0, subscriber)
 
     assert returnedPrice == tierPrices[0] * priceMultipliers[0]
-    assert returnedExpiration == chain.time() + (60 * 60 * 24 * 30)
+    a,daysinmonth = monthrange(datetime.now().year, datetime.now().month)
+    assert returnedExpiration == chain.time() + (60 * 60 * 24 * daysinmonth)
     assert returnedCancelled == False

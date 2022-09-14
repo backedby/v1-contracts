@@ -1,25 +1,26 @@
 import pytest
-from brownie import accounts,reverts
+from brownie import network,reverts
 from scripts.josh.bbenv import bbenv, helpers
-from eth_abi import encode_abi
+from eth_abi import encode
 
 def test_subfactory_change_treasury(je_org):
     je_org.subscriptionsFactory.setTreasury(je_org.anons[0].address, helpers.by(je_org.deployer))
+    
 def test_subfactory_change_treasury_non_owner(je_org):
     with reverts():
         je_org.subscriptionsFactory.setTreasury(je_org.anons[0].address, helpers.by(je_org.anons[0]))
 
 
 def test_subfactory_change_gas(je_org):
-    je_org.subscriptionsFactory.setSubscriptionGasRequirement(133700, helpers.by(je_org.deployer))
+    je_org.subscriptionsFactory.setSubscriptionGasRequirement(je_org.TUSD.address, 133700, helpers.by(je_org.deployer))
 
 def test_subfactory_change_gas_non_owner(je_org):
     with reverts():
-        je_org.subscriptionsFactory.setSubscriptionGasRequirement(133700, helpers.by(je_org.anons[0]))
+        je_org.subscriptionsFactory.setSubscriptionGasRequirement(je_org.TUSD.address, 133700, helpers.by(je_org.anons[0]))
 
 def test_subfactory_change_gas_outside_limit(je_org):
     with reverts():
-        je_org.subscriptionsFactory.setSubscriptionGasRequirement(1e16, helpers.by(je_org.deployer))
+        je_org.subscriptionsFactory.setSubscriptionGasRequirement(je_org.TUSD.address, 1e16, helpers.by(je_org.deployer))
 
 
 def test_subscriptionContracts(je_org, DebugERC20):
@@ -34,7 +35,8 @@ def testSubFactoryVariables(je_org):
     assert je_org.subscriptionsFactory.getGracePeriod() == 172800
     assert je_org.subscriptionsFactory.getContributionBounds()[0] == 1
     assert je_org.subscriptionsFactory.getContributionBounds()[1] == 100
-    assert je_org.subscriptionsFactory.getSubscriptionGasRequirement() == 100000000
+    #assert je_org.subscriptionsFactory.getSubscriptionGasRequirement() == 225000
+    #assert je_org.subscriptionsFactory.getSubscriptionGasEstimate(network.gas_price()) == 225000 * network.gas_price() * 60
 
 def test_getSetSubscriptionCurrency(je_org):
     subber = je_org.setup_subscription()

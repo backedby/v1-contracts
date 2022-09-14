@@ -38,8 +38,6 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
 
     uint256 internal constant _gracePeriod = 2 days;
 
-    uint256 internal _subscriptionGasRequirement = 100000000;
-
     // Subscription profile ID => Subscription profile
     mapping(uint256 => SubscriptionProfile) internal _subscriptionProfiles;
     
@@ -98,7 +96,7 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
         require(_deployedSubscriptions[currency] == address(0), BBErrorCodesV01.ZERO_ADDRESS);
 
         IBBSubscriptions subscriptions = new BBSubscriptions(address(_bbProfiles), address(_bbTiers), address(this), currency);
-
+        
         _deployedSubscriptions[currency] = address(subscriptions);
 
         emit DeployedSubscription(currency, address(subscriptions));
@@ -135,19 +133,7 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
         @param Treasury address
     */
     function setTreasury(address account) external override onlyOwner {
-        require(account != owner(), BBErrorCodesV01.NOT_OWNER);
         _treasury = account;
-    }
-
-    /*
-        @notice Set the subscription gas requirement
-
-        @param Subscription gas requirement
-    */
-    function setSubscriptionGasRequirement(uint256 requirement) external override onlyOwner {
-        // Limit gas requirement to avoid exploit : 0.001 MATIC
-        require(requirement <= 10 ** 15, BBErrorCodesV01.OUT_OF_BOUNDS);
-        _subscriptionGasRequirement = requirement;
     }
 
     /*
@@ -179,15 +165,6 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     }
 
     /*
-        @notice Get subscription gas requirement
-
-        @return Subscription gas requirement
-    */
-    function getSubscriptionGasRequirement() external view override returns (uint256) {
-        return _subscriptionGasRequirement;
-    }
-
-    /*
         @dev Set a subscriptions ERC20 token
 
         @param Profile ID
@@ -214,6 +191,19 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
         // Subscription isn't active if subscriptions ERC20 token is the zero address, so revert
         require(_subscriptionCurrency[profileId][tierId][account] != address(0));
         return _subscriptionCurrency[profileId][tierId][account];
+    }
+
+    /*
+        @notice Set the subscription gas requirement
+
+        @param Currency to set the gas requirement for
+        @param Subscription gas requirement
+    */
+    function setSubscriptionGasRequirement(address currency, uint256 requirement) external override onlyOwner {
+        // Limit gas requirement to avoid exploit
+        require(requirement <= block.gaslimit / 15, BBErrorCodesV01.OUT_OF_BOUNDS);
+        require(_deployedSubscriptions[currency] != address(0), BBErrorCodesV01.UNSUPPORTED_CURRENCY);
+        IBBSubscriptions(_deployedSubscriptions[currency]).setSubscriptionGasRequirement(requirement);
     }
 
     /*

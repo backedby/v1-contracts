@@ -76,7 +76,32 @@
         "type": "uint256"
       }
     ],
-    "name": "SupportedCurrencyChange",
+    "name": "SupportedCurrencyAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "profileId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tierSetId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "currency",
+        "type": "address"
+      }
+    ],
+    "name": "SupportedCurrencyRemoved",
     "type": "event"
   },
   {
@@ -127,7 +152,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -155,7 +180,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -184,7 +209,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -213,7 +238,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -247,7 +272,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       }
     ],
@@ -276,7 +301,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -305,7 +330,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -352,7 +377,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       }
     ],

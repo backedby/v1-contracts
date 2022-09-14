@@ -1,5 +1,7 @@
 from brownie import accounts, reverts
 from scripts.john.deploy import deploy
+from brownie.network.state import Chain
+chain = Chain()
 
 def test_deploy_subscriptions():
     bbDeployer = accounts[0]    
@@ -22,7 +24,11 @@ def test_deploy_subscriptions():
 
     subscriptionsDeployer = accounts[6]
 
-    bbSubscriptionsFactory.deploySubscriptions(token.address, {"from": subscriptionsDeployer})        
+    bbSubscriptionsFactory.deploySubscriptions(token.address, {"from": subscriptionsDeployer})
+
+    #deploying same token again should revert
+    with reverts():
+        bbSubscriptionsFactory.deploySubscriptions(token.address, {"from": subscriptionsDeployer})     
 
 def test_is_subscriptions_deployed():
     bbDeployer = accounts[0]    
@@ -77,7 +83,7 @@ def test_get_deployed_subscriptions():
 
 def test_set_treasury():
     bbDeployer = accounts[0]    
-    owner = accounts[1]
+    profileOwner = accounts[1]
     receiver = accounts[2]
     creator = accounts[3]
     unauthorized = accounts[4]
@@ -86,7 +92,7 @@ def test_set_treasury():
 
     bbProfiles = deploy.bbProfiles(bbDeployer)
 
-    bbProfiles.createProfile(owner, receiver, profileCid, {"from": creator})
+    bbProfiles.createProfile(profileOwner, receiver, profileCid, {"from": creator})
 
     bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
 
@@ -95,13 +101,49 @@ def test_set_treasury():
     newTreasury = accounts[6]
 
     with reverts():
-        bbSubscriptionsFactory.setTreasury(newTreasury, {"from": owner})
+        bbSubscriptionsFactory.setTreasury(newTreasury, {"from": profileOwner})
+    with reverts():
         bbSubscriptionsFactory.setTreasury(newTreasury, {"from": receiver})
+    with reverts():
         bbSubscriptionsFactory.setTreasury(newTreasury, {"from": creator})
+    with reverts():
         bbSubscriptionsFactory.setTreasury(newTreasury, {"from": unauthorized})
+    with reverts():
         bbSubscriptionsFactory.setTreasury(newTreasury, {"from": bbTreasury})
 
     bbSubscriptionsFactory.setTreasury(newTreasury, {"from": bbDeployer})
+    assert bbSubscriptionsFactory.getTreasury() == newTreasury
+    bbSubscriptionsFactory.setTreasury(bbDeployer, {"from": bbDeployer})
+    assert bbSubscriptionsFactory.getTreasury() == bbDeployer
+
+def test_change_owner():
+    bbDeployer = accounts[0]    
+    profileOwner = accounts[1]
+    receiver = accounts[2]
+    creator = accounts[3]
+    unauthorized = accounts[4]
+    bbTreasury = accounts[5]
+    profileCid = "test_profile_cid"
+
+    bbProfiles = deploy.bbProfiles(bbDeployer)
+
+    bbProfiles.createProfile(profileOwner, receiver, profileCid, {"from": creator})
+
+    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    newTreasury = accounts[6]
+
+    bbSubscriptionsFactory.setTreasury(newTreasury, {"from": bbDeployer})
+    assert bbSubscriptionsFactory.getTreasury() == newTreasury
+    newNewTreasury = accounts[7]
+    bbSubscriptionsFactory.transferOwnership(newTreasury, {"from": bbDeployer})
+    bbSubscriptionsFactory.setTreasury(newNewTreasury, {"from": newTreasury})
+    assert bbSubscriptionsFactory.getTreasury() == newNewTreasury
+    with reverts():
+        bbSubscriptionsFactory.setTreasury(newTreasury, {"from": bbDeployer})
+
 
 def test_set_subscription_gas_requirement():
     bbDeployer = accounts[0]    
@@ -118,8 +160,13 @@ def test_set_subscription_gas_requirement():
 
     bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
 
-    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
-
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)\
+    
+    bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 5, {"from": bbDeployer})
+    with reverts():
+        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 5, {"from": owner})
+    with reverts():
+        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": bbDeployer})
     with reverts():
         bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": owner})
     with reverts():
@@ -251,12 +298,19 @@ def test_set_subscription_currency():
 
     with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": bbDeployer})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": owner})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": receiver})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": creator})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": bbTreasury})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": subscriber})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": tokeDeployer})
+    with reverts():
         bbSubscriptionsFactory.setSubscriptionCurrency(0, 0, subscriber, token.address, {"from": subscriptionsDeployer})
 
 def test_get_subscription_currency():
@@ -316,10 +370,17 @@ def test_create_subscription_profile():
     priceMultipliers = [100, 150]
 
     bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
     bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 1, {"from": owner})
+    with reverts():
+        bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 1, {"from": owner})
+    with reverts():
+        bbSubscriptionsFactory.createSubscriptionProfile(0, 1, 1, {"from": creator})
+    with reverts():
+        bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 0, {"from": owner})
 
 def test_set_contribution():
     bbDeployer = accounts[0]    
@@ -347,6 +408,12 @@ def test_set_contribution():
     bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 1, {"from": owner})
 
     bbSubscriptionsFactory.setContribution(0, 10, {"from": owner})
+    with reverts():
+        bbSubscriptionsFactory.setContribution(0, 0, {"from": owner})
+    with reverts():
+        bbSubscriptionsFactory.setContribution(0, 11, {"from": bbTreasury})
+    with reverts():
+        bbSubscriptionsFactory.setContribution(0, 101, {"from": owner})
 
 def test_get_subscription_profile():
     bbDeployer = accounts[0]    
@@ -442,7 +509,14 @@ def test_is_subscription_active():
     token.mint(1000, {"from": subscriber})
 
     token.approve(deployedSubscriptions.address, 10 ** 25, {"from": subscriber})
-
+    assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, subscriber) == False
     deployedSubscriptions.subscribe(0, 0, {"from": subscriber, "value": 10 ** 18})
-
+    assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, owner) == True
     assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, subscriber) == True
+    chain.sleep(60 * 60 * 24 * 31)
+    chain.mine()
+    assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, subscriber) == True
+    chain.sleep(60 * 60 * 24 * 31 * 60)
+    chain.mine()
+    assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, subscriber) == False
+    assert bbSubscriptionsFactory.isSubscriptionActive(0, 0, owner) == True

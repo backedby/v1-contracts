@@ -37,7 +37,7 @@
       },
       {
         "internalType": "address",
-        "name": "account",
+        "name": "subscriber",
         "type": "address"
       }
     ],

@@ -14,6 +14,19 @@
   },
   {
     "inputs": [],
+    "name": "INSUFFICIENT_BALANCE",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "INSUFFICIENT_PREPAID_GAS",
     "outputs": [
       {
@@ -28,6 +41,19 @@
   {
     "inputs": [],
     "name": "INVALID_LENGTH",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "INVALID_PRICE",
     "outputs": [
       {
         "internalType": "string",
@@ -157,7 +183,33 @@
   },
   {
     "inputs": [],
+    "name": "SUBSCRIPTION_PROFILE_ALREADY_EXISTS",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "TIER_NOT_EXIST",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "TIER_SET_NOT_EXIST",
     "outputs": [
       {
         "internalType": "string",

@@ -27,10 +27,6 @@ def test_createProfiles(org):
     assert tx2.events['NewProfile']['owner'] == bbenv.creator
     assert tx2.events['NewProfile']['receiver'] == bbenv.creator
     assert tx2.events['NewProfile']['cid'] == "second cid"
-
-    #testing address zero reverts
-    with reverts():
-        tx3 = org.setup_profile(accounts.at('0x0000000000000000000000000000000000000000', force=True), bbenv.creator, "first cid")
     #profile does not exist
     with reverts():
         org.profiles.getProfile(2)

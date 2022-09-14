@@ -6,7 +6,7 @@ networks:
         cmd_settings:
             port: 8545
             gas_limit: 6721975
-            accounts: 20
+            accounts: 50
 compiler:
   solc:
     remappings:

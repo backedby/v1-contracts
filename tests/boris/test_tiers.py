@@ -15,10 +15,10 @@ def test_createTierSet(org):
         tier_tx = org.tiers.createTiers(tx.out_.profileId, prices, cids, supportedCurrencies, priceMultipliers, {'from': bbenv.creator})
         assert tier_tx.events["NewTierSet"]["profileId"] == tx.out_.profileId
         assert tier_tx.events["NewTierSet"]["tierSetId"] == i
-        assert tier_tx.events["SupportedCurrencyChange"]["profileId"] == tx.out_.profileId
-        assert tier_tx.events["SupportedCurrencyChange"]["tierSetId"] == i
-        assert tier_tx.events["SupportedCurrencyChange"]["currency"] == org.TUSD.address
-        assert tier_tx.events["SupportedCurrencyChange"]["priceMultiplier"] == org.TUSD.decimals()
+        assert tier_tx.events["SupportedCurrencyAdded"]["profileId"] == tx.out_.profileId
+        assert tier_tx.events["SupportedCurrencyAdded"]["tierSetId"] == i
+        assert tier_tx.events["SupportedCurrencyAdded"]["currency"] == org.TUSD.address
+        assert tier_tx.events["SupportedCurrencyAdded"]["priceMultiplier"] == org.TUSD.decimals()
         assert org.tiers.totalTierSets(tx.out_.profileId) == i+1
         assert org.tiers.getTierSet(tx.out_.profileId, i) == (prices, cids)
         assert org.tiers.isCurrencySupported(tx.out_.profileId, i, org.TUSD.address)

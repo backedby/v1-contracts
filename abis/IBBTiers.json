@@ -31,7 +31,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "TierSetId",
+        "name": "tierSetId",
         "type": "uint256"
       }
     ],
@@ -47,7 +47,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -75,7 +75,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -88,7 +88,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "multiplier",
         "type": "uint256"
       }
     ],
@@ -104,7 +104,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -133,7 +133,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -167,7 +167,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       }
     ],
@@ -175,12 +175,12 @@
     "outputs": [
       {
         "internalType": "uint256[]",
-        "name": "",
+        "name": "prices",
         "type": "uint256[]"
       },
       {
         "internalType": "string[]",
-        "name": "",
+        "name": "cids",
         "type": "string[]"
       }
     ],
@@ -196,7 +196,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -209,7 +209,7 @@
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "supported",
         "type": "bool"
       }
     ],
@@ -225,7 +225,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -256,7 +256,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "total",
         "type": "uint256"
       }
     ],
@@ -272,7 +272,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       }
     ],
@@ -280,7 +280,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "total",
         "type": "uint256"
       }
     ],

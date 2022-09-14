@@ -33,7 +33,7 @@ def test_multiTierSubscribe(je_org):
     x = test_subscribe(je_org)
     profileId = x.profile._in.profileId
 
-    prepaidGas = je_org.subscriptionsFactory.getSubscriptionGasRequirement()
+    prepaidGas = je_org.subscriptions[je_org.TUSD.address].getSubscriptionGasEstimate(40e9)
     je_org.subscriptions[je_org.TUSD.address].subscribe(x.profileId, x.tierId+1, helpers.by(x.subAccount, {'value': prepaidGas}))
     tierSetId = je_org.subscriptionsFactory.getSubscriptionProfile(profileId)[0]
     tier1Price = je_org.tiers.getTierPrice(profileId, tierSetId, x.tierId, je_org.TUSD)
@@ -54,7 +54,7 @@ def test_changeCurrency(je_org):
     x = test_subscribe(je_org)
     je_org.DAI.mint(5000e18, helpers.by(x.subAccount))
     je_org.DAI.approve(je_org.subscriptions[je_org.DAI.address], helpers.MAXUINT256, helpers.by(x.subAccount))
-    prepaidGas = je_org.subscriptionsFactory.getSubscriptionGasRequirement()
+    prepaidGas = je_org.subscriptions[je_org.DAI.address].getSubscriptionGasEstimate(40e9)
     with reverts():
         je_org.subscriptions[je_org.DAI.address].subscribe(x.profileId, x.tierId, helpers.by(x.subAccount, {'value': prepaidGas}))
 
@@ -63,7 +63,7 @@ def test_changeCurrency_cancelled_first(je_org):
     x = test_subscribe(je_org)
     je_org.DAI.mint(5000e18, helpers.by(x.subAccount))
     je_org.DAI.approve(je_org.subscriptions[je_org.DAI.address], helpers.MAXUINT256, helpers.by(x.subAccount))
-    prepaidGas = je_org.subscriptionsFactory.getSubscriptionGasRequirement()
+    prepaidGas = je_org.subscriptions[je_org.DAI.address].getSubscriptionGasEstimate(40e9)
     je_org.subscriptions[je_org.TUSD.address].unsubscribe(x.profileId, x.tierId, helpers.by(x.subAccount))
     je_org.subscriptions[je_org.DAI.address].subscribe(x.profileId, x.tierId, helpers.by(x.subAccount, {'value': prepaidGas}))
 

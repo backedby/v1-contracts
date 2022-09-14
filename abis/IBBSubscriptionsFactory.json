@@ -8,7 +8,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
@@ -43,29 +43,16 @@
   },
   {
     "inputs": [],
-    "name": "getBackedByTreasury",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "getContributionBounds",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "lower",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "upper",
         "type": "uint256"
       }
     ],
@@ -84,7 +71,7 @@
     "outputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "subscriptions",
         "type": "address"
       }
     ],
@@ -97,7 +84,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "gracePeriod",
         "type": "uint256"
       }
     ],
@@ -126,8 +113,27 @@
     "outputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "currency",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gasprice",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSubscriptionGasEstimate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "estimate",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -139,7 +145,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "gasRequirement",
         "type": "uint256"
       }
     ],
@@ -158,13 +164,26 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "tierSet",
+        "name": "tierSetId",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
         "name": "contribution",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTreasury",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "treasury",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -192,7 +211,7 @@
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "active",
         "type": "bool"
       }
     ],
@@ -211,7 +230,7 @@
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "created",
         "type": "bool"
       }
     ],
@@ -230,7 +249,7 @@
     "outputs": [
       {
         "internalType": "bool",
-        "name": "",
+        "name": "deployed",
         "type": "bool"
       }
     ],

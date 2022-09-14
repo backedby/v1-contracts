@@ -7,15 +7,15 @@ interface IBBSubscriptionsFactory {
     function getDeployedSubscriptions(address currency) external view returns (address subscriptions);
     
     function setTreasury(address account) external;
-    function setSubscriptionGasRequirement(uint256 requirement) external;
 
     function getTreasury() external view returns (address treasury);
     function getGracePeriod() external pure returns (uint256 gracePeriod);
     function getContributionBounds() external pure returns (uint256 lower, uint256 upper);
-    function getSubscriptionGasRequirement() external view returns (uint256 gasRequirement);
 
     function setSubscriptionCurrency(uint256 profileId, uint256 tierId, address account, address currency) external;
     function getSubscriptionCurrency(uint256 profileId, uint256 tierId, address account) external view returns (address currency);
+
+    function setSubscriptionGasRequirement(address currency, uint256 requirement) external;
 
     function createSubscriptionProfile(uint256 profileId, uint256 tierSetId, uint256 contribution) external;
     function setContribution(uint256 profileId, uint256 contribution) external;
