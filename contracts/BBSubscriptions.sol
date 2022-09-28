@@ -100,6 +100,8 @@ contract BBSubscriptions is IBBSubscriptions {
         uint256 renewCount;
 
         for(uint256 i; i < renewIndexes.length; i++) {
+            require(renewIndexes[i] < _totalSubscriptions, BBErrorCodesV01.SUBSCRIPTION_NOT_EXIST);
+
             if(_subscriptions[renewIndexes[i]].expiration < block.timestamp && _subscriptions[renewIndexes[i]].cancelled == false) {
                 (uint256 tierSet, uint256 contribution) = _bbSubscriptionsFactory.getSubscriptionProfile(_subscriptions[renewIndexes[i]].profileId);
 
