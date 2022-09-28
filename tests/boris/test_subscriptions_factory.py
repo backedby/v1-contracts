@@ -1,4 +1,4 @@
-from brownie import accounts, reverts
+from brownie import accounts, reverts, interface
 from scripts.john.deploy import deploy
 from brownie.network.state import Chain
 chain = Chain()
@@ -160,27 +160,31 @@ def test_set_subscription_gas_requirement():
 
     bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
 
+    erc20 = deploy.erc20Token(bbDeployer)
+
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)\
+
+    bbSubscriptionsFactory.deploySubscriptions(erc20.address, {'from': bbDeployer})
     
-    bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 5, {"from": bbDeployer})
+    bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 5, {"from": bbDeployer})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 5, {"from": owner})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 5, {"from": owner})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": bbDeployer})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": bbDeployer})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": owner})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": owner})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": receiver})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": receiver})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": creator})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": creator})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": unauthorized})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": unauthorized})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": bbTreasury})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": bbTreasury})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 18, {"from": bbDeployer})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 18, {"from": bbDeployer})
     with reverts():
-        bbSubscriptionsFactory.setSubscriptionGasRequirement(10 ** 14, {"from": bbDeployer})
+        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, 10 ** 14, {"from": bbDeployer})
 
 def test_get_treasury():
     bbDeployer = accounts[0]    
@@ -259,11 +263,16 @@ def test_get_subscription_gas_requirement():
 
     bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
 
+    erc20 = deploy.erc20Token(bbDeployer)
+
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+    bbSubscriptionsFactory.deploySubscriptions(erc20.address, {'from': bbDeployer})
+    
+    bbSubscription = interface.IBBSubscriptions(bbSubscriptionsFactory.getDeployedSubscriptions(erc20.address))
 
     expectedGasRequirement = 225000
 
-    assert bbSubscriptionsFactory.getSubscriptionGasRequirement() == expectedGasRequirement
+    assert bbSubscription.getUpkeepGasRequirement() == expectedGasRequirement
 
 def test_set_subscription_currency():
     bbDeployer = accounts[0]    

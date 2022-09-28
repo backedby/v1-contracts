@@ -47,7 +47,7 @@ def test_check_upkeep():
 
     keeper = accounts[8]
 
-    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 25, keeper.address]).hex()
+    checkData = "0x" + encode(['uint256','uint256','uint256','uint256','address'], [0, 100, 1, 25, keeper.address]).hex()
     
     returnedCheckBytes = subscriptions.checkUpkeep(checkData)
 
@@ -107,7 +107,7 @@ def test_perform_upkeep():
     keeper = accounts[8]
     pre_upkeep_balance = keeper.balance()
 
-    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 50, keeper.address]).hex()
+    checkData = "0x" + encode(['uint256','uint256','uint256','uint256','address'], [0, 100, 1, 50, keeper.address]).hex()
 
     chain.sleep(60 * 60 * 24 * 34)
     chain.mine()
@@ -115,7 +115,7 @@ def test_perform_upkeep():
     returnedCheckBytes = bbSubscriptions.checkUpkeep(checkData)
     gas_price("2 gwei")
     bbSubscriptions.performUpkeep(returnedCheckBytes[1], {"from": keeper})
-    assert pre_upkeep_balance == keeper.balance()
+    assert keeper.balance()/pre_upkeep_balance > 0.99999
 
     chain.sleep(60 * 60 * 24 * 34)
     chain.mine()
@@ -126,7 +126,7 @@ def test_perform_upkeep():
     gas_price("20 gwei")
     returnedCheckBytes = bbSubscriptions.checkUpkeep(checkData)
     bbSubscriptions.performUpkeep(returnedCheckBytes[1], {"from": keeper})
-    assert pre_upkeep_balance == keeper.balance()
+    assert keeper.balance()/pre_upkeep_balance > 0.9999
 
 def test_subscribe():
     bbDeployer = accounts[0]    

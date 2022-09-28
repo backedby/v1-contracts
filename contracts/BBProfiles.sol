@@ -94,7 +94,8 @@ contract BBProfiles is IBBProfiles {
     function editProfile(uint256 profileId, address owner, address receiver, string calldata cid) external override profileExists(profileId) onlyProfileOwner(profileId) {       
         if (msg.sender != owner) {
             // Remove ID from previous owners list of owned profiles
-            _ownedProfiles[msg.sender][_ownersTotalProfiles[msg.sender] - 1] = _ownedProfiles[msg.sender][_ownedProfilesIndexes[msg.sender][profileId]];
+            _ownedProfiles[msg.sender][_ownedProfilesIndexes[msg.sender][profileId]] = _ownedProfiles[msg.sender][_ownersTotalProfiles[msg.sender] - 1];
+            _ownedProfiles[msg.sender][_ownersTotalProfiles[msg.sender] - 1] = 0;
             _ownedProfilesIndexes[msg.sender][profileId] = 0;
             _ownersTotalProfiles[msg.sender]--;
 

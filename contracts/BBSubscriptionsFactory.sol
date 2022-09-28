@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-
 import "./BBErrorsV01.sol";
 import "./interfaces/IBBProfiles.sol";
 import "./interfaces/IBBTiers.sol";
@@ -11,7 +9,7 @@ import "./interfaces/IBBSubscriptions.sol";
 import "./interfaces/IBBPermissionsV01.sol";
 import "./BBSubscriptions.sol";
 
-contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
+contract BBSubscriptionsFactory is IBBSubscriptionsFactory {
     event DeployedSubscription(
         address currency,
         address deployedAddress
@@ -45,9 +43,15 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     mapping(address => address) internal _deployedSubscriptions;
 
     // Profile ID => Tier ID => Subscriber => ERC20 token
-    mapping(uint256 => mapping(uint256 => mapping (address => address))) internal _subscriptionCurrency;
+    mapping(uint256 => mapping(uint256 => mapping (address => address))) internal _subscriptionCurrencies;
+
+    uint internal _gasPrice = 30 gwei;
 
     address internal _treasury;
+
+    address internal _treasuryOwner;
+    address internal _gasPriceOwner;
+    address internal _upkeepGasRequirementOwner;
 
     IBBProfiles internal immutable _bbProfiles;
     IBBTiers internal immutable _bbTiers;
@@ -57,15 +61,10 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
         _bbTiers = IBBTiers(bbTiers);
 
         _treasury = treasury;
-    }
 
-    /*
-        @dev Reverts if msg.sender is not profile IDs owner
-    */
-    modifier onlyProfileOwner(uint256 profileId) {
-        (address profileOwner,,) = _bbProfiles.getProfile(profileId);
-        require(profileOwner == msg.sender, BBErrorCodesV01.NOT_OWNER);
-        _;
+        _treasuryOwner = msg.sender;
+        _gasPriceOwner = msg.sender;
+        _upkeepGasRequirementOwner = msg.sender;
     }
 
     /*
@@ -82,6 +81,39 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     modifier tierSetExists(uint256 profileId, uint256 tierSetId) {
         require(profileId < _bbProfiles.totalProfiles(), BBErrorCodesV01.PROFILE_NOT_EXIST);
         require(tierSetId < _bbTiers.totalTierSets(profileId), BBErrorCodesV01.TIER_SET_NOT_EXIST);
+        _;
+    }
+
+    /*
+        @dev Reverts if msg.sender is not profile IDs owner
+    */
+    modifier onlyProfileOwner(uint256 profileId) {
+        (address profileOwner,,) = _bbProfiles.getProfile(profileId);
+        require(profileOwner == msg.sender, BBErrorCodesV01.NOT_OWNER);
+        _;
+    }
+
+    /*
+        @dev Reverts if msg.sender is not treasuryOwner
+    */
+    modifier onlyTreasuryOwner {
+        require(msg.sender == _treasuryOwner, BBErrorCodesV01.NOT_OWNER);
+        _;
+    }
+
+    /*
+        @dev Reverts if msg.sender is not gasOwner
+    */
+    modifier onlyGasPriceOwner {
+        require(msg.sender == _gasPriceOwner, BBErrorCodesV01.NOT_OWNER);
+        _;
+    }
+
+    /*
+        @dev Reverts if msg.sender is not upkeepGasRequirementOwner
+    */
+    modifier onlyUpkeepGasRequirementOwner {
+        require(msg.sender == _upkeepGasRequirementOwner, BBErrorCodesV01.NOT_OWNER);
         _;
     }
 
@@ -128,27 +160,115 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     }
 
     /*
+        @notice Sets the treasury owner
+
+        @param Treasury owner address
+    */
+    function setTreasuryOwner(address account) external override onlyTreasuryOwner {
+        _treasuryOwner = account;
+    }
+
+    /*
+        @notice Set the gas price owner
+
+        @param Gas price owner address
+    */
+    function setGasPriceOwner(address account) external override onlyGasPriceOwner {
+        _gasPriceOwner = account;
+    }
+
+    /*
+        @notice Sets the upkeep gas requirement owner
+
+        @param Upkeep gas requirement owner
+    */
+    function setUpkeepGasRequirementOwner(address account) external override onlyUpkeepGasRequirementOwner {
+        _upkeepGasRequirementOwner = account;
+    }
+
+    /*
+        @notice Get the treasury
+
+        @return Treasury address
+    */
+    function getTreasuryOwner() external view returns (address) {
+        return _treasuryOwner;
+    }
+
+    /*
+        @notice Get the gas owner
+
+        @return Gas price owner address
+    */
+    function getGasPriceOwner() external view returns (address) {
+        return _gasPriceOwner;
+    }
+    
+    /*
+        @notice Get the upkeep gas requirement owner
+
+        @return Upkeep gas requirement owner address
+    */
+    function getUpkeepGasRequirementOwner() external view returns (address) {
+        return _upkeepGasRequirementOwner;
+    }
+
+    /*
         @notice Set the treasury address
 
         @param Treasury address
     */
-    function setTreasury(address account) external override onlyOwner {
+    function setTreasury(address account) external override onlyTreasuryOwner {
         _treasury = account;
     }
 
     /*
-        @notice Get the treasury address
+        @notice Set the gas price
+
+        @param Currency to set the gas requirement for
+        @param Subscription gas requirement
+    */
+    function setGasPrice(uint256 gasPrice) external override onlyGasPriceOwner {
+        // Limit gas price to avoid exploit
+        require(gasPrice <= 1000 gwei, BBErrorCodesV01.OUT_OF_BOUNDS);
+        _gasPrice = gasPrice;
+    }
+
+    /*
+        @notice Set the subscription gas requirement
+
+        @param Currency to set the gas requirement for
+        @param Subscription gas requirement
+    */
+    function setUpkeepGasRequirement(address currency, uint256 amount) external override onlyUpkeepGasRequirementOwner {
+        // Limit gas requirement to avoid exploit
+        require(amount <= 2500000, BBErrorCodesV01.OUT_OF_BOUNDS);
+        require(_deployedSubscriptions[currency] != address(0), BBErrorCodesV01.UNSUPPORTED_CURRENCY);
+        IBBSubscriptions(_deployedSubscriptions[currency]).setUpkeepGasRequirement(amount);
+    }
+
+    /*
+        @notice Get the treasury
 
         @return Treasury address
     */
-    function getTreasury() external view override returns (address) {
+    function getTreasury() external view override returns (address treasury) {
         return _treasury;
     }
 
     /*
-        @notice Get the treasury address
+        @notice Get the gas price
 
-        @return Treasury address
+        @return Gas price in wei
+    */
+    function getGasPrice() external view override returns (uint256 gasPrice) {
+        return _gasPrice;
+    }
+
+    /*
+        @notice Get the subscription expiration grace period
+
+        @return Grace period in seconds
     */
     function getGracePeriod() external pure override returns (uint256) {
         return _gracePeriod;
@@ -175,7 +295,7 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     function setSubscriptionCurrency(uint256 profileId, uint256 tierId, address account, address currency) profileExists(profileId) external override {
         // Msg.sender must be the ERC20 tokens subscriptions contract
         require(msg.sender == _deployedSubscriptions[currency], BBErrorCodesV01.NOT_OWNER);
-        _subscriptionCurrency[profileId][tierId][account] = currency;
+        _subscriptionCurrencies[profileId][tierId][account] = currency;
     }
 
     /*
@@ -189,21 +309,8 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
     */
     function getSubscriptionCurrency(uint256 profileId, uint256 tierId, address account) external view override profileExists(profileId) returns (address) {
         // Subscription isn't active if subscriptions ERC20 token is the zero address, so revert
-        require(_subscriptionCurrency[profileId][tierId][account] != address(0));
-        return _subscriptionCurrency[profileId][tierId][account];
-    }
-
-    /*
-        @notice Set the subscription gas requirement
-
-        @param Currency to set the gas requirement for
-        @param Subscription gas requirement
-    */
-    function setSubscriptionGasRequirement(address currency, uint256 requirement) external override onlyOwner {
-        // Limit gas requirement to avoid exploit
-        require(requirement <= block.gaslimit / 15, BBErrorCodesV01.OUT_OF_BOUNDS);
-        require(_deployedSubscriptions[currency] != address(0), BBErrorCodesV01.UNSUPPORTED_CURRENCY);
-        IBBSubscriptions(_deployedSubscriptions[currency]).setSubscriptionGasRequirement(requirement);
+        require(_subscriptionCurrencies[profileId][tierId][account] != address(0));
+        return _subscriptionCurrencies[profileId][tierId][account];
     }
 
     /*
@@ -298,12 +405,12 @@ contract BBSubscriptionsFactory is Ownable, IBBSubscriptionsFactory {
         }
 
         // If the subscription has no ERC20 token set, its not active
-        if(_subscriptionCurrency[profileId][tierId][account] == address(0)) {
+        if(_subscriptionCurrencies[profileId][tierId][account] == address(0)) {
             return false;
         }
 
         // Get subscription values from deployed subscriptions contract
-        IBBSubscriptions subscriptions = IBBSubscriptions(_deployedSubscriptions[_subscriptionCurrency[profileId][tierId][account]]);
+        IBBSubscriptions subscriptions = IBBSubscriptions(_deployedSubscriptions[_subscriptionCurrencies[profileId][tierId][account]]);
         (,uint256 expiration,) = subscriptions.getSubscription(profileId, tierId, account);
 
         // If expiration plus grace period has elapsed, subscription is no longer active

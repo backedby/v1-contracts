@@ -11,7 +11,7 @@ interface IBBSubscriptions is KeeperCompatibleInterface {
 
     function getSubscription(uint256 profileId, uint256 tierId, address subscriber) external view returns (uint256 price, uint256 expiration, bool cancelled);
 
-    function setSubscriptionGasRequirement(uint256 requirement) external;
+    function setUpkeepGasRequirement(uint256 requirement) external;
+    function getUpkeepGasRequirement() external view returns (uint256 requirement);
     function getSubscriptionGasRequirement() external view returns (uint256 requirement);
-    function getSubscriptionGasEstimate(uint256 gasPrice) external view returns (uint256 estimate);
 }

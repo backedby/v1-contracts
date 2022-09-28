@@ -45,7 +45,7 @@ def test_check_upkeep():
 
     keeper = accounts[8]
 
-    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 25, keeper.address]).hex()
+    checkData = "0x" + encode(['uint256','uint256','uint256','uint256','address'], [0, 100, 1, 25, keeper.address]).hex()
     
     returnedCheckBytes = subscriptions.checkUpkeep(checkData)
 
@@ -103,7 +103,7 @@ def test_perform_upkeep():
 
     keeper = accounts[8]
 
-    checkData = "0x" + encode(['uint256','uint256','uint256','address'], [0, 100, 25, keeper.address]).hex()
+    checkData = "0x" + encode(['uint256','uint256','uint256','uint256','address'], [0, 100, 1, 25, keeper.address]).hex()
 
     chain.sleep(60 * 60 * 24 * 34)
     chain.mine()
@@ -267,5 +267,43 @@ def test_get_subscription():
     (returnedPrice, returnedExpiration, returnedCancelled) = subscriptions.getSubscription(0, 0, subscriber)
 
     assert returnedPrice == tierPrices[0] * priceMultipliers[0]
-    assert returnedExpiration == chain.time() + (60 * 60 * 24 * 30)
+    assert abs(returnedExpiration - (chain.time() + (60 * 60 * 24 * 30))) < 2
     assert returnedCancelled == False
+
+def test_get_upkeep_gas_requirement():
+    bbDeployer = accounts[0]    
+    bbTreasury = accounts[5]
+
+    bbProfiles = deploy.bbProfiles(bbDeployer)
+
+    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    tokeDeployer = accounts[7]
+    token = deploy.erc20Token(tokeDeployer)
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    subscriptions = deploy.bbSubscriptions(bbSubscriptionsFactory, token.address)
+
+    assert subscriptions.getUpkeepGasRequirement() == 225000
+
+def test_get_subscription_gas_requirement():
+    bbDeployer = accounts[0]    
+    bbTreasury = accounts[5]
+
+    bbProfiles = deploy.bbProfiles(bbDeployer)
+
+    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    tokeDeployer = accounts[7]
+    token = deploy.erc20Token(tokeDeployer)
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    subscriptions = deploy.bbSubscriptions(bbSubscriptionsFactory, token.address)
+
+    assert subscriptions.getSubscriptionGasRequirement() == 225000 * 30000000000 * 60

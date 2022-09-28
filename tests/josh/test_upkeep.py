@@ -11,7 +11,7 @@ def test_checkUpkeep(je_org):
     currency = sub1._in.currency
 
     helpers.advance_time(31)
-    checkUpkeepPayload = "0x" + encode( ['uint256','uint256', 'uint256','address'], [0, 100, 25, runner.address] ).hex()
+    checkUpkeepPayload = "0x" + encode( ['uint256','uint256','uint256', 'uint256','address'], [0, 100, 1, 25, runner.address] ).hex()
     checkUpkeepDataRaw = je_org.subscriptions[currency].checkUpkeep(checkUpkeepPayload)
     checkUpkeepData = decode(['uint[]', 'address'], checkUpkeepDataRaw[1])
     assert len(checkUpkeepData[0]) == 2
@@ -26,7 +26,7 @@ def test_performUpkeep(je_org):
     currency = sub1._in.currency
 
     helpers.advance_time(31)
-    checkUpkeepPayload = "0x" + encode( ['uint256','uint256', 'uint256','address'], [0, 100, 25, runner.address] ).hex()
+    checkUpkeepPayload = "0x" + encode( ['uint256','uint256','uint256', 'uint256','address'], [0, 100, 1, 25, runner.address] ).hex()
     checkUpkeepDataRaw = je_org.subscriptions[currency].checkUpkeep(checkUpkeepPayload)
     checkUpkeepData = decode(['uint[]', 'address'], checkUpkeepDataRaw[1])
     putx = je_org.subscriptions[currency].performUpkeep(checkUpkeepDataRaw[1], helpers.by(runner))

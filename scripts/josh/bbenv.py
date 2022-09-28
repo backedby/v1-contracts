@@ -44,7 +44,7 @@ class bbenv:
 
     def performUpkeep(self, currencies=None):
         runner = bbenv.deployer
-        checkUpkeepPayload = "0x" + encode( ['uint256','uint256','uint256','address'], [0, int(1e6), 25, runner.address] ).hex()
+        checkUpkeepPayload = "0x" + encode( ['uint256','uint256','uint256','uint256','address'], [0, int(1e6), 1, 25, runner.address] ).hex()
         if currencies is None:
             currencies = self.currencies
         
@@ -200,7 +200,7 @@ class bbenv:
             c.mint(int(1e6 * 10 ** c.decimals()), helpers.by(account))
             c.approve(self.subscriptions[currency], helpers.MAXUINT256, helpers.by(account))
 
-        gas = self.subscriptions[currency].getSubscriptionGasEstimate(network.gas_price())
+        gas = self.subscriptions[currency].getSubscriptionGasRequirement()
         subContract = BBSubscriptions.at(self.subscriptions[currency])
         tx = subContract.subscribe(profileId, tierId, helpers.by(account, {'value': gas}))
 
@@ -253,7 +253,7 @@ class bbenv:
         token = DebugERC20.at(currency)
         token.mint(tier._in.price * 120, helpers.by(account))
         token.approve(self.subscriptions.address, tier._in.price * 60, helpers.by(account))
-        sub = self.subscriptions.subscribe(tier._in.profileId, tier.out_.tierId, currency, helpers.by(account, {'value': self.subscriptions[currency].getSubscriptionGasEstimate(network.gas_price())}))
+        sub = self.subscriptions.subscribe(tier._in.profileId, tier.out_.tierId, currency, helpers.by(account, {'value': self.subscriptions[currency].getSubscriptionGasRequirement()}))
         sub._in = objdict({
             'account': account,
             'creator': creator,
