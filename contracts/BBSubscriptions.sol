@@ -78,7 +78,11 @@ contract BBSubscriptions is IBBSubscriptions {
         if ((_currency.allowance(owner, address(this)) >= amount) && _currency.balanceOf(owner) >= amount) { 
             _currency.transferFrom(owner, address(this), amount);
 
-            _currency.transfer(receiver, (amount * (100 - treasuryContribution)) / 100);
+            uint256 receiverAmount = (amount * (100 - treasuryContribution)) / 100;
+
+            if(receiverAmount > 0) {
+                _currency.transfer(receiver, receiverAmount);
+            }
 
             // Payment processed
             return true;
@@ -103,10 +107,10 @@ contract BBSubscriptions is IBBSubscriptions {
             require(renewIndexes[i] < _totalSubscriptions, BBErrorCodesV01.SUBSCRIPTION_NOT_EXIST);
 
             if(_subscriptions[renewIndexes[i]].expiration < block.timestamp && _subscriptions[renewIndexes[i]].cancelled == false) {
-                (uint256 tierSet, uint256 contribution) = _bbSubscriptionsFactory.getSubscriptionProfile(_subscriptions[renewIndexes[i]].profileId);
+                (uint256 tierSetId, uint256 contribution) = _bbSubscriptionsFactory.getSubscriptionProfile(_subscriptions[renewIndexes[i]].profileId);
 
-                // Check the subscription tier still exists
-                if(_subscriptions[renewIndexes[i]].tierId < _bbTiers.totalTiers(_subscriptions[renewIndexes[i]].profileId, tierSet)) {
+                // Check the subscription tier still exists, and the token is still accepted by the creator
+                if(_subscriptions[renewIndexes[i]].tierId < _bbTiers.totalTiers(_subscriptions[renewIndexes[i]].profileId, tierSetId) && _bbTiers.isCurrencySupported(_subscriptions[renewIndexes[i]].profileId, tierSetId, address(_currency))) {
                     (,address profileReceiver,) = _bbProfiles.getProfile(_subscriptions[renewIndexes[i]].profileId);
 
                     bool paid = _pay(
