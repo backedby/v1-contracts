@@ -173,9 +173,9 @@ contract BBSubscriptions is IBBSubscriptions {
 
         (uint256 tierSet,) = _bbSubscriptionsFactory.getSubscriptionProfile(profileId);
 
-        uint256 price = _bbTiers.getTierPrice(profileId, tierSet, tierId, address(_currency));
+        (,uint256 price, bool deprecated) = _bbTiers.getTier(profileId, tierSet, tierId, address(_currency));
 
-        require(_currency.allowance(msg.sender, address(this)) >= price * 60, BBErrorCodesV01.INSUFFICIENT_ALLOWANCE);
+        require(deprecated == false);
 
         subscriptionId = _totalSubscriptions;
 

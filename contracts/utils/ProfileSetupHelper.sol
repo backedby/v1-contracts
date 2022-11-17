@@ -11,6 +11,7 @@ contract ProfileSetupHelper {
     IBBSubscriptionsFactory _bbSubFactory;
     uint256[] _defaultPrices;
     string[] _defaultCids;
+    bool[] _defaultDeprecated;
     address[] _defaultCurrencies;
     uint256[] _defaultMul;
 
@@ -20,6 +21,7 @@ contract ProfileSetupHelper {
         IBBSubscriptionsFactory bbSubFactory,
         uint256[] memory defaultPrices,
         string[] memory defaultCids,
+        bool[] memory defaultDeprecated,
         address[] memory defaultCurrencies,
         uint256[] memory defaultMul
     ) {
@@ -28,6 +30,7 @@ contract ProfileSetupHelper {
         _bbSubFactory = bbSubFactory;
         _defaultPrices = defaultPrices;
         _defaultCids = defaultCids;
+        _defaultDeprecated = defaultDeprecated;
         _defaultCurrencies = defaultCurrencies;
         _defaultMul = defaultMul;
     }
@@ -36,13 +39,14 @@ contract ProfileSetupHelper {
         public
         returns (uint256 profileId, uint256 tierSetId)
     {
-        (profileId, tierSetId) = AdvancedProfileSetup(profileCid, _defaultPrices, _defaultCids, contribution);
+        (profileId, tierSetId) = AdvancedProfileSetup(profileCid, _defaultPrices, _defaultCids, _defaultDeprecated, contribution);
     }
 
     function AdvancedProfileSetup(
         string memory profileCid,
         uint256[] memory tierPrices,
         string[] memory tierCids,
+        bool[] memory tierDeprecated,
         uint256 contribution
     ) public returns (uint256 profileId, uint256 tierSetId) {
         profileId = _bbProfiles.createProfile(
@@ -54,6 +58,7 @@ contract ProfileSetupHelper {
             profileId,
             tierPrices,
             tierCids,
+            tierDeprecated,
             _defaultCurrencies,
             _defaultMul
         );
