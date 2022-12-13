@@ -10,17 +10,21 @@ def test_createTierSet(je_org):
     #assert tx1.events['CreatedTier']['price'] == tierAmount
     #assert tx1.out_.cid == tierCid
 
+
     prices = [1,5,10,20]
     cids = ['a', 'b', 'c', 'd']
     supportedCurrencies = [je_org.TUSD.address]
     priceMultipliers = [int(10 ** je_org.TUSD.decimals())]
-    tierSet = je_org.setup_tiers(prices, cids, supportedCurrencies, priceMultipliers)
+    tierSet = je_org.setup_tiers(prices, cids, supportedCurrencies, priceMultipliers, account=je_org.creator)
     profileId = tierSet._in.profileId
     tierSetId = tierSet.out_.tierSetId
 
+    #this returns false since profile setup hasn't been completed.
+    assert je_org.subscriptionsFactory.isSubscriptionProfileCreated(profileId) == False
+
     tierId = 2
-    tierId_Cid = je_org.tiers.getTierCid(profileId, tierSetId, tierId)
-    tierId_Price = je_org.tiers.getTierPrice(profileId, tierSetId, tierId, je_org.TUSD)
+    tierId_Cid = je_org.tiers.getTier(profileId, tierSetId, tierId, je_org.TUSD)[0]
+    tierId_Price = je_org.tiers.getTier(profileId, tierSetId, tierId, je_org.TUSD)[1]
 
     assert tierId_Cid == cids[tierId]
     assert (prices[tierId] * priceMultipliers[0]) == tierId_Price
@@ -36,44 +40,44 @@ def test_createTierSet(je_org):
         'priceMultipliers': priceMultipliers
     })
 
-def test_getTierCid(je_org):
+def test_getTier_Cid(je_org):
     x = test_createTierSet(je_org)
-    tc = je_org.tiers.getTierCid(x.profileId, x.tierSetId, 1)
+    tc = je_org.tiers.getTier(x.profileId, x.tierSetId, 1, je_org.TUSD)[0]
     assert tc == x.cids[1]
 
 
-def test_getTierCid_outOfRange(je_org):
+def test_getTier_Cid_outOfRange(je_org):
     x = test_createTierSet(je_org)
     with reverts():
-        je_org.tiers.getTierCid(1e9, x.tierSetId, 1)
+        je_org.tiers.getTier(1e9, x.tierSetId, 1, je_org.TUSD)[0]
     with reverts():
-        je_org.tiers.getTierCid(x.profileId, 1e9, 1)
+        je_org.tiers.getTier(x.profileId, 1e9, 1, je_org.TUSD)[0]
     with reverts():
-        je_org.tiers.getTierCid(1e9, 1e9, 1)
+        je_org.tiers.getTier(1e9, 1e9, 1, je_org.TUSD)[0]
 
 
-def test_getTierPrice(je_org):
+def test_getTier_Price(je_org):
     x = test_createTierSet(je_org)
-    tc = je_org.tiers.getTierPrice(x.profileId, x.tierSetId, 1, je_org.TUSD)
+    tc = je_org.tiers.getTier(x.profileId, x.tierSetId, 1, je_org.TUSD)[1]
     print("prices", x.prices)
     print("supported", x.supportedCurrencies)
     print("multipliers", x.priceMultipliers)
     assert tc == x.prices[1] * x.priceMultipliers[0]
 
-def test_getTierPrice_outOfRange(je_org):
+def test_getTier_Price_outOfRange(je_org):
     x = test_createTierSet(je_org)
     with reverts():
-        je_org.tiers.getTierPrice(1e9, x.tierSetId, 1, je_org.TUSD)
+        je_org.tiers.getTier(1e9, x.tierSetId, 1, je_org.TUSD)[1]
     with reverts():
-        je_org.tiers.getTierPrice(x.profileId, 1e9, 1, je_org.TUSD)
+        je_org.tiers.getTier(x.profileId, 1e9, 1, je_org.TUSD)[1]
     with reverts():
-        je_org.tiers.getTierPrice(1e9, 1e9, 1, je_org.TUSD)
+        je_org.tiers.getTier(1e9, 1e9, 1, je_org.TUSD)[1]
 
-def test_getTierPrice_unknown_currency(je_org, DebugERC20):
+def test_getTier_Price_unknown_currency(je_org, DebugERC20):
     x = test_createTierSet(je_org)
     badmoney = DebugERC20.deploy("bad", "money", helpers.by(je_org.deployer))
     with reverts():
-        je_org.tiers.getTierPrice(x.profileId, x.tierSetId, 1, badmoney)
+        je_org.tiers.getTier(x.profileId, x.tierSetId, 1, badmoney)[1]
 
 def test_getTierSet(je_org):
     x = test_createTierSet(je_org)
@@ -113,11 +117,12 @@ def test_editTierSet(je_org):
 
     newPrices = [5, 10, 15, 25]
     newCids = ['w', 'x', 'y', 'z']
-    je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, helpers.by(x.account))
+    newDepreciated = [False]*len(newCids)
+    je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, newDepreciated, helpers.by(x.account))
 
     tierId = 2
-    tierId_Cid = je_org.tiers.getTierCid(x.profileId, x.tierSetId, tierId)
-    tierId_Price = je_org.tiers.getTierPrice(x.profileId, x.tierSetId, tierId, je_org.TUSD)
+    tierId_Cid = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[0]
+    tierId_Price = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[1]
 
     assert tierId_Cid == newCids[tierId]
     assert (newPrices[tierId] * x.priceMultipliers[0]) == tierId_Price
@@ -128,11 +133,12 @@ def test_editTierSet_outOfRange(je_org):
 
     newPrices = [5, 10, 15, 25]
     newCids = ['w', 'x', 'y', 'z']
-    je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, helpers.by(x.account))
+    newDepreciated = [False]*len(newCids)
+    je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, newDepreciated, helpers.by(x.account))
 
     tierId = 6
-    tierId_Cid = je_org.tiers.getTierCid(x.profileId, x.tierSetId, tierId)
-    tierId_Price = je_org.tiers.getTierPrice(x.profileId, x.tierSetId, tierId, je_org.TUSD)
+    tierId_Cid = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[0]
+    tierId_Price = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[1]
 
     assert tierId_Cid == newCids[tierId]
     assert (newPrices[tierId] * x.priceMultipliers[0]) == tierId_Price
@@ -142,8 +148,9 @@ def test_editTierSet_outOfRange(je_org):
 
     newPrices = [5, 10, 15, 25]
     newCids = ['w', 'x', 'y', 'z']
+    newDepreciated = [False]*len(newCids)
     with reverts():
-        je_org.tiers.editTiers(x.profileId, 1e9, newPrices, newCids, helpers.by(x.account))
+        je_org.tiers.editTiers(x.profileId, 1e9, newPrices, newCids, newDepreciated, helpers.by(x.account))
 
 
 def test_editTierSet_outOfRange_non_owner(je_org):
@@ -151,8 +158,9 @@ def test_editTierSet_outOfRange_non_owner(je_org):
 
     newPrices = [5, 10, 15, 25]
     newCids = ['w', 'x', 'y', 'z']
+    newDepreciated = [False]*len(newCids)
     with reverts():
-        je_org.tiers.editTiers(x.profileId, 1e9, newPrices, newCids, helpers.by(je_org.anons[0]))
+        je_org.tiers.editTiers(x.profileId, 1e9, newPrices, newCids, newDepreciated, helpers.by(je_org.anons[0]))
 
 
 def test_editTierSet_non_owner(je_org):
@@ -160,12 +168,13 @@ def test_editTierSet_non_owner(je_org):
 
     newPrices = [5, 10, 15, 25]
     newCids = ['w', 'x', 'y', 'z']
+    newDepreciated = [False]*len(newCids)
     with reverts():
-        je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, helpers.by(je_org.anons[1]))
+        je_org.tiers.editTiers(x.profileId, x.tierSetId, newPrices, newCids, newDepreciated, helpers.by(je_org.anons[1]))
     
     tierId = 2
-    tierId_Cid = je_org.tiers.getTierCid(x.profileId, x.tierSetId, tierId)
-    tierId_Price = je_org.tiers.getTierPrice(x.profileId, x.tierSetId, tierId, je_org.TUSD)
+    tierId_Cid = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[0]
+    tierId_Price = je_org.tiers.getTier(x.profileId, x.tierSetId, tierId, je_org.TUSD)[1]
 
     assert tierId_Cid == x.cids[tierId]
     assert (x.prices[tierId] * x.priceMultipliers[0]) == tierId_Price

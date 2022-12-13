@@ -2,7 +2,7 @@ from brownie import accounts, reverts
 from scripts.john.deploy import deploy  
 
 def test_create_profile():
-    bbDeployer = accounts[0]    
+    bbDeployer = accounts[0]
     owner = accounts[1]
     receiver = accounts[2]
     creator = accounts[3]

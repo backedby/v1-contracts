@@ -68,3 +68,20 @@ def test_getOwnersProfiles(je_org):
 def test_address_no_profiles(je_org):
     assert len(je_org.profiles.getOwnersProfiles(je_org.anons[0])) == 0
     assert je_org.profiles.ownersTotalProfiles(je_org.anons[0]) == 0
+
+def test_setContribution(je_org):
+    profile = je_org.setup_subscriptionProfile()
+    account = profile._in.account
+    profileId = profile.out_.profileId
+    
+    assert je_org.subscriptionsFactory.getSubscriptionProfile(profileId)[1] == 1
+    je_org.subscriptionsFactory.setContribution(profileId, 3, helpers.by(account))
+    assert je_org.subscriptionsFactory.getSubscriptionProfile(profileId)[1] == 3
+
+def test_isSubscriptionProfileCreated(je_org):
+    profile = je_org.setup_profile()
+    account = profile._in.account
+    profileId = profile.out_.profileId
+    assert je_org.subscriptionsFactory.isSubscriptionProfileCreated(profileId) == False
+    subprofile = je_org.setup_subscriptionProfile(profileId=profileId, tierSet=None, contribution=1, account=account)
+    assert je_org.subscriptionsFactory.isSubscriptionProfileCreated(profileId) == True

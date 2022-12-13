@@ -139,11 +139,3 @@ def test_edit_nonexistent_post():
         bbPosts.editPost(0, 1, editedPostCid, {"from": owner})
 
     bbPosts.editPost(0, 0, editedPostCid, {"from": owner})
-    
-
-    
-
-
-
-
-

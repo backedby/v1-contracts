@@ -3,16 +3,17 @@
     "BBErrorCodesV01": "8063ba441f25965274d727f96a8c66211ae44c99",
     "BBPosts": "0eab1725429bfac473c4f7ae2cf05ae3f50a564f",
     "BBProfiles": "52613bed8544cf630fcd27a1ccd652321d3985ea",
-    "BBSubscriptions": "730b858a3b632310ddba96fc1378deb58c809f7e",
-    "BBSubscriptionsFactory": "8c6a4b15edc94ec0cab099f8094aa313bf5badeb",
-    "BBTiers": "50e0c374ad2d215780eb9bf8fb2ad5a6f54475a0",
+    "BBSubscriptions": "566eda4802a62af12cac6bb50bd6d2a9f1044030",
+    "BBSubscriptionsFactory": "a1cdacba95c9475dd0958c1581e86aace50653aa",
+    "BBTiers": "5b41785da50b8eb202c310685d55a879f4fb6123",
     "DateTimeLibrary": "1ce946f6a4eaa185320328620ccf999b9e86db7c",
     "DebugERC20": "98b4fc2e8dd7d3770c7a94899b5bc66dea421859",
+    "DebugGasOracle": "f03025abbd67da613eaca84ab4a52e3c90ed172d",
     "DebugProfileOwner": "dbaf310a28cddc9e334bd2962d93f7c85066d59c",
     "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20": "38166fcfbc8e730a0752b73e497cde48b5457655",
-    "ProfileSetupHelper": "ba4fa030a2690c1b0c2a70823744f2f4ab5f23a3",
+    "ProfileSetupHelper": "9f704f39d02913df3e02ab169987f5d47d4bc26c",
     "TestUsd": "ccd09300d5adc831c17fdbc252cf64e23a51de64",
-    "TokenFaucet": "85febe3d8a25f597b7f3040b034b70937818e521",
+    "TokenFaucet": "7f22722433b18db8d89dad68fb7da2f3b5b59710",
     "testmapping": "ab1dab276f4c8304ff314b0ad2181bac10d22e0c"
   },
   "tests": {
@@ -24,12 +25,111 @@
         "BBProfiles"
       ],
       "results": "......",
-      "sha1": "87cd4b66ded1ae9a9473326f8d0b2282387ca550",
+      "sha1": "463fb6ff9eff82b4454e6ada9740114c2158d918",
       "txhash": [
         "62d5b9db1db13ef1c7e625cd73b7e7054b679556",
         "bfcac77efe52f41e9ad1a48f3b5525ff1d0d62bd",
         "ca57fd2c083f8e7818e9450d8100cf7d38e16b92",
         "f401e8068b782f0231318a8e073c2f6a68ec9fba"
+      ]
+    },
+    "tests/boris/test_profiles.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "0f1d027163182dd4297a93e5f8df84edd1789699",
+      "txhash": [
+        "4bc4a6865559496f42c03facaf13fea3c6fd6149"
+      ]
+    },
+    "tests/boris/test_subscriptions.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".....F",
+      "sha1": "486ffe7b0d3e25f111ff54c41e6c90c3644c4ea6",
+      "txhash": []
+    },
+    "tests/boris/test_subscriptions_factory.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "....FF...F.......",
+      "sha1": "de99867e1636867e7ffb794e397b138772a0ca62",
+      "txhash": [
+        "03a6873a682b96d9f8796ca9c3d0bf6f46df8194",
+        "083bd6c5e4a73db2f6767be00b9aa9c9ba4ea03a",
+        "0cefa57ddb2a699597a8970034e6e21d51e8d5c9",
+        "11f98468bb1410feb0263953497242a839c553e2",
+        "16df0f0ba8c761ad9d7b1611def3a51d824b7862",
+        "1e08a058057f9eae9a8e5165c5d5fbf8f1971c85",
+        "2b84750f711995bf209c4819f16038672dcf3937",
+        "2dfc1b9ee4530c290f195273e402a914348b9fcc",
+        "30939afec01a9843db3a380784eccf64c48c48ef",
+        "36c3b5e1a14b34155cb34aa3bc9069b33050bd8a",
+        "5ac4b3de1c8972b3ce02f21b24c8fbc116881f1e",
+        "5f08ed0377043ec9f0a5591807060fa973378714",
+        "6ae9dfca23d4d3927eed6635397d3c1bd3d00a6a",
+        "74b8523ddfd3d45b24e0d0a3e9cefb54bb59ba44",
+        "9715c3019d5df79cc2330f74ac234cf5e090de43",
+        "ae704743933245694f3ee6094738785b6563b765",
+        "ba1b1632d5258076d79f9d94259195b39ba17349",
+        "c4b178e4564ad6dd0df1650455e9a0f910305e1d",
+        "cb2bda2ccf4f6792fd69ba8bf893af754ba0516f",
+        "f3399a9d46af903bd645095b7aa799276d7b6d83"
+      ]
+    },
+    "tests/boris/test_tiers.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "27bf7a1150c0a10027c1e2963d7e4cc3b95bf748",
+      "txhash": [
+        "32bc14628454adab9f7fa8cd94ddd5a8c039e5de",
+        "7ce18853874f7f45e535a7f6761ac2ee08e263cb",
+        "919143c5192b2176aa8829f99f914337bb915370",
+        "9fad88fea92eb1e78de12bdb12b2843d0ec67d01",
+        "dd303ca6dcce3a2be739acfc1fc6734bdad670b6",
+        "e6455d58ea568d2289855841f06bf15a4f1cb12c",
+        "ec76189ab990905e443cc73ec05bce224e029c10"
       ]
     },
     "tests/john/test_posts.py": {
@@ -40,7 +140,7 @@
         "BBProfiles"
       ],
       "results": "......",
-      "sha1": "d709b794f8e1fd595da44eb8b886bc182920d97c",
+      "sha1": "a6d4f054a9d2d21950de7ede56f0f8ca81bc0ddc",
       "txhash": [
         "62d5b9db1db13ef1c7e625cd73b7e7054b679556",
         "bfcac77efe52f41e9ad1a48f3b5525ff1d0d62bd",
@@ -55,7 +155,7 @@
         "BBProfiles"
       ],
       "results": ".......",
-      "sha1": "2b2f8f86d480b5dd65cad02efa00c5abe703ea73",
+      "sha1": "99a8a9354f4720b19ba0f8cc483b317c004bb7ca",
       "txhash": [
         "8f3bc45b087b9451bb840f5a6350f6c07bddab17"
       ]
@@ -70,10 +170,11 @@
         "BBTiers",
         "DateTimeLibrary",
         "DebugERC20",
+        "DebugGasOracle",
         "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
       ],
-      "results": "........",
-      "sha1": "6392724781f6780996feba37d5563f182188552b",
+      "results": ".......",
+      "sha1": "02d3eec08dfe3d2d231a84383e7fd4782ba75fa4",
       "txhash": []
     },
     "tests/john/test_subscriptions_factory.py": {
@@ -86,18 +187,20 @@
         "BBTiers",
         "DateTimeLibrary",
         "DebugERC20",
+        "DebugGasOracle",
         "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
       ],
-      "results": ".......................",
-      "sha1": "840521c8470812db4bf922c92298c9a903fe9e19",
+      "results": "........................",
+      "sha1": "d678a8939814fd723332fd3c3b4840da0bbf0731",
       "txhash": [
-        "3a6ba1716a9482fd42f4182acbc16d44b2cde2dd",
-        "4799157a4aea8ceb33ccaa6d9a275c774db08fd5",
-        "6c74c572ce5432938ebe4d2f465f16de69135415",
-        "b1f51884441c081f88889450cf9b1d170599cb05",
-        "b2b1a45997bcc1bdd4707bc8e8e9268e83db9a80",
-        "e1e6879d252a61f3a1d15ad75a66a2cb1f72e76a",
-        "f832e7fbf8b21a0a0f36f6646ec843f42831bd34"
+        "141c85380fdd539f780c1ed90a6b2cca91a59b6a",
+        "46189e2c999af5c84c9324f11d769652289aaab8",
+        "880000da721da30cd32ccad8efefa1c498743b78",
+        "92f5c5127e910dcea34e7b022cb06b5c83aec9ef",
+        "d8c9c5aa98c86df76666786775a94a1c6767cc7a",
+        "e6c66a734f4dd6acf8b88ea46a88c4078deb1567",
+        "edd7890c6e9a2224ee3467fa632880b97065cf11",
+        "f3399a9d46af903bd645095b7aa799276d7b6d83"
       ]
     },
     "tests/john/test_tiers.py": {
@@ -107,19 +210,227 @@
         "BBProfiles",
         "BBTiers"
       ],
-      "results": "..........",
-      "sha1": "c4eb4d60a973374cc03932a11e8313a462b9ab17",
+      "results": ".........",
+      "sha1": "3d78ef97d0500725183736bca82320944fabfbf9",
       "txhash": [
-        "76b909fae62b92528b4fae5f03cda53cd2128576",
-        "92a3af7cd24215fc4067513182b2dee2093f3bcf",
+        "3e517d0032c570467b2c5b84e4dd8989aa7ea097",
+        "6ad90278b9a20ecc736507089d7fdc72f6bf4ac2",
         "d31a69522fec50d5a9e4cd8c3b86766876a022cf"
       ]
+    },
+    "tests/josh/test_core.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".",
+      "sha1": "29db7a25185a57d1e1907cc2c0fc803b6a8d9903",
+      "txhash": []
+    },
+    "tests/josh/test_currency.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".",
+      "sha1": "858578174025cbf315687271034fbaf623f86736",
+      "txhash": []
+    },
+    "tests/josh/test_posts.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........",
+      "sha1": "267194178ff9a2a7a66dce1d900e14067fedba94",
+      "txhash": [
+        "02eb8e910247bdbda4b7f54f566d74e7854e70d0",
+        "4f6c1293ccd7a54041edb3b67a47ec389fde938a",
+        "529997bc409ac16089c3ccaf676756e24b896b08",
+        "a9d6a582c80d6367114906d5328869648175e0e4",
+        "e5824d6fac93e6c9bfd613301f4324ba3e2ae528"
+      ]
+    },
+    "tests/josh/test_profiles.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........",
+      "sha1": "d3bf5ac6e90b02a2715547dd57157463c67f865a",
+      "txhash": [
+        "223e2072a1bd0b20757f50240d0d9cdd226d040f",
+        "830ec88a5f942e5bafaf9787c0d7b4a271c6e275",
+        "97430f91e4183b5dc336d9242f8d488d6d13086e"
+      ]
+    },
+    "tests/josh/test_setup_profile_steps.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20",
+        "ProfileSetupHelper"
+      ],
+      "results": ".",
+      "sha1": "f65935e42c152980f33d49202d9f4978dafd4af5",
+      "txhash": []
+    },
+    "tests/josh/test_subfactory.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": ".........F..",
+      "sha1": "7f91178d9dbb33a13fecb9e1ccddad1c98d05909",
+      "txhash": [
+        "9bab3e34017a5cdb48373858ce0861cd4a31f05a",
+        "cb1afe4aa3809b6cec5d9a6c2c6c258cf9d3a33c",
+        "cf8158da29f2c28786fc0f262752f1018085f6db",
+        "d8e59f03e15e3add6c1821561a97b0fbf2edd9e8",
+        "e27c3b282b7279e6f6534a2c17c2032984a005ab"
+      ]
+    },
+    "tests/josh/test_subscriptions.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "DebugProfileOwner",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..............",
+      "sha1": "e0f7e7abce57f9aa265f62933dbab5a23be0442d",
+      "txhash": [
+        "17850f91c9deddb3f2aaf21b5676c22acc8911f6",
+        "23e63be9e9c952d407efe16d808e4367019c7478",
+        "28ecf99bbb4efb22c4ace8b04ca0082ecb329fdc",
+        "2cf9e250ef3ca99f884e44a4108600c904e031b0",
+        "342616299013518e57f242d630292e3a37db9d03",
+        "5365b4d2202a9aa1be223b53f7b171776fe45b0e",
+        "634441d8be39dea6f1952bda12ae6a8f58791beb",
+        "7e9081dfbbdb6e41bc602a787b9fd4e56ed404cd",
+        "7fa075c6bbbba9d081131822e4ca5f3f969f7279",
+        "a631c88a288905c455697539624c6a38894151f5"
+      ]
+    },
+    "tests/josh/test_tiers.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "....................",
+      "sha1": "2c4b68c568f54b27a03f8ff5b5add34c520cd6ca",
+      "txhash": [
+        "419c74ff3ae61e0318245979ebd48f8bfac09da6",
+        "7dd639a32152de708431a8df8e40fc9d3d2e292b",
+        "a289d302984f3dbe6568b0dd91663c48b4ecb821",
+        "a598802b09687b1b6f8c8e7a6d1e7b87e4cc0e81",
+        "b0dbe0e0195bf7baf9acb0254d28d99036e747ad"
+      ]
+    },
+    "tests/josh/test_upkeep.py": {
+      "coverage": false,
+      "isolated": [
+        "BBErrorCodesV01",
+        "BBPosts",
+        "BBProfiles",
+        "BBSubscriptions",
+        "BBSubscriptionsFactory",
+        "BBTiers",
+        "DateTimeLibrary",
+        "DebugERC20",
+        "DebugGasOracle",
+        "OpenZeppelin/openzeppelin-contracts@4.6.0/ERC20"
+      ],
+      "results": "..",
+      "sha1": "64ffd9e678f0233545d74456ec29942f6bb8e2c5",
+      "txhash": []
     }
   },
   "tx": {
-    "3a6ba1716a9482fd42f4182acbc16d44b2cde2dd": {
+    "02eb8e910247bdbda4b7f54f566d74e7854e70d0": {
       "BBProfiles": {
-        "8": [
+        "4": [
+          [
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "03a6873a682b96d9f8796ca9c3d0bf6f46df8194": {
+      "BBProfiles": {
+        "4": [
           [
             1
           ],
@@ -128,10 +439,264 @@
         ]
       }
     },
-    "4799157a4aea8ceb33ccaa6d9a275c774db08fd5": {},
+    "083bd6c5e4a73db2f6767be00b9aa9c9ba4ea03a": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "0cefa57ddb2a699597a8970034e6e21d51e8d5c9": {},
+    "11f98468bb1410feb0263953497242a839c553e2": {},
+    "141c85380fdd539f780c1ed90a6b2cca91a59b6a": {},
+    "16df0f0ba8c761ad9d7b1611def3a51d824b7862": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "17850f91c9deddb3f2aaf21b5676c22acc8911f6": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      },
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "1e08a058057f9eae9a8e5165c5d5fbf8f1971c85": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "223e2072a1bd0b20757f50240d0d9cdd226d040f": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "23e63be9e9c952d407efe16d808e4367019c7478": {},
+    "28ecf99bbb4efb22c4ace8b04ca0082ecb329fdc": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      },
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "2b84750f711995bf209c4819f16038672dcf3937": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "2cf9e250ef3ca99f884e44a4108600c904e031b0": {},
+    "2dfc1b9ee4530c290f195273e402a914348b9fcc": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "30939afec01a9843db3a380784eccf64c48c48ef": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "32bc14628454adab9f7fa8cd94ddd5a8c039e5de": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "342616299013518e57f242d630292e3a37db9d03": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      },
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "36c3b5e1a14b34155cb34aa3bc9069b33050bd8a": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "3e517d0032c570467b2c5b84e4dd8989aa7ea097": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "419c74ff3ae61e0318245979ebd48f8bfac09da6": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "46189e2c999af5c84c9324f11d769652289aaab8": {},
+    "4bc4a6865559496f42c03facaf13fea3c6fd6149": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "4f6c1293ccd7a54041edb3b67a47ec389fde938a": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "529997bc409ac16089c3ccaf676756e24b896b08": {
+      "BBProfiles": {
+        "4": [
+          [
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "5365b4d2202a9aa1be223b53f7b171776fe45b0e": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      },
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "5ac4b3de1c8972b3ce02f21b24c8fbc116881f1e": {},
+    "5f08ed0377043ec9f0a5591807060fa973378714": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
     "62d5b9db1db13ef1c7e625cd73b7e7054b679556": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             21
           ],
@@ -140,10 +705,20 @@
         ]
       }
     },
-    "6c74c572ce5432938ebe4d2f465f16de69135415": {},
-    "76b909fae62b92528b4fae5f03cda53cd2128576": {
+    "634441d8be39dea6f1952bda12ae6a8f58791beb": {
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "6ad90278b9a20ecc736507089d7fdc72f6bf4ac2": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             1,
             21
@@ -153,18 +728,86 @@
         ]
       }
     },
+    "6ae9dfca23d4d3927eed6635397d3c1bd3d00a6a": {},
+    "74b8523ddfd3d45b24e0d0a3e9cefb54bb59ba44": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7ce18853874f7f45e535a7f6761ac2ee08e263cb": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7dd639a32152de708431a8df8e40fc9d3d2e292b": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7e9081dfbbdb6e41bc602a787b9fd4e56ed404cd": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      },
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "7fa075c6bbbba9d081131822e4ca5f3f969f7279": {},
+    "830ec88a5f942e5bafaf9787c0d7b4a271c6e275": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "880000da721da30cd32ccad8efefa1c498743b78": {},
     "8f3bc45b087b9451bb840f5a6350f6c07bddab17": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [],
           [],
           []
         ]
       }
     },
-    "92a3af7cd24215fc4067513182b2dee2093f3bcf": {
+    "919143c5192b2176aa8829f99f914337bb915370": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             1,
             21
@@ -174,11 +817,119 @@
         ]
       }
     },
-    "b1f51884441c081f88889450cf9b1d170599cb05": {},
-    "b2b1a45997bcc1bdd4707bc8e8e9268e83db9a80": {},
+    "92f5c5127e910dcea34e7b022cb06b5c83aec9ef": {},
+    "9715c3019d5df79cc2330f74ac234cf5e090de43": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "97430f91e4183b5dc336d9242f8d488d6d13086e": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "9bab3e34017a5cdb48373858ce0861cd4a31f05a": {},
+    "9fad88fea92eb1e78de12bdb12b2843d0ec67d01": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "a289d302984f3dbe6568b0dd91663c48b4ecb821": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "a598802b09687b1b6f8c8e7a6d1e7b87e4cc0e81": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "a631c88a288905c455697539624c6a38894151f5": {
+      "DebugGasOracle": {
+        "16": [
+          [
+            0
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "a9d6a582c80d6367114906d5328869648175e0e4": {
+      "BBProfiles": {
+        "4": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    "ae704743933245694f3ee6094738785b6563b765": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "b0dbe0e0195bf7baf9acb0254d28d99036e747ad": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "ba1b1632d5258076d79f9d94259195b39ba17349": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
     "bfcac77efe52f41e9ad1a48f3b5525ff1d0d62bd": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             21
           ],
@@ -187,9 +938,10 @@
         ]
       }
     },
+    "c4b178e4564ad6dd0df1650455e9a0f910305e1d": {},
     "ca57fd2c083f8e7818e9450d8100cf7d38e16b92": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             21
           ],
@@ -198,9 +950,12 @@
         ]
       }
     },
+    "cb1afe4aa3809b6cec5d9a6c2c6c258cf9d3a33c": {},
+    "cb2bda2ccf4f6792fd69ba8bf893af754ba0516f": {},
+    "cf8158da29f2c28786fc0f262752f1018085f6db": {},
     "d31a69522fec50d5a9e4cd8c3b86766876a022cf": {
       "BBProfiles": {
-        "8": [
+        "4": [
           [
             1,
             21
@@ -210,10 +965,24 @@
         ]
       }
     },
-    "e1e6879d252a61f3a1d15ad75a66a2cb1f72e76a": {},
-    "f401e8068b782f0231318a8e073c2f6a68ec9fba": {
+    "d8c9c5aa98c86df76666786775a94a1c6767cc7a": {},
+    "d8e59f03e15e3add6c1821561a97b0fbf2edd9e8": {},
+    "dd303ca6dcce3a2be739acfc1fc6734bdad670b6": {
       "BBProfiles": {
-        "8": [
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "e27c3b282b7279e6f6534a2c17c2032984a005ab": {},
+    "e5824d6fac93e6c9bfd613301f4324ba3e2ae528": {
+      "BBProfiles": {
+        "4": [
           [
             21
           ],
@@ -222,6 +991,53 @@
         ]
       }
     },
-    "f832e7fbf8b21a0a0f36f6646ec843f42831bd34": {}
+    "e6455d58ea568d2289855841f06bf15a4f1cb12c": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "e6c66a734f4dd6acf8b88ea46a88c4078deb1567": {},
+    "ec76189ab990905e443cc73ec05bce224e029c10": {
+      "BBProfiles": {
+        "4": [
+          [
+            1,
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "edd7890c6e9a2224ee3467fa632880b97065cf11": {},
+    "f3399a9d46af903bd645095b7aa799276d7b6d83": {
+      "BBProfiles": {
+        "4": [
+          [
+            1
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    "f401e8068b782f0231318a8e073c2f6a68ec9fba": {
+      "BBProfiles": {
+        "4": [
+          [
+            21
+          ],
+          [],
+          []
+        ]
+      }
+    }
   }
 }

@@ -43,6 +43,8 @@ contract BBProfiles is IBBProfiles {
 
     /*
         @dev Reverts if msg.sender is not profile IDs owner
+
+        @param Profile ID
     */
     modifier onlyProfileOwner(uint256 profileId) {
         require(_profiles[profileId].owner == msg.sender, BBErrorCodesV01.NOT_OWNER);
@@ -51,6 +53,8 @@ contract BBProfiles is IBBProfiles {
 
     /*
         @dev Reverts if profile ID does not exist
+
+        @param Profile ID
     */
     modifier profileExists(uint256 profileId) {
       require(profileId < _totalProfiles, BBErrorCodesV01.PROFILE_NOT_EXIST);

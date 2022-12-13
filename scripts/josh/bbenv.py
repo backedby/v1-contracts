@@ -24,6 +24,9 @@ class bbenv:
         self.tiers = BBTiers.deploy(self.profiles, {'from': bbenv.deployer})
         self.subscriptionsFactory = BBSubscriptionsFactory.deploy(self.profiles, self.tiers, bbenv.treasury, {'from': bbenv.deployer})
         self.posts = BBPosts.deploy(self.profiles, {'from': bbenv.deployer})
+        self.gasOracle = DebugGasOracle.deploy({'from': bbenv.deployer})
+
+        self.subscriptionsFactory.setGasOracle(self.gasOracle, {'from': bbenv.deployer})
         
         self.TUSD = DebugERC20.deploy("Test USD", "TUSD", {'from': bbenv.deployer})
         self.TUSD.setDecimal(6)
@@ -114,7 +117,7 @@ class bbenv:
     #        pass
     #    return tx
     
-    def setup_tiers(self, prices, cids, supportedCurrencies, priceMultipliers, profileId=None, account=None):
+    def setup_tiers(self, prices, cids, supportedCurrencies, priceMultipliers, depreciatedTiers=None, profileId=None, account=None):
         if len(prices) != len(cids):
             raise Exception("prices and cids is required to be the same length")
 
@@ -123,14 +126,18 @@ class bbenv:
 
         if profileId is None:
             profileId = self.setup_profile(account=account).out_.profileId
+
+        if depreciatedTiers is None:
+            depreciatedTiers = [False]*len(prices)
         
-        tx = self.tiers.createTiers(profileId, prices, cids, supportedCurrencies, priceMultipliers, helpers.by(account))
+        tx = self.tiers.createTiers(profileId, prices, cids, depreciatedTiers, supportedCurrencies, priceMultipliers, helpers.by(account))
 
         tx._in = objdict({
             'account': account,
             'profileId': profileId,
             'prices': prices,
             'cids': cids,
+            'depreciated': depreciatedTiers,
             'supportedCurrencies': supportedCurrencies,
             'priceMultipliers': priceMultipliers
         })
@@ -200,7 +207,7 @@ class bbenv:
             c.mint(int(1e6 * 10 ** c.decimals()), helpers.by(account))
             c.approve(self.subscriptions[currency], helpers.MAXUINT256, helpers.by(account))
 
-        gas = self.subscriptions[currency].getSubscriptionGasRequirement()
+        gas = self.subscriptionsFactory.getSubscriptionFee(currency)
         subContract = BBSubscriptions.at(self.subscriptions[currency])
         tx = subContract.subscribe(profileId, tierId, helpers.by(account, {'value': gas}))
 
@@ -211,14 +218,16 @@ class bbenv:
             'tierId': tierId,
             'currency': currency
         })
+
+        subInfo = subContract.getSubscriptionFromId(tx.events['Subscribed']['subscriptionId'])
         
         tx.out_ = objdict({
-            'profileId': tx.events['Subscribed']['profileId'],
-            'tierId': tx.events['Subscribed']['tierId'],
-            'subscriber': tx.events['Subscribed']['subscriber']
+            'profileId': subInfo[0],
+            'tierId': subInfo[1],
+            'subscriber': subInfo[2]
         })
 
-        return tx;
+        return tx
 
     def _trash_setup_subscription(self, account=None, creator=None, profileId=-1, tierId=-1, currency=None):
         if(account is None):

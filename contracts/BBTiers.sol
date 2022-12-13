@@ -49,6 +49,8 @@ contract BBTiers is IBBTiers {
 
     /*
         @dev Reverts if msg.sender is not profile IDs owner
+
+        @param Profile ID
     */
     modifier onlyProfileOwner(uint256 profileId) {
         (address profileOwner,,) = _bbProfiles.getProfile(profileId);
@@ -58,6 +60,8 @@ contract BBTiers is IBBTiers {
 
     /*
         @dev Reverts if profile ID does not exist
+
+        @param Profile ID
     */
     modifier profileExists(uint256 profileId) {
         require(profileId < _bbProfiles.totalProfiles(), BBErrorCodesV01.PROFILE_NOT_EXIST);
@@ -66,6 +70,9 @@ contract BBTiers is IBBTiers {
 
     /*
         @dev Reverts if tier set ID does not exist
+
+        @param Profile ID
+        @param Tier set ID
     */
     modifier tierSetExists(uint256 profileId, uint256 tierSetId) {
         require(profileId < _bbProfiles.totalProfiles(), BBErrorCodesV01.PROFILE_NOT_EXIST);
@@ -75,6 +82,10 @@ contract BBTiers is IBBTiers {
 
     /*
         @dev Reverts if tier ID does not exist
+
+        @param Profile ID
+        @param Tier set ID
+        @param Tier ID
     */
     modifier tierExists(uint256 profileId, uint256 tierSetId, uint256 tierId) {
         require(profileId < _bbProfiles.totalProfiles(), BBErrorCodesV01.PROFILE_NOT_EXIST);
@@ -93,7 +104,7 @@ contract BBTiers is IBBTiers {
         @param Supported ERC20 tokens
         @param Supported tokens multipliers
 
-        @return Instantiated tier sets ID
+        @return Instantiated tier set ID
     */
     function createTiers(uint256 profileId, uint256[] calldata prices, string[] calldata cids, bool[] memory deprecated, address[] calldata supportedCurrencies, uint256[] calldata priceMultipliers) external profileExists(profileId) onlyProfileOwner(profileId) returns(uint256 tierSetId) {
         tierSetId = _totalTierSets[profileId];
@@ -190,7 +201,7 @@ contract BBTiers is IBBTiers {
 
         @return Tier CID
         @return Tier price
-        @return Is tier deprecated
+        @return Tier deprecated
     */
     function getTier(uint256 profileId, uint256 tierSetId, uint256 tierId, address currency) external view override tierExists(profileId, tierSetId, tierId) returns (string memory, uint256, bool) {
         // Require ERC20 token is supported by tier set

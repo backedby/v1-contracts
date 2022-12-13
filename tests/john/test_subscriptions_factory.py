@@ -1,4 +1,4 @@
-from brownie import accounts, reverts
+from brownie import accounts, reverts, DebugGasOracle
 from scripts.john.deploy import deploy
 
 def test_deploy_subscriptions():
@@ -82,7 +82,7 @@ def test_set_treasury_owner():
 
     bbSubscriptionsFactory.setTreasuryOwner(newTreasuryOwner, {"from": bbDeployer})
 
-def test_set_gas_price_owner():
+def test_set_gas_oracle_owner():
     bbDeployer = accounts[0]    
     unauthorized = accounts[4]
     bbTreasury = accounts[5]
@@ -96,12 +96,12 @@ def test_set_gas_price_owner():
     newGasPriceOwner = accounts[6]
 
     with reverts():
-        bbSubscriptionsFactory.setGasPriceOwner(newGasPriceOwner, {"from": unauthorized})
-        bbSubscriptionsFactory.setGasPriceOwner(newGasPriceOwner, {"from": bbTreasury})
+        bbSubscriptionsFactory.setGasOracleOwner(newGasPriceOwner, {"from": unauthorized})
+        bbSubscriptionsFactory.setGasOracleOwner(newGasPriceOwner, {"from": bbTreasury})
 
-    bbSubscriptionsFactory.setGasPriceOwner(newGasPriceOwner, {"from": bbDeployer})
+    bbSubscriptionsFactory.setGasOracleOwner(newGasPriceOwner, {"from": bbDeployer})
 
-def test_set_upkeep_gas_requirement_owner():
+def test_set_subscription_fee_owner():
     bbDeployer = accounts[0]    
     unauthorized = accounts[4]
     bbTreasury = accounts[5]
@@ -115,10 +115,10 @@ def test_set_upkeep_gas_requirement_owner():
     newUpkeepGasRequirementOwner = accounts[6]
 
     with reverts():
-        bbSubscriptionsFactory.setUpkeepGasRequirementOwner(newUpkeepGasRequirementOwner, {"from": unauthorized})
-        bbSubscriptionsFactory.setUpkeepGasRequirementOwner(newUpkeepGasRequirementOwner, {"from": bbTreasury})
+        bbSubscriptionsFactory.setSubscriptionFeeOwner(newUpkeepGasRequirementOwner, {"from": unauthorized})
+        bbSubscriptionsFactory.setSubscriptionFeeOwner(newUpkeepGasRequirementOwner, {"from": bbTreasury})
 
-    bbSubscriptionsFactory.setUpkeepGasRequirementOwner(newUpkeepGasRequirementOwner, {"from": bbDeployer})
+    bbSubscriptionsFactory.setSubscriptionFeeOwner(newUpkeepGasRequirementOwner, {"from": bbDeployer})
 
 def test_get_treasury_owner():
     bbDeployer = accounts[0]    
@@ -132,7 +132,7 @@ def test_get_treasury_owner():
 
     assert bbSubscriptionsFactory.getTreasuryOwner() == bbDeployer
 
-def test_get_gas_price_owner():
+def test_get_gas_oracle_owner():
     bbDeployer = accounts[0]    
     bbTreasury = accounts[5]
 
@@ -142,9 +142,9 @@ def test_get_gas_price_owner():
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
-    assert bbSubscriptionsFactory.getGasPriceOwner() == bbDeployer
+    assert bbSubscriptionsFactory.getGasOracleOwner() == bbDeployer
 
-def test_get_upkeep_gas_requirement_owner():
+def test_get_subscription_fee_owner():
     bbDeployer = accounts[0]    
     bbTreasury = accounts[5]
 
@@ -154,7 +154,7 @@ def test_get_upkeep_gas_requirement_owner():
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
-    assert bbSubscriptionsFactory.getUpkeepGasRequirementOwner() == bbDeployer
+    assert bbSubscriptionsFactory.getSubscriptionFeeOwner() == bbDeployer
 
 def test_set_treasury():
     bbDeployer = accounts[0]    
@@ -175,7 +175,7 @@ def test_set_treasury():
 
     bbSubscriptionsFactory.setTreasury(newTreasury, {"from": bbDeployer})
 
-def test_set_gas_price():
+def test_set_gas_oracle():
     bbDeployer = accounts[0]    
     unauthorized = accounts[4]
     bbTreasury = accounts[5]
@@ -186,15 +186,16 @@ def test_set_gas_price():
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
-    newGasPrice = 1000
+    newGasOracle = DebugGasOracle.deploy({'from': bbDeployer})
 
     with reverts():
-        bbSubscriptionsFactory.setGasPrice(newGasPrice, {"from": unauthorized})
-        bbSubscriptionsFactory.setGasPrice(newGasPrice, {"from": bbTreasury})
+        bbSubscriptionsFactory.setGasOracle(newGasOracle, {"from": unauthorized})
+    with reverts():
+        bbSubscriptionsFactory.setGasOracle(newGasOracle, {"from": bbTreasury})
 
-    bbSubscriptionsFactory.setGasPrice(newGasPrice, {"from": bbDeployer})
+    bbSubscriptionsFactory.setGasOracle(newGasOracle, {"from": bbDeployer})
 
-def test_set_upkeep_gas_requirement():
+def test_set_subscription_fee():
     bbDeployer = accounts[0]    
     unauthorized = accounts[4]
     bbTreasury = accounts[5]
@@ -208,14 +209,14 @@ def test_set_upkeep_gas_requirement():
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
     bbSubscriptionsFactory.deploySubscriptions(erc20.address, {'from': bbDeployer})
 
-    newUpkeepGasRequirement = 1000
+    newSubscriptionFee = 1000
 
     with reverts():
-        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, newUpkeepGasRequirement, {"from": unauthorized})
-        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, newUpkeepGasRequirement, {"from": bbTreasury})
-        bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, newUpkeepGasRequirement, {"from": bbDeployer})
+        bbSubscriptionsFactory.setSubscriptionFee(erc20.address, newSubscriptionFee, {"from": unauthorized})
+        bbSubscriptionsFactory.setSubscriptionFee(erc20.address, newSubscriptionFee, {"from": bbTreasury})
+        bbSubscriptionsFactory.setSubscriptionFee(erc20.address, newSubscriptionFee, {"from": bbDeployer})
 
-    bbSubscriptionsFactory.setUpkeepGasRequirement(erc20.address, newUpkeepGasRequirement, {"from": bbDeployer})
+    bbSubscriptionsFactory.setSubscriptionFee(erc20.address, newSubscriptionFee, {"from": bbDeployer})
 
 def test_get_treasury():
     bbDeployer = accounts[0]    
@@ -229,7 +230,7 @@ def test_get_treasury():
 
     assert bbSubscriptionsFactory.getTreasury() == bbTreasury
 
-def test_get_gas_price():
+def test_get_gas_oracle():
     bbDeployer = accounts[0]    
     bbTreasury = accounts[5]
 
@@ -239,7 +240,49 @@ def test_get_gas_price():
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
-    assert bbSubscriptionsFactory.getGasPrice() == 30000000000
+    gasOracle = DebugGasOracle.deploy({'from': bbDeployer})
+
+    bbSubscriptionsFactory.setGasOracle(gasOracle, {"from": bbDeployer})
+
+    assert bbSubscriptionsFactory.getGasOracle() == gasOracle
+
+def test_get_subscription_fee():
+    bbDeployer = accounts[0]    
+    owner = accounts[1]
+    receiver = accounts[2]
+    creator = accounts[3]
+    bbTreasury = accounts[5]
+    subscriber = accounts[6]
+    profileCid = "test_profile_cid"
+
+    bbProfiles = deploy.bbProfiles(bbDeployer)
+
+    bbProfiles.createProfile(owner, receiver, profileCid, {"from": creator})
+
+    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
+
+    tokeDeployer = accounts[7]
+    token = deploy.erc20Token(tokeDeployer)
+
+    tierPrices = [10, 25, 50]
+    tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
+    supportedCurrencies = [token.address, accounts[8]]    
+    priceMultipliers = [100, 150]
+
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
+
+    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    gasOracle = DebugGasOracle.deploy({'from': bbDeployer})
+
+    bbSubscriptionsFactory.setGasOracle(gasOracle, {"from": bbDeployer})
+
+    bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 1, {"from": owner})
+
+    bbSubscriptions = deploy.bbSubscriptions(bbSubscriptionsFactory, token.address)
+
+    assert bbSubscriptionsFactory.getSubscriptionFee(token) == 13500000 * 30000000000
 
 def test_get_grace_period():
     bbDeployer = accounts[0]    
@@ -291,10 +334,11 @@ def test_set_subscription_currency():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [accounts[5], accounts[6]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -335,10 +379,11 @@ def test_get_subscription_currency():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -368,10 +413,11 @@ def test_create_subscription_profile():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -393,10 +439,11 @@ def test_set_contribution():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -420,10 +467,11 @@ def test_get_subscription_profile():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -453,10 +501,11 @@ def test_is_subscription_profile_created():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -484,10 +533,11 @@ def test_is_subscription_active():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 

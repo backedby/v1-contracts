@@ -1,13 +1,13 @@
 import pytest
-from brownie import network,reverts
+from brownie import network,reverts,DebugGasOracle,interface
 from scripts.josh.bbenv import bbenv, helpers
 from eth_abi import encode
 
 def test_subfactory_init(je_org):
     sf = je_org.subscriptionsFactory
     assert sf.getTreasuryOwner() == je_org.deployer.address
-    assert sf.getGasPriceOwner() == je_org.deployer.address
-    assert sf.getUpkeepGasRequirementOwner() == je_org.deployer.address
+    assert sf.getGasOracleOwner() == je_org.deployer.address
+    assert sf.getSubscriptionFeeOwner() == je_org.deployer.address
 
 def test_subfactory_change_owners(je_org):
     sf = je_org.subscriptionsFactory
@@ -17,11 +17,11 @@ def test_subfactory_change_owners(je_org):
     sf.setTreasuryOwner(newOwner, helpers.by(oldOwner))
     assert sf.getTreasuryOwner() == newOwner
 
-    sf.setGasPriceOwner(newOwner, helpers.by(oldOwner))
-    assert sf.getGasPriceOwner() == newOwner
+    sf.setGasOracleOwner(newOwner, helpers.by(oldOwner))
+    assert sf.getGasOracleOwner() == newOwner
 
-    sf.setUpkeepGasRequirementOwner(newOwner, helpers.by(oldOwner))
-    assert sf.getUpkeepGasRequirementOwner() == newOwner
+    sf.setSubscriptionFeeOwner(newOwner, helpers.by(oldOwner))
+    assert sf.getSubscriptionFeeOwner() == newOwner
 
 def test_subfactory_change_owners_non_owner(je_org):
     sf = je_org.subscriptionsFactory
@@ -33,12 +33,12 @@ def test_subfactory_change_owners_non_owner(je_org):
         assert sf.getTreasuryOwner() == newOwner
 
     with reverts():
-        sf.setGasPriceOwner(newOwner, helpers.by(oldOwner))
-        assert sf.getGasPriceOwner() == newOwner
+        sf.setGasOracleOwner(newOwner, helpers.by(oldOwner))
+        assert sf.getGasOracleOwner() == newOwner
 
     with reverts():
-        sf.setUpkeepGasRequirementOwner(newOwner, helpers.by(oldOwner))
-        assert sf.getUpkeepGasRequirementOwner() == newOwner
+        sf.setSubscriptionFeeOwner(newOwner, helpers.by(oldOwner))
+        assert sf.getSubscriptionFeeOwner() == newOwner
 
 def test_subfactory_change_treasury(je_org):
     je_org.subscriptionsFactory.setTreasury(je_org.anons[0].address, helpers.by(je_org.deployer))
@@ -47,17 +47,25 @@ def test_subfactory_change_treasury_non_owner(je_org):
     with reverts():
         je_org.subscriptionsFactory.setTreasury(je_org.anons[0].address, helpers.by(je_org.anons[0]))
 
+def test_subfactory_change_gasprice(je_org):
+    price = 1337e9
+    newOracle = DebugGasOracle.deploy(helpers.by(je_org.deployer))
+    newOracle.setGasPrice(price)
+    je_org.subscriptionsFactory.setGasOracle(newOracle, helpers.by(je_org.deployer))
+    assert je_org.subscriptionsFactory.getGasOracle() == newOracle.address
+    
+
 def test_subfactory_change_gas(je_org):
-    je_org.subscriptionsFactory.setUpkeepGasRequirement(je_org.TUSD.address, 133700, helpers.by(je_org.deployer))
+    je_org.subscriptionsFactory.setSubscriptionFee(je_org.TUSD.address, 133700, helpers.by(je_org.deployer))
 
 def test_subfactory_change_gas_non_owner(je_org):
     with reverts():
-        je_org.subscriptionsFactory.setUpkeepGasRequirement(je_org.TUSD.address, 133700, helpers.by(je_org.anons[0]))
+        je_org.subscriptionsFactory.setSubscriptionFee(je_org.TUSD.address, 133700, helpers.by(je_org.anons[0]))
 
-def test_subfactory_change_gas_outside_limit(je_org):
-    with reverts():
-        je_org.subscriptionsFactory.setUpkeepGasRequirement(je_org.TUSD.address, 1e16, helpers.by(je_org.deployer))
-
+# NOTE (John): Removed gas limit
+#def test_subfactory_change_gas_outside_limit(je_org):
+#    with reverts():
+#        je_org.subscriptionsFactory.setSubscriptionFee(je_org.TUSD.address, 1e16, helpers.by(je_org.deployer))
 
 def test_subscriptionContracts(je_org, DebugERC20):
     assert je_org.subscriptionsFactory.getDeployedSubscriptions(je_org.TUSD) == je_org.subscriptions[je_org.TUSD.address]
@@ -71,26 +79,21 @@ def test_subFactoryVariables(je_org):
     assert je_org.subscriptionsFactory.getGracePeriod() == 172800
     assert je_org.subscriptionsFactory.getContributionBounds()[0] == 1
     assert je_org.subscriptionsFactory.getContributionBounds()[1] == 100
+    assert je_org.subscriptionsFactory.getTreasury() == je_org.treasury.address
+    assert je_org.subscriptionsFactory.getGasOracle() == je_org.gasOracle.address
+
 
 def test_deployedSubscriptionGasRequirements(je_org):
-    gasprice = je_org.subscriptionsFactory.getGasPrice()
-    assert je_org.subscriptions[je_org.TUSD.address].getUpkeepGasRequirement() == 225000
-    assert je_org.subscriptions[je_org.TUSD.address].getSubscriptionGasRequirement() == 225000 * gasprice * 60
+    gasprice = interface.IBBGasOracle(je_org.subscriptionsFactory.getGasOracle()).getGasPrice()
+    assert je_org.subscriptionsFactory.getSubscriptionFee(je_org.TUSD.address) == 13500000 * gasprice
 
-    je_org.subscriptionsFactory.setUpkeepGasRequirement(je_org.TUSD.address, 1, helpers.by(je_org.deployer))
-    assert je_org.subscriptions[je_org.TUSD.address].getUpkeepGasRequirement() == 1
-    assert je_org.subscriptions[je_org.TUSD.address].getSubscriptionGasRequirement() == 1 * gasprice * 60
+    je_org.subscriptionsFactory.setSubscriptionFee(je_org.TUSD.address, 1, helpers.by(je_org.deployer))
+    assert je_org.subscriptionsFactory.getSubscriptionFee(je_org.TUSD.address) == 1 * gasprice
 
     with reverts():
-        je_org.subscriptionsFactory.setUpkeepGasRequirement(je_org.TUSD.address, 7331, helpers.by(je_org.anons[0]))
+        je_org.subscriptionsFactory.setSubscriptionFee(je_org.TUSD.address, 7331, helpers.by(je_org.anons[0]))
 
-    with reverts():
-        je_org.subscriptions[je_org.TUSD.address].setUpkeepGasRequirement(1337, helpers.by(je_org.anons[0]))
-
-    with reverts():
-        je_org.subscriptions[je_org.TUSD.address].setUpkeepGasRequirement(1337, helpers.by(je_org.deployer))
-
-    assert je_org.subscriptions[je_org.TUSD.address].getUpkeepGasRequirement() == 1
+    assert je_org.subscriptionsFactory.getSubscriptionFee(je_org.TUSD.address) == 1 * gasprice
 
 def test_getSetSubscriptionCurrency(je_org):
     subber = je_org.setup_subscription()
@@ -113,3 +116,4 @@ def test_isSubscriptionActive(je_org):
     assert je_org.subscriptionsFactory.isSubscriptionActive(subber._in.profileId, subber._in.tierId, subber._in.account) is False
     je_org.performUpkeep()
     assert je_org.subscriptionsFactory.isSubscriptionActive(subber._in.profileId, subber._in.tierId, subber._in.account)
+

@@ -31,6 +31,8 @@ contract BBPosts is IBBPosts {
 
     /*
         @dev Reverts if msg.sender is not profile IDs owner
+
+        @param Profile ID
     */
     modifier onlyProfileOwner(uint256 profileId) {
         (address profileOwner,,) = _bbProfiles.getProfile(profileId);
@@ -40,6 +42,9 @@ contract BBPosts is IBBPosts {
 
     /*
         @dev Reverts if post ID does not exist
+
+        @param Profile ID
+        @param Post ID
     */
     modifier postExists(uint256 profileId, uint256 postId) {
         require(postId < _profilesTotalPosts[profileId], BBErrorCodesV01.POST_NOT_EXIST);
@@ -47,7 +52,7 @@ contract BBPosts is IBBPosts {
     }
 
     /*
-        @notice Create a new post
+        @notice Creates a new post
 
         @param Profile ID
         @param Post CID
@@ -79,7 +84,7 @@ contract BBPosts is IBBPosts {
     }
 
     /*
-        @notice Get post CID
+        @notice Get a posts CID
 
         @param Profile ID
         @param Post ID

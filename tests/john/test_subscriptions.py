@@ -1,5 +1,5 @@
 from base64 import decode
-from brownie import accounts
+from brownie import accounts, reverts
 from eth_abi import encode, decode
 from brownie.network.state import Chain
 from scripts.john.deploy import deploy
@@ -26,10 +26,11 @@ def test_check_upkeep():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -84,10 +85,11 @@ def test_perform_upkeep():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -132,10 +134,11 @@ def test_subscribe():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -169,10 +172,11 @@ def test_unsubscribe():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -208,10 +212,11 @@ def test_withdraw_to_treasury():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -227,7 +232,7 @@ def test_withdraw_to_treasury():
 
     subscriptions.withdrawToTreasury({"from": bbTreasury})
 
-def test_get_subscription():
+def test_get_subscription_from_profile():
     bbDeployer = accounts[0]    
     owner = accounts[1]
     receiver = accounts[2]
@@ -247,10 +252,11 @@ def test_get_subscription():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -264,46 +270,56 @@ def test_get_subscription():
     
     subscriptions.subscribe(0, 0, {"from": subscriber, "value": 10 ** 18})
 
-    (returnedPrice, returnedExpiration, returnedCancelled) = subscriptions.getSubscription(0, 0, subscriber)
+    (subscriptionId, returnedPrice, returnedExpiration, returnedCancelled) = subscriptions.getSubscriptionFromProfile(0, 0, subscriber)
 
+    assert subscriptionId == 0
     assert returnedPrice == tierPrices[0] * priceMultipliers[0]
     assert abs(returnedExpiration - (chain.time() + (60 * 60 * 24 * 30))) < 2
     assert returnedCancelled == False
 
-def test_get_upkeep_gas_requirement():
+def test_get_subscription_from_id():
     bbDeployer = accounts[0]    
+    owner = accounts[1]
+    receiver = accounts[2]
+    creator = accounts[3]
     bbTreasury = accounts[5]
+    subscriber = accounts[6]
+    profileCid = "test_profile_cid"
 
     bbProfiles = deploy.bbProfiles(bbDeployer)
 
-    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
+    bbProfiles.createProfile(owner, receiver, profileCid, {"from": creator})
 
-    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
 
     tokeDeployer = accounts[7]
     token = deploy.erc20Token(tokeDeployer)
 
+    tierPrices = [10, 25, 50]
+    tierCids = ["tier_0", "tier_1", "tier_2"]
+    deprecated = [False, False, False]
+    supportedCurrencies = [token.address, accounts[8]]    
+    priceMultipliers = [100, 150]
+
+    bbTiers.createTiers(0, tierPrices, tierCids, deprecated, supportedCurrencies, priceMultipliers, {"from": owner})
+
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
+
+    bbSubscriptionsFactory.createSubscriptionProfile(0, 0, 1, {"from": owner})
 
     subscriptions = deploy.bbSubscriptions(bbSubscriptionsFactory, token.address)
 
-    assert subscriptions.getUpkeepGasRequirement() == 225000
+    token.mint(1000, {"from": subscriber})
 
-def test_get_subscription_gas_requirement():
-    bbDeployer = accounts[0]    
-    bbTreasury = accounts[5]
+    token.approve(subscriptions.address, 1000 * 60, {"from": subscriber})
+    
+    subscriptions.subscribe(0, 0, {"from": subscriber, "value": 10 ** 18})
 
-    bbProfiles = deploy.bbProfiles(bbDeployer)
+    (returnedProfileId, returnedTierId, returnedSubscriber, returnedPrice, returnedExpiration, returnedCancelled) = subscriptions.getSubscriptionFromId(0)
 
-    bbTiers = deploy.bbTiers(bbDeployer, bbProfiles)
-
-    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
-
-    tokeDeployer = accounts[7]
-    token = deploy.erc20Token(tokeDeployer)
-
-    bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
-
-    subscriptions = deploy.bbSubscriptions(bbSubscriptionsFactory, token.address)
-
-    assert subscriptions.getSubscriptionGasRequirement() == 225000 * 30000000000 * 60
+    assert returnedProfileId == 0
+    assert returnedTierId == 0
+    assert returnedSubscriber == subscriber
+    assert returnedPrice == tierPrices[0] * priceMultipliers[0]
+    assert abs(returnedExpiration - (chain.time() + (60 * 60 * 24 * 30))) < 2
+    assert returnedCancelled == False

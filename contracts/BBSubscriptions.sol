@@ -5,22 +5,23 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "./utils/DateTimeLibrary.sol";
 import "./BBErrorsV01.sol";
+import "./interfaces/IBBGasOracle.sol";
 import "./interfaces/IBBProfiles.sol";
 import "./interfaces/IBBTiers.sol";
 import "./interfaces/IBBSubscriptionsFactory.sol";
 import "./interfaces/IBBSubscriptions.sol";
 
-contract BBSubscriptions is IBBSubscriptions {
+contract BBSubscriptions is IBBSubscriptions {   
     event Subscribed(
-        uint256 profileId,
-        uint256 tierId,
-        address subscriber
+        uint256 subscriptionId
+    );
+
+    event Renewed(
+        uint256 subscriptionId
     );
 
     event Unsubscribed (
-        uint256 profileId,
-        uint256 tierId,
-        address subscriber
+        uint256 subscriptionId
     );
 
     struct Subscription {
@@ -39,8 +40,6 @@ contract BBSubscriptions is IBBSubscriptions {
     // Profile ID => Tier ID => Subscriber => Subscription ID + 1
     mapping(uint256 => mapping(uint256 => mapping(address => uint256))) internal _subscriptionIndexes;
 
-    uint256 internal _upkeepGasRequirement = 225000;
-
     IBBProfiles internal immutable _bbProfiles;
     IBBTiers internal immutable _bbTiers;
     IBBSubscriptionsFactory internal immutable _bbSubscriptionsFactory;
@@ -56,15 +55,7 @@ contract BBSubscriptions is IBBSubscriptions {
     }
 
     /*
-        @dev Reverts if msg.sender is not upkeepGasRequirementOwner
-    */
-    modifier onlySubscriptionsFactory {
-        require(msg.sender == address(_bbSubscriptionsFactory), BBErrorCodesV01.NOT_OWNER);
-        _;
-    }
-
-    /*
-        @dev Transfer ERC20 tokens from address to receiver and treasury
+        @dev Transfer ERC20 tokens from address to profile receiver and treasury
 
         @param ERC20 token owner
         @param ERC20 token receiver
@@ -125,6 +116,8 @@ contract BBSubscriptions is IBBSubscriptions {
                         _subscriptions[renewIndexes[i]].expiration = block.timestamp + (DateTimeLibrary.getDaysInMonth(block.timestamp) * 1 days);    
 
                         renewCount++;
+
+                        emit Renewed(renewIndexes[i]); 
                         continue;
                     }
                 }
@@ -132,7 +125,7 @@ contract BBSubscriptions is IBBSubscriptions {
                 // Subscription payment failed, or subscription tier no longer exists, therefore cancel the subscription
                 _subscriptions[renewIndexes[i]].cancelled = true;
 
-                emit Unsubscribed(_subscriptions[renewIndexes[i]].profileId, _subscriptions[renewIndexes[i]].tierId, _subscriptions[renewIndexes[i]].subscriber);
+                emit Unsubscribed(renewIndexes[i]);
 
                 renewCount++;
             }
@@ -141,8 +134,8 @@ contract BBSubscriptions is IBBSubscriptions {
         require(renewCount > 0, BBErrorCodesV01.UPKEEP_FAIL);
 
         // Calculate the gas refund, add 30327 gas for the rest of the function, 26215 for decoding the renewal data, and 423 multiplied by the number of indexes renewed
-        uint256 gasBudget = (_upkeepGasRequirement * _bbSubscriptionsFactory.getGasPrice()) * renewCount;
-        uint256 refund = (gasAtStart - gasleft() + (56542 + (423 * renewCount))) * _bbSubscriptionsFactory.getGasPrice();
+        uint256 gasBudget = _getUpkeepRefund() * renewCount;
+        uint256 refund = (gasAtStart - gasleft() + (56542 + (423 * renewCount))) * IBBGasOracle(_bbSubscriptionsFactory.getGasOracle()).getGasPrice();
         // Invalid ID refund penalty
         refund = refund - ((refund / renewIndexes.length) * (renewIndexes.length - renewCount));
 
@@ -151,8 +144,15 @@ contract BBSubscriptions is IBBSubscriptions {
             refund = gasBudget;
         }
 
+        // Check if refund is greater than the balance.
+        if(address(this).balance < refund) {
+            refund = address(this).balance;
+        }
+
         // Transfer gas refund to refund receiver
-        refundReceiver.call{value: refund}("");
+        if(refund > 0) {
+            refundReceiver.call{value: refund}("");
+        }
     }
 
     /*
@@ -164,10 +164,10 @@ contract BBSubscriptions is IBBSubscriptions {
         @return Subscription ID
     */
     function subscribe(uint256 profileId, uint256 tierId) external payable override returns(uint256 subscriptionId) {
-        require(msg.value >= getSubscriptionGasRequirement(), BBErrorCodesV01.INSUFFICIENT_PREPAID_GAS);
+        require(msg.value >= _bbSubscriptionsFactory.getSubscriptionFee(address(_currency)), BBErrorCodesV01.INSUFFICIENT_PREPAID_GAS);
 
         if(_bbSubscriptionsFactory.isSubscriptionActive(profileId, tierId, msg.sender) == true) {
-            (,,bool cancelled) = IBBSubscriptions(_bbSubscriptionsFactory.getDeployedSubscriptions(_bbSubscriptionsFactory.getSubscriptionCurrency(profileId, tierId, msg.sender))).getSubscription(profileId, tierId, msg.sender);
+            (,,,bool cancelled) = IBBSubscriptions(_bbSubscriptionsFactory.getDeployedSubscriptions(_bbSubscriptionsFactory.getSubscriptionCurrency(profileId, tierId, msg.sender))).getSubscriptionFromProfile(profileId, tierId, msg.sender);
             require(cancelled == true, BBErrorCodesV01.SUBSCRIPTION_ACTIVE);
         }
 
@@ -175,7 +175,7 @@ contract BBSubscriptions is IBBSubscriptions {
 
         (,uint256 price, bool deprecated) = _bbTiers.getTier(profileId, tierSet, tierId, address(_currency));
 
-        require(deprecated == false);
+        require(deprecated == false, BBErrorCodesV01.TIER_NOT_EXIST);
 
         subscriptionId = _totalSubscriptions;
 
@@ -199,13 +199,13 @@ contract BBSubscriptions is IBBSubscriptions {
         (,address profileReceiver,) = _bbProfiles.getProfile(profileId);
         (,uint256 contribution) = _bbSubscriptionsFactory.getSubscriptionProfile(profileId);
 
-        require(_pay(msg.sender, profileReceiver, price, contribution ), BBErrorCodesV01.INSUFFICIENT_BALANCE);
+        require(_pay(msg.sender, profileReceiver, price, contribution), BBErrorCodesV01.INSUFFICIENT_BALANCE);
 
         _bbSubscriptionsFactory.setSubscriptionCurrency(profileId, tierId, msg.sender, address(_currency));
 
         withdrawToTreasury();
 
-        emit Subscribed(profileId, tierId, msg.sender);
+        emit Subscribed(subscriptionId);
     }
 
     /*
@@ -221,7 +221,7 @@ contract BBSubscriptions is IBBSubscriptions {
 
         _subscriptions[id].cancelled = true;
 
-        emit Unsubscribed(profileId, tierId, msg.sender);
+        emit Unsubscribed(id);
     }
 
     /*
@@ -283,33 +283,6 @@ contract BBSubscriptions is IBBSubscriptions {
     }
 
     /*
-        @notice Get subscription gas requirement
-
-        @return Subscription gas requirement
-    */
-    function getUpkeepGasRequirement() external view override returns (uint256) {
-        return _upkeepGasRequirement;
-    }
-
-    /*
-        @notice Set the subscription gas requirement
-
-        @param Subscription gas requirement
-    */
-    function setUpkeepGasRequirement(uint256 requirement) external override onlySubscriptionsFactory {
-        _upkeepGasRequirement = requirement;
-    }
-    
-    /*
-        @notice Gas required to subscribe
-
-        @return 5 years of gas for subscription
-    */   
-    function getSubscriptionGasRequirement() public view override returns(uint256) {
-        return _upkeepGasRequirement * _bbSubscriptionsFactory.getGasPrice() * 60;
-    }
-
-    /*
         @notice Transfers this contracts tokens to the subscription factory treasury
     */
     function withdrawToTreasury() public {
@@ -323,17 +296,42 @@ contract BBSubscriptions is IBBSubscriptions {
         @param Tier ID
         @param Subscriber
 
+        @return Subscription ID
         @return Price (monthly)
         @return Expiration
         @return Subscription cancelled
     */
-    function getSubscription(uint256 profileId, uint256 tierId, address subscriber) external view returns (uint256, uint256, bool) {
+    function getSubscriptionFromProfile(uint256 profileId, uint256 tierId, address subscriber) external view returns (uint256, uint256, uint256, bool) {
         uint256 id = _getSubscriptionId(profileId, tierId, subscriber);
 
         return (
+            id,
             _subscriptions[id].price,
             _subscriptions[id].expiration,
             _subscriptions[id].cancelled
+        );
+    }
+
+    /*
+        @notice Get a subscriptions values
+
+        @param Subscription ID
+
+        @return Profile ID
+        @return Tier ID
+        @return Subscriber
+        @return Price (monthly)
+        @return Expiration
+        @return Subscription cancelled
+    */
+    function getSubscriptionFromId(uint256 subscriptionId) external view returns (uint256, uint256, address, uint256, uint256, bool) {
+        return (
+            _subscriptions[subscriptionId].profileId,
+            _subscriptions[subscriptionId].tierId,
+            _subscriptions[subscriptionId].subscriber,
+            _subscriptions[subscriptionId].price,
+            _subscriptions[subscriptionId].expiration,
+            _subscriptions[subscriptionId].cancelled
         );
     }
 
@@ -349,5 +347,14 @@ contract BBSubscriptions is IBBSubscriptions {
     function _getSubscriptionId(uint256 profileId, uint256 tierId, address subscriber) internal view returns (uint256) {
         require(_subscriptionIndexes[profileId][tierId][subscriber] > 0, BBErrorCodesV01.SUBSCRIPTION_NOT_EXIST);
         return _subscriptionIndexes[profileId][tierId][subscriber] - 1;
+    }
+
+    /*
+        @dev Gets the upkeep gas refund
+
+        @return Upkeep gas refund
+    */
+    function _getUpkeepRefund() internal view returns (uint256) {
+        return _bbSubscriptionsFactory.getSubscriptionFee(address(_currency)) / 60;
     }
 }

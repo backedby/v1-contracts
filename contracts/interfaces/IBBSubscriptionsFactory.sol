@@ -7,19 +7,20 @@ interface IBBSubscriptionsFactory {
     function getDeployedSubscriptions(address currency) external view returns (address subscriptions);
 
     function setTreasuryOwner(address account) external;
-    function setGasPriceOwner(address account) external;
-    function setUpkeepGasRequirementOwner(address account) external;
+    function setGasOracleOwner(address account) external;
+    function setSubscriptionFeeOwner(address account) external;
 
     function getTreasuryOwner() external view returns (address treasury);
-    function getGasPriceOwner() external view returns (address gasPriceOwner);
-    function getUpkeepGasRequirementOwner() external view returns (address upkeepGasRequirementOwner);
+    function getGasOracleOwner() external view returns (address gasPriceOwner);
+    function getSubscriptionFeeOwner() external view returns (address subscriptionFeeOwner);
 
     function setTreasury(address account) external;
-    function setGasPrice(uint256 gasPrice) external;
-    function setUpkeepGasRequirement(address currency, uint256 amount) external;
+    function setGasOracle(address account) external;
+    function setSubscriptionFee(address currency, uint256 amount) external;
 
     function getTreasury() external view returns (address treasury);
-    function getGasPrice() external view returns (uint256 gasPrice);
+    function getGasOracle() external view returns (address oracle);
+    function getSubscriptionFee(address currency) external view returns (uint256 fee);
 
     function getGracePeriod() external pure returns (uint256 gracePeriod);
     function getContributionBounds() external pure returns (uint256 lower, uint256 upper);

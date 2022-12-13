@@ -291,10 +291,11 @@ def test_set_subscription_currency():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
-    supportedCurrencies = [accounts[5], accounts[6]]    
+    depreciatedTiers = [False, False, False]
+    supportedCurrencies = [accounts[5], accounts[6]]
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -342,10 +343,11 @@ def test_get_subscription_currency():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -375,10 +377,11 @@ def test_create_subscription_profile():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
     
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
@@ -407,10 +410,11 @@ def test_set_contribution():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -440,10 +444,11 @@ def test_get_subscription_profile():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -473,10 +478,11 @@ def test_is_subscription_profile_created():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [accounts[6], accounts[7]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 
@@ -504,10 +510,11 @@ def test_is_subscription_active():
 
     tierPrices = [10, 25, 50]
     tierCids = ["tier_0", "tier_1", "tier_2"]
+    depreciatedTiers = [False, False, False]
     supportedCurrencies = [token.address, accounts[8]]    
     priceMultipliers = [100, 150]
 
-    bbTiers.createTiers(0, tierPrices, tierCids, supportedCurrencies, priceMultipliers, {"from": owner})
+    bbTiers.createTiers(0, tierPrices, tierCids, depreciatedTiers, supportedCurrencies, priceMultipliers, {"from": owner})
 
     bbSubscriptionsFactory = deploy.bbSubscriptionsFactory(bbDeployer, bbProfiles, bbTiers, bbTreasury)
 

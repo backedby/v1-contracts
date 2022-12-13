@@ -1,4 +1,4 @@
-from brownie import BBProfiles, BBPosts, BBTiers, BBSubscriptionsFactory, BBSubscriptions, DebugERC20
+from brownie import BBProfiles, BBPosts, BBTiers, BBSubscriptionsFactory, BBSubscriptions, DebugERC20, DebugGasOracle
 
 class deploy:
     def bbProfiles(deployer):
@@ -18,6 +18,8 @@ class deploy:
 
     def bbSubscriptionsFactory(deployer, bbProfiles, bbTiers, bbTreasury):
         contract = BBSubscriptionsFactory.deploy(bbProfiles, bbTiers, bbTreasury, {"from": deployer})
+        tgasOracle = deploy.gasOracle(deployer)
+        contract.setGasOracle(tgasOracle, {'from': deployer})
         print("BBSubscriptionsFactory address: ", contract.address)
         return contract
 
@@ -32,3 +34,7 @@ class deploy:
         contract = DebugERC20.deploy("ERC20 Token", "ERC20", {"from": deployer})
         print("ERC20 Token address: ", contract.address)
         return contract
+
+    def gasOracle(deployer):
+        return DebugGasOracle.deploy({'from': deployer})
+    
