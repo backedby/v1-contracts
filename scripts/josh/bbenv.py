@@ -184,7 +184,7 @@ class bbenv:
         })
 
         return tx
-    def setup_subscription(self, account=None, creator=None, profileId=None, tierId=None, currency=None):
+    def setup_subscription(self, account=None, creator=None, profileId=None, tierId=None, expectedPrice=None, currency=None):
         isAuto = False
         if(account is None):
             account = bbenv.anons[0]
@@ -202,6 +202,10 @@ class bbenv:
         if(tierId is None):
             tierId = 0
 
+        if(expectedPrice is None):
+            _tierSetId = self.subscriptionsFactory.getSubscriptionProfile(profileId)[0]
+            expectedPrice = self.tiers.getTier(profileId, _tierSetId, tierId, currency)[1]
+
         if isAuto:
             c = DebugERC20.at(currency)
             c.mint(int(1e6 * 10 ** c.decimals()), helpers.by(account))
@@ -209,7 +213,7 @@ class bbenv:
 
         gas = self.subscriptionsFactory.getSubscriptionFee(currency)
         subContract = BBSubscriptions.at(self.subscriptions[currency])
-        tx = subContract.subscribe(profileId, tierId, helpers.by(account, {'value': gas}))
+        tx = subContract.subscribe(profileId, tierId, expectedPrice, helpers.by(account, {'value': gas}))
 
         tx._in = objdict({
             'account': account,
@@ -228,63 +232,3 @@ class bbenv:
         })
 
         return tx
-
-    def _trash_setup_subscription(self, account=None, creator=None, profileId=-1, tierId=-1, currency=None):
-        if(account is None):
-            account = bbenv.anons[0]
-        if(creator is None):
-            creator = bbenv.creator
-        if(currency is None):
-            currency = self.TUSD.address
-
-        if(profileId == -1):
-            profileId = self.setup_profile(account=creator, url=helpers.randomCid()).out_.profileId
-
-        if(tierId == -1):
-            tier = self.setup_tier(account=creator, profileId=profileId)
-            tierId = tier.out_.tierId
-        else:
-            _tmp = self.subscriptions.getTier(profileId, tierId)
-            tier = objdict({})
-            tier.out_ = objdict({
-                'profileId': profileId,
-                'tierId': tierId,
-                'price': _tmp[0]
-            })
-
-            tier._in = objdict({
-                'profileId': profileId,
-                'tierId': tierId,
-                'price': _tmp[0]
-            })
-            tierID = tier.out_.tierId
-
-        token = DebugERC20.at(currency)
-        token.mint(tier._in.price * 120, helpers.by(account))
-        token.approve(self.subscriptions.address, tier._in.price * 60, helpers.by(account))
-        sub = self.subscriptions.subscribe(tier._in.profileId, tier.out_.tierId, currency, helpers.by(account, {'value': self.subscriptions[currency].getSubscriptionGasRequirement()}))
-        sub._in = objdict({
-            'account': account,
-            'creator': creator,
-            'profileId': profileId,
-            'tierId': tierId,
-            'currency': currency
-        })
-        if(helpers.keyExists(sub.events, ['NewSubscription', 'profileId']) is not None):
-            sub.out_ = objdict({
-                'profileId': sub.events['NewSubscription']['profileId'],
-                'tierId': sub.events['NewSubscription']['tierId'],
-                'subscriptionIndex': sub.events['NewSubscription']['subscriptionId'],
-                'subscriptionId': sub.events['NewSubscription']['subscriptionId'],
-                #'currency': currency
-            })
-        try:
-            sub.out_.currency = self.subscriptions.getSubscription(tier.profileId, tier.tierId, account.address)[3]
-        except:
-            pass
-        #sub.account = account
-        #sub.profileId = sub.events['NewSubscription']['profileId']
-        #sub.tierId = sub.events['NewSubscription']['tierId']
-        #sub.subscriptionIndex = sub.events['NewSubscription']['subscriptionIndex']
-        #sub.currency = currency
-        return sub
