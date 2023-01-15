@@ -163,7 +163,7 @@ contract BBSubscriptions is IBBSubscriptions {
         
         @return Subscription ID
     */
-    function subscribe(uint256 profileId, uint256 tierId) external payable override returns(uint256 subscriptionId) {
+    function subscribe(uint256 profileId, uint256 tierId, uint256 expectedPrice) external payable override returns(uint256 subscriptionId) {
         require(msg.value >= _bbSubscriptionsFactory.getSubscriptionFee(address(_currency)), BBErrorCodesV01.INSUFFICIENT_PREPAID_GAS);
 
         if(_bbSubscriptionsFactory.isSubscriptionActive(profileId, tierId, msg.sender) == true) {
@@ -174,6 +174,7 @@ contract BBSubscriptions is IBBSubscriptions {
         (uint256 tierSet,) = _bbSubscriptionsFactory.getSubscriptionProfile(profileId);
 
         (,uint256 price, bool deprecated) = _bbTiers.getTier(profileId, tierSet, tierId, address(_currency));
+        require(price == expectedPrice, BBErrorCodesV01.INVALID_PRICE);
 
         require(deprecated == false, BBErrorCodesV01.TIER_NOT_EXIST);
 

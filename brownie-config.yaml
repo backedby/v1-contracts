@@ -9,6 +9,9 @@ networks:
             accounts: 50
 compiler:
   solc:
+    optimizer:
+      enabled: true
+      runs: 200
     remappings:
       - '@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.1'
       - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.6.0'
