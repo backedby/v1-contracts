@@ -3,13 +3,37 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "./interfaces/IBBProfiles.sol";
 import "./BBErrorsV01.sol";
 
+import "./interfaces/IBBProfiles.sol";
 import "./interfaces/IBBStoreRouter.sol";
 import "./interfaces/IBBCashier.sol";
 
 contract BBStoreRouter is IBBStoreRouter {
+    event NewStore (
+        uint256 storeId,
+        uint256 profileId,
+        uint256 contribution,
+        address nft,
+        address cashier,
+        string cid
+    );
+
+    event EditStore (
+        uint256 storeId,
+        uint256 profileId,
+        uint256 contribution,
+        address nft,
+        address cashier,
+        string cid
+    );
+    
+    event BuyItem (
+        uint256 storeId,
+        uint256 amount,
+        address currency
+    );
+
     struct Store {
         uint256 profileId;
         uint256 contribution;
@@ -24,8 +48,21 @@ contract BBStoreRouter is IBBStoreRouter {
 
     IBBProfiles internal immutable _bbProfiles;
 
+    uint256 internal constant _contributionLower = 1;
+    uint256 internal constant _contributionUpper = 100;
+
     constructor(address bbProfiles) {
         _bbProfiles = IBBProfiles(bbProfiles);
+    }
+
+    /*
+        @dev Reverts if store ID does not exist
+
+        @param Store ID
+    */
+    modifier storeExists(uint256 storeId) {
+        require(storeId < _totalStores);
+        _;
     }
 
     /*
@@ -59,7 +96,7 @@ contract BBStoreRouter is IBBStoreRouter {
         @return Cashier contract associated with the store
         @return Store CID        
     */
-    function getStore(uint256 storeId) external view override returns (uint256, uint256, address, address, string memory) {
+    function getStore(uint256 storeId) external view override storeExists(storeId) returns (uint256, uint256, address, address, string memory) {
         return (_stores[storeId].profileId, _stores[storeId].contribution, _stores[storeId].nft, _stores[storeId].cashier, _stores[storeId].cid);
     }
 
@@ -74,11 +111,16 @@ contract BBStoreRouter is IBBStoreRouter {
 
         @return Created stores ID
     */
-    function createStore(uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external override onlyProfileOwner(profileId) returns (uint256) {
+    function createStore(uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external override onlyProfileOwner(profileId) returns (uint256 storeId) {
+        require(contribution >= _contributionLower, BBErrorCodesV01.OUT_OF_BOUNDS);
+        require(contribution <= _contributionUpper, BBErrorCodesV01.OUT_OF_BOUNDS);
+
+        storeId = _totalStores;
+
         _stores[_totalStores] = Store(profileId, contribution, nft, cashier, cid);
         _totalStores++;
 
-        return _totalStores - 1;
+        emit NewStore(storeId, profileId, contribution, nft, cashier, cid);
     }
 
     /*
@@ -91,18 +133,13 @@ contract BBStoreRouter is IBBStoreRouter {
         @param Cashier contract associated with the store
         @param Store CID    
     */
-    function editStore(uint256 storeId, uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external override onlyProfileOwner(_stores[storeId].profileId) {
+    function editStore(uint256 storeId, uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external override storeExists(storeId) onlyProfileOwner(_stores[storeId].profileId) {
+        require(contribution >= _contributionLower, BBErrorCodesV01.OUT_OF_BOUNDS);
+        require(contribution <= _contributionUpper, BBErrorCodesV01.OUT_OF_BOUNDS);
+        
         _stores[storeId] = Store(profileId, contribution, nft, cashier, cid);
-    }
 
-    /*
-        @notice Set the profile that owns this store
-
-        @param Store ID
-        @param Profile that owns this store
-    */
-    function setProfileId(uint256 storeId, uint256 profileId) external override onlyProfileOwner(_stores[storeId].profileId) {
-        _stores[storeId].profileId = profileId;
+        emit EditStore(storeId, profileId, contribution, nft, cashier, cid);
     }
 
     /*
@@ -115,12 +152,14 @@ contract BBStoreRouter is IBBStoreRouter {
 
         @return Returned buy data
     */
-    function buy(uint256 storeId, uint256 expectedPrice, address currency, bytes memory buyData) external override returns (bytes memory) {
+    function buy(uint256 storeId, uint256 expectedPrice, address currency, bytes memory buyData) external override storeExists(storeId) returns (bytes memory) {
         bytes memory returnData = IBBCashier(_stores[storeId].cashier).buy(storeId, msg.sender, expectedPrice, currency, buyData);
 
         (,address receiver,) = _bbProfiles.getProfile(_stores[storeId].profileId);
 
         _pay(msg.sender, receiver, expectedPrice, currency, _stores[storeId].contribution);
+
+        emit BuyItem(storeId, expectedPrice, currency);
 
         return returnData;
     }
