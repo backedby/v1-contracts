@@ -7,7 +7,6 @@ interface IBBStoreRouter {
     
     function createStore(uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external returns (uint256 storeId);
     function editStore(uint256 storeId, uint256 profileId, uint256 contribution, address nft, address cashier, string memory cid) external;
-    function setProfileId(uint256 storeId, uint256 profileId) external;
 
     function buy(uint256 storeId, uint256 expectedPrice, address currency, bytes memory buyData) external returns (bytes memory);
 }
